@@ -20,3 +20,6 @@ hs_err_pid*
 .idea/
 out/
 target/
+
+!.ide/intellij_editor_settings.jar
+
