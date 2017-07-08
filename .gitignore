@@ -21,5 +21,6 @@ hs_err_pid*
 out/
 target/
 
-!.ide/intellij_editor_settings.jar
+# Allow saving of IntelliJ settings files.
+!.ide/*
 
