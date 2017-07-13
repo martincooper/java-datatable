@@ -10,6 +10,9 @@ public class DataColumnCollection {
     private final Vector<IDataColumn> columns;
 
     public DataColumnCollection(DataTable table, Iterable<IDataColumn> columns) {
+        Guard.notNull(table, "table");
+        Guard.itemsNotNull(columns, "columns");
+
         this.table = table;
         this.columns = Vector.ofAll(columns);
     }
