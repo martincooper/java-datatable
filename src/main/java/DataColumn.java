@@ -11,10 +11,45 @@ public class DataColumn<T> implements IDataColumn {
     private final String name;
     private final Vector<T> data;
 
+    /**
+     * DataColumn constructor.
+     * @param type Stores the type of data stored in this column.
+     * @param columnName The column name.
+     */
     public DataColumn(Class<T> type, String columnName) {
+        this(type, columnName, Vector.empty());
+    }
+
+    /**
+     * DataColumn constructor.
+     * @param type Stores the type of data stored in this column.
+     * @param columnName The column name.
+     * @param data The data items stored in the column.
+     */
+    public DataColumn(Class<T> type, String columnName, T[] data) {
+        this(type, columnName, Vector.of(data));
+    }
+
+    /**
+     * DataColumn constructor.
+     * @param type Stores the type of data stored in this column.
+     * @param columnName The column name.
+     * @param data The data items stored in the column.
+     */
+    public DataColumn(Class<T> type, String columnName, Iterable<T> data) {
+        this(type, columnName, Vector.ofAll(data));
+    }
+
+    /**
+     * DataColumn constructor.
+     * @param type Stores the type of data stored in this column.
+     * @param columnName The column name.
+     * @param data The data items stored in the column.
+     */
+    public DataColumn(Class<T> type, String columnName, Vector<T> data) {
         this.type = type;
         this.name = columnName;
-        this.data = Vector.empty();
+        this.data = data;
     }
 
     @Override
