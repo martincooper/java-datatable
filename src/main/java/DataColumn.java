@@ -58,18 +58,14 @@ public class DataColumn<T> implements IDataColumn {
      * @return Returns the column name.
      */
     @Override
-    public String getName() {
-        return this.name;
-    }
+    public String getName() { return this.name; }
 
     /**
      *
      * @return Returns the column type.
      */
     @Override
-    public Type getType() {
-        return this.type;
-    }
+    public Type getType() { return this.type; }
 
     /**
      *
@@ -78,24 +74,64 @@ public class DataColumn<T> implements IDataColumn {
     @Override
     public Vector<T> getData() { return this.data; }
 
+    /**
+     * Attempts to add / append a new item to the end of the column.
+     * A type check is performed before addition.
+     * @param value The item required to be added.
+     * @return Returns a Success with the new modified DataColumn, or a Failure.
+     */
     @Override
     public Try<IDataColumn> tryAdd(Object value) {
-        return null;
+        Try<T> typedItem = GenericHelpers.tryCast(this.type, value);
+
+        if (typedItem.isFailure())
+            return Try.failure(new DataTableException("tryAdd failed. Item of invalid type passed."));
+
+        return Try.success(add(typedItem.get()));
     }
 
+    /**
+     * Attempts to insert a new item into the column.
+     * A type check is performed before insertion.
+     * @param index The index the item is to be inserted at.
+     * @param value The item required to be inserted.
+     * @return Returns a Success with the new modified DataColumn, or a Failure.
+     */
     @Override
     public Try<IDataColumn> tryInsert(Integer index, Object value) {
-        return null;
+        Try<T> typedItem = GenericHelpers.tryCast(this.type, value);
+
+        if (typedItem.isFailure())
+            return Try.failure(new DataTableException("tryInsert failed. Item of invalid type passed."));
+
+        return Try.success(insert(index, typedItem.get()));
     }
 
+    /**
+     * Attempts to replace an existing item with a new item in the column.
+     * A type check is performed before replacement.
+     * @param index The index the item is to be replaced at.
+     * @param value The new item.
+     * @return Returns a Success with the new modified DataColumn, or a Failure.
+     */
     @Override
     public Try<IDataColumn> tryReplace(Integer index, Object value) {
-        return null;
+        Try<T> typedItem = GenericHelpers.tryCast(this.type, value);
+
+        if (typedItem.isFailure())
+            return Try.failure(new DataTableException("tryReplace failed. Item of invalid type passed."));
+
+        return Try.success(replace(index, typedItem.get()));
     }
 
+    /**
+     * Attempts to remove an existing item at the specified index.
+     * @param index The index to remove the item at.
+     * @return Returns a Success with the new modified DataColumn, or a Failure.
+     */
     @Override
     public Try<IDataColumn> tryRemove(Integer index) {
-        return null;
+        return Try.of(() -> remove(index));
     }
 
     /**
@@ -104,7 +140,7 @@ public class DataColumn<T> implements IDataColumn {
      * @return Returns a new DataColumn with the new item appended.
      */
     public DataColumn<T> add(T value) {
-        return new DataColumn<>(this.type, this.name, this.data.append(value));
+        return createColumn(this.data.append(value));
     }
 
     /**
@@ -114,7 +150,7 @@ public class DataColumn<T> implements IDataColumn {
      * @return Returns a new DataColumn with the new item inserted.
      */
     public DataColumn<T> insert(Integer index, T value) {
-        return new DataColumn<>(this.type, this.name, this.data.insert(index,value));
+        return createColumn(this.data.insert(index,value));
     }
 
     /**
@@ -124,7 +160,7 @@ public class DataColumn<T> implements IDataColumn {
      * @return Returns a new DataColumn with the specified item replaced.
      */
     public DataColumn<T> replace(Integer index, T value) {
-        return new DataColumn<>(this.type, this.name, this.data.update(index,value));
+        return createColumn(this.data.update(index,value));
     }
 
     /**
@@ -133,6 +169,15 @@ public class DataColumn<T> implements IDataColumn {
      * @return Returns a new DataColumn with the specified item removed.
      */
     public DataColumn<T> remove(Integer index) {
-        return new DataColumn<>(this.type, this.name, this.data.removeAt(index));
+        return createColumn(this.data.removeAt(index));
+    }
+
+    /**
+     * Creates a new DataColumn based on this one, with modified data.
+     * @param data The new data set.
+     * @return Returns the new DataColumn.
+     */
+    private DataColumn<T> createColumn(Vector<T> data) {
+        return new DataColumn<>(this.type, this.name, this.data);
     }
 }
