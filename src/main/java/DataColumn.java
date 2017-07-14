@@ -84,10 +84,9 @@ public class DataColumn<T> implements IDataColumn {
     public Try<IDataColumn> tryAdd(Object value) {
         Try<T> typedItem = GenericHelpers.tryCast(this.type, value);
 
-        if (typedItem.isFailure())
-            return Try.failure(new DataTableException("tryAdd failed. Item of invalid type passed."));
-
-        return Try.success(add(typedItem.get()));
+        return typedItem.isFailure()
+                ? Try.failure(new DataTableException("tryAdd failed. Item of invalid type passed."))
+                : Try.success(add(typedItem.get()));
     }
 
     /**
@@ -101,10 +100,9 @@ public class DataColumn<T> implements IDataColumn {
     public Try<IDataColumn> tryInsert(Integer index, Object value) {
         Try<T> typedItem = GenericHelpers.tryCast(this.type, value);
 
-        if (typedItem.isFailure())
-            return Try.failure(new DataTableException("tryInsert failed. Item of invalid type passed."));
-
-        return Try.success(insert(index, typedItem.get()));
+        return typedItem.isFailure()
+                ? Try.failure(new DataTableException("tryInsert failed. Item of invalid type passed."))
+                : Try.success(insert(index, typedItem.get()));
     }
 
     /**
@@ -118,10 +116,9 @@ public class DataColumn<T> implements IDataColumn {
     public Try<IDataColumn> tryReplace(Integer index, Object value) {
         Try<T> typedItem = GenericHelpers.tryCast(this.type, value);
 
-        if (typedItem.isFailure())
-            return Try.failure(new DataTableException("tryReplace failed. Item of invalid type passed."));
-
-        return Try.success(replace(index, typedItem.get()));
+        return typedItem.isFailure()
+                ? Try.failure(new DataTableException("tryReplace failed. Item of invalid type passed."))
+                : Try.success(replace(index, typedItem.get()));
     }
 
     /**
@@ -150,7 +147,7 @@ public class DataColumn<T> implements IDataColumn {
      * @return Returns a new DataColumn with the new item inserted.
      */
     public DataColumn<T> insert(Integer index, T value) {
-        return createColumn(this.data.insert(index,value));
+        return createColumn(this.data.insert(index, value));
     }
 
     /**
@@ -160,7 +157,7 @@ public class DataColumn<T> implements IDataColumn {
      * @return Returns a new DataColumn with the specified item replaced.
      */
     public DataColumn<T> replace(Integer index, T value) {
-        return createColumn(this.data.update(index,value));
+        return createColumn(this.data.update(index, value));
     }
 
     /**
