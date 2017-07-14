@@ -1,5 +1,6 @@
 import java.lang.reflect.Type;
 import io.vavr.collection.Vector;
+import io.vavr.control.Try;
 
 /**
  * DataColumn. Handles the data for a single column.
@@ -66,22 +67,60 @@ public class DataColumn<T> implements IDataColumn {
     public Vector<T> getData() { return this.data; }
 
     @Override
-    public IDataColumn add(Object value) {
+    public Try<IDataColumn> tryAdd(Object value) {
         return null;
     }
 
     @Override
-    public IDataColumn insert(Integer index, Object value) {
+    public Try<IDataColumn> tryInsert(Integer index, Object value) {
         return null;
     }
 
     @Override
-    public IDataColumn replace(Integer index, Object values) {
+    public Try<IDataColumn> tryReplace(Integer index, Object value) {
         return null;
     }
 
     @Override
-    public IDataColumn remove(Integer index) {
+    public Try<IDataColumn> tryRemove(Integer index) {
+        return null;
+    }
+
+    /**
+     * Adds / Appends and item to the end of the column.
+     * @param value The value to append.
+     * @return Returns a new DataColumn with the new item appended.
+     */
+    public Try<DataColumn<T>> add(T value) {
+        return null;
+    }
+
+    /**
+     * Inserts the item at the specified index.
+     * @param index The index to insert the item at.
+     * @param value The item to insert.
+     * @return Returns a new DataColumn with the new item inserted.
+     */
+    public Try<DataColumn<T>> insert(Integer index, T value) {
+        return null;
+    }
+
+    /**
+     * Replaces the existing item at the specified index with the new item.
+     * @param index The index to replace the existing item.
+     * @param value The new item to replace the existing one.
+     * @return Returns a new DataColumn with the specified item replaced.
+     */
+    public Try<DataColumn<T>> replace(Integer index, T value) {
+        return null;
+    }
+
+    /**
+     * Removes the item at the specified index.
+     * @param index The index to remove the item at.
+     * @return Returns a new DataColumn with the specified item removed.
+     */
+    public Try<DataColumn<T>> remove(Integer index) {
         return null;
     }
 }

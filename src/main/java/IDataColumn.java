@@ -1,4 +1,5 @@
 import io.vavr.collection.Vector;
+import io.vavr.control.Try;
 
 import java.lang.reflect.Type;
 
@@ -11,8 +12,8 @@ public interface IDataColumn {
     Type getType();
     Vector getData();
 
-    IDataColumn add(Object value);
-    IDataColumn insert(Integer index, Object value);
-    IDataColumn replace(Integer index, Object values);
-    IDataColumn remove(Integer index);
+    Try<IDataColumn> tryAdd(Object value);
+    Try<IDataColumn> tryInsert(Integer index, Object value);
+    Try<IDataColumn> tryReplace(Integer index, Object value);
+    Try<IDataColumn> tryRemove(Integer index);
 }
