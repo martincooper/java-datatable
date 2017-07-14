@@ -63,7 +63,7 @@ public class DataColumn<T> implements IDataColumn {
     }
 
     @Override
-    public Vector getData() { return this.data; }
+    public Vector<T> getData() { return this.data; }
 
     @Override
     public IDataColumn add(Object value) {
