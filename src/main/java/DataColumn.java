@@ -53,16 +53,28 @@ public class DataColumn<T> implements IDataColumn {
         this.data = data;
     }
 
+    /**
+     *
+     * @return Returns the column name.
+     */
     @Override
     public String getName() {
         return this.name;
     }
 
+    /**
+     *
+     * @return Returns the column type.
+     */
     @Override
     public Type getType() {
         return this.type;
     }
 
+    /**
+     *
+     * @return Returns access to the underlying data.
+     */
     @Override
     public Vector<T> getData() { return this.data; }
 
@@ -91,8 +103,8 @@ public class DataColumn<T> implements IDataColumn {
      * @param value The value to append.
      * @return Returns a new DataColumn with the new item appended.
      */
-    public Try<DataColumn<T>> add(T value) {
-        return null;
+    public DataColumn<T> add(T value) {
+        return new DataColumn<>(this.type, this.name, this.data.append(value));
     }
 
     /**
@@ -101,8 +113,8 @@ public class DataColumn<T> implements IDataColumn {
      * @param value The item to insert.
      * @return Returns a new DataColumn with the new item inserted.
      */
-    public Try<DataColumn<T>> insert(Integer index, T value) {
-        return null;
+    public DataColumn<T> insert(Integer index, T value) {
+        return new DataColumn<>(this.type, this.name, this.data.insert(index,value));
     }
 
     /**
@@ -111,8 +123,8 @@ public class DataColumn<T> implements IDataColumn {
      * @param value The new item to replace the existing one.
      * @return Returns a new DataColumn with the specified item replaced.
      */
-    public Try<DataColumn<T>> replace(Integer index, T value) {
-        return null;
+    public DataColumn<T> replace(Integer index, T value) {
+        return new DataColumn<>(this.type, this.name, this.data.update(index,value));
     }
 
     /**
@@ -120,7 +132,7 @@ public class DataColumn<T> implements IDataColumn {
      * @param index The index to remove the item at.
      * @return Returns a new DataColumn with the specified item removed.
      */
-    public Try<DataColumn<T>> remove(Integer index) {
-        return null;
+    public DataColumn<T> remove(Integer index) {
+        return new DataColumn<>(this.type, this.name, this.data.removeAt(index));
     }
 }
