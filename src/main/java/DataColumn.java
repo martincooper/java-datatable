@@ -86,7 +86,7 @@ public class DataColumn<T> implements IDataColumn {
 
         return typedItem.isFailure()
                 ? Try.failure(new DataTableException("tryAdd failed. Item of invalid type passed."))
-                : Try.success(add(typedItem.get()));
+                : Try.of(() -> add(typedItem.get()));
     }
 
     /**
@@ -102,7 +102,7 @@ public class DataColumn<T> implements IDataColumn {
 
         return typedItem.isFailure()
                 ? Try.failure(new DataTableException("tryInsert failed. Item of invalid type passed."))
-                : Try.success(insert(index, typedItem.get()));
+                : Try.of(() -> insert(index, typedItem.get()));
     }
 
     /**
@@ -118,7 +118,7 @@ public class DataColumn<T> implements IDataColumn {
 
         return typedItem.isFailure()
                 ? Try.failure(new DataTableException("tryReplace failed. Item of invalid type passed."))
-                : Try.success(replace(index, typedItem.get()));
+                : Try.of(() -> replace(index, typedItem.get()));
     }
 
     /**
@@ -175,6 +175,6 @@ public class DataColumn<T> implements IDataColumn {
      * @return Returns the new DataColumn.
      */
     private DataColumn<T> createColumn(Vector<T> data) {
-        return new DataColumn<>(this.type, this.name, this.data);
+        return new DataColumn<>(this.type, this.name, data);
     }
 }
