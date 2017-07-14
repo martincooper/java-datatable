@@ -1,3 +1,5 @@
+import io.vavr.collection.Vector;
+
 import java.lang.reflect.Type;
 
 /**
@@ -6,7 +8,8 @@ import java.lang.reflect.Type;
  */
 public interface IDataColumn {
     String getName();
-    Type getColumnType();
+    Type getType();
+    Vector getData();
 
     IDataColumn add(Object value);
     IDataColumn insert(Integer index, Object value);

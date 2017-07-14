@@ -13,7 +13,7 @@ public class DataColumnTests {
         DataColumn<String> column = new DataColumn<>(String.class, "StringCol");
 
         assertEquals(column.getName(), "StringCol");
-        assertEquals(column.getColumnType(), String.class);
+        assertEquals(column.getType(), String.class);
 
     }
 

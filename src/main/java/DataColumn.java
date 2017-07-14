@@ -7,25 +7,28 @@ import io.vavr.collection.Vector;
  */
 public class DataColumn<T> implements IDataColumn {
 
-    private final Class<T> columnType;
-    private final String columnName;
-    private final Vector<T> columnData;
+    private final Class<T> type;
+    private final String name;
+    private final Vector<T> data;
 
     public DataColumn(Class<T> type, String columnName) {
-        this.columnType = type;
-        this.columnName = columnName;
-        this.columnData = Vector.empty();
+        this.type = type;
+        this.name = columnName;
+        this.data = Vector.empty();
     }
 
     @Override
     public String getName() {
-        return this.columnName;
+        return this.name;
     }
 
     @Override
-    public Type getColumnType() {
-        return this.columnType;
+    public Type getType() {
+        return this.type;
     }
+
+    @Override
+    public Vector getData() { return this.data; }
 
     @Override
     public IDataColumn add(Object value) {
