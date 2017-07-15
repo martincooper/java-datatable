@@ -1,12 +1,8 @@
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import io.vavr.collection.List;
-import io.vavr.collection.Vector;
 import io.vavr.control.Try;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Unit Tests for the DataTable class.
@@ -34,6 +30,36 @@ public class DataTableTests {
         assertEquals(table.get().getColumns().get(0).getName(), "StringCol");
         assertEquals(table.get().getColumns().get(1).getName(), "IntegerCol");
         assertEquals(table.get().getColumns().get(2).getName(), "BooleanCol");
+    }
+
+    @Test
+    public void testDuplicateColumnNames() {
+        List<String> dataOne = List.of("AA", "BB", "CC");
+        IDataColumn colOne = new DataColumn<>(String.class, "StringCol", dataOne);
+
+        List<String> dataTwo = List.of("XX", "YY", "ZZ");
+        IDataColumn colTwo = new DataColumn<>(String.class, "StringCol", dataTwo);
+
+        IDataColumn[] cols = { colOne, colTwo };
+        Try<DataTable> table = DataTable.build("NewTable", cols);
+
+        assertTrue(table.isFailure());
+        assertEquals(table.getCause().getMessage(), "Columns contain duplicate names.");
+    }
+
+    @Test
+    public void testColumnLengthMismatch() {
+        List<String> dataOne = List.of("AA", "BB", "CC", "DD");
+        IDataColumn colOne = new DataColumn<>(String.class, "StringCol", dataOne);
+
+        List<String> dataTwo = List.of("XX", "YY", "ZZ");
+        IDataColumn colTwo = new DataColumn<>(String.class, "StringColTwo", dataTwo);
+
+        IDataColumn[] cols = { colOne, colTwo };
+        Try<DataTable> table = DataTable.build("NewTable", cols);
+
+        assertTrue(table.isFailure());
+        assertEquals(table.getCause().getMessage(), "Columns have different lengths.");
     }
 
     private DataColumn<String> createStringColumn() {

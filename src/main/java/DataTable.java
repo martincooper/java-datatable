@@ -88,7 +88,7 @@ public class DataTable {
         List<IDataColumn> dataCols = List.ofAll(columns);
 
         return validateColumnNames(dataCols)
-                .andThen(x -> validateColumnDataLength(dataCols));
+                .flatMap(x -> validateColumnDataLength(dataCols));
     }
 
     /**
@@ -110,7 +110,7 @@ public class DataTable {
      */
     private static Try<Void> validateColumnDataLength(List<IDataColumn> columns) {
         if (List.ofAll(columns).groupBy(x -> x.getData().length()).length() > 1)
-            return Try.failure(new DataTableException("Columns have uneven row count."));
+            return Try.failure(new DataTableException("Columns have different lengths."));
 
         return Try.success(null);
     }
