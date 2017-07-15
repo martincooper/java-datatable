@@ -32,12 +32,35 @@ public class DataTable {
     }
 
     /**
+     *
+     * @return Returns the table name.
+     */
+    public String getName() { return this.name; }
+
+    /**
+     *
+     * @return Returns the columns collection.
+     */
+    public DataColumnCollection getColumns() { return this.columns; }
+
+    /**
      * Builds an instance of a DataTable.
      * @param tableName The name of the table.
      * @return Returns an instance of a DataTable.
      */
     public static DataTable build(String tableName) {
         return new DataTable(tableName);
+    }
+
+    /**
+     * Builds an instance of a DataTable.
+     * Columns are validated before creation, returning a Failure on error.
+     * @param tableName The name of the table.
+     * @param columns The column collection.
+     * @return Returns a DataTable wrapped in a Try.
+     */
+    public static Try<DataTable> build(String tableName, IDataColumn[] columns) {
+        return build(tableName, List.of(columns));
     }
 
     /**
