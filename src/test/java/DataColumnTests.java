@@ -68,8 +68,22 @@ public class DataColumnTests {
         assertEquals(newCol.get().getData().get(3), null);
     }
 
+    @Test
+    public void testDataColumnAddInvalidValueType() {
+        DataColumn<Integer> column = createIntegerColumn();
+        Try<IDataColumn> newCol = column.add("Invalid Type Value");
+
+        //Assert inserting a string value into an integer column fails.
+        assertTrue(newCol.isFailure());
+    }
+
     private DataColumn<String> createStringColumn() {
         List<String> data = List.of("AA", "BB", "CC");
         return new DataColumn<>(String.class, "StringCol", data);
+    }
+
+    private DataColumn<Integer> createIntegerColumn() {
+        List<Integer> data = List.of(5, 7, 9);
+        return new DataColumn<>(Integer.class, "IntegerCol", data);
     }
 }
