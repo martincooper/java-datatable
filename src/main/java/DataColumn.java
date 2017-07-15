@@ -81,12 +81,12 @@ public class DataColumn<T> implements IDataColumn {
      * @return Returns a Success with the new modified DataColumn, or a Failure.
      */
     @Override
-    public Try<IDataColumn> tryAdd(Object value) {
+    public Try<IDataColumn> add(Object value) {
         Try<T> typedItem = GenericHelpers.tryCast(this.type, value);
 
         return typedItem.isFailure()
                 ? Try.failure(new DataTableException("tryAdd failed. Item of invalid type passed."))
-                : Try.of(() -> add(typedItem.get()));
+                : Try.success(createColumn(this.data.append(typedItem.get())));
     }
 
     /**
@@ -97,12 +97,12 @@ public class DataColumn<T> implements IDataColumn {
      * @return Returns a Success with the new modified DataColumn, or a Failure.
      */
     @Override
-    public Try<IDataColumn> tryInsert(Integer index, Object value) {
+    public Try<IDataColumn> insert(Integer index, Object value) {
         Try<T> typedItem = GenericHelpers.tryCast(this.type, value);
 
         return typedItem.isFailure()
                 ? Try.failure(new DataTableException("tryInsert failed. Item of invalid type passed."))
-                : Try.of(() -> insert(index, typedItem.get()));
+                : Try.of(() -> createColumn(this.data.insert(index, typedItem.get())));
     }
 
     /**
@@ -113,12 +113,12 @@ public class DataColumn<T> implements IDataColumn {
      * @return Returns a Success with the new modified DataColumn, or a Failure.
      */
     @Override
-    public Try<IDataColumn> tryReplace(Integer index, Object value) {
+    public Try<IDataColumn> replace(Integer index, Object value) {
         Try<T> typedItem = GenericHelpers.tryCast(this.type, value);
 
         return typedItem.isFailure()
                 ? Try.failure(new DataTableException("tryReplace failed. Item of invalid type passed."))
-                : Try.of(() -> replace(index, typedItem.get()));
+                : Try.of(() -> createColumn(this.data.update(index, typedItem.get())));
     }
 
     /**
@@ -127,8 +127,8 @@ public class DataColumn<T> implements IDataColumn {
      * @return Returns a Success with the new modified DataColumn, or a Failure.
      */
     @Override
-    public Try<IDataColumn> tryRemove(Integer index) {
-        return Try.of(() -> remove(index));
+    public Try<IDataColumn> remove(Integer index) {
+        return Try.of(() -> createColumn(this.data.removeAt(index)));
     }
 
     /**
@@ -136,8 +136,8 @@ public class DataColumn<T> implements IDataColumn {
      * @param value The value to append.
      * @return Returns a new DataColumn with the new item appended.
      */
-    public DataColumn<T> add(T value) {
-        return createColumn(this.data.append(value));
+    public Try<DataColumn<T>> addItem(T value) {
+        return Try.success(createColumn(this.data.append(value)));
     }
 
     /**
@@ -146,8 +146,8 @@ public class DataColumn<T> implements IDataColumn {
      * @param value The item to insert.
      * @return Returns a new DataColumn with the new item inserted.
      */
-    public DataColumn<T> insert(Integer index, T value) {
-        return createColumn(this.data.insert(index, value));
+    public Try<DataColumn<T>> insertItem(Integer index, T value) {
+        return Try.of(() -> createColumn(this.data.insert(index, value)));
     }
 
     /**
@@ -156,8 +156,8 @@ public class DataColumn<T> implements IDataColumn {
      * @param value The new item to replace the existing one.
      * @return Returns a new DataColumn with the specified item replaced.
      */
-    public DataColumn<T> replace(Integer index, T value) {
-        return createColumn(this.data.update(index, value));
+    public Try<DataColumn<T>> replaceItem(Integer index, T value) {
+        return Try.of(() -> createColumn(this.data.update(index, value)));
     }
 
     /**
@@ -165,8 +165,8 @@ public class DataColumn<T> implements IDataColumn {
      * @param index The index to remove the item at.
      * @return Returns a new DataColumn with the specified item removed.
      */
-    public DataColumn<T> remove(Integer index) {
-        return createColumn(this.data.removeAt(index));
+    public Try<DataColumn<T>> removeItem(Integer index) {
+        return Try.of(() -> createColumn(this.data.removeAt(index)));
     }
 
     /**

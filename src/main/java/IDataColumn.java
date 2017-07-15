@@ -12,8 +12,8 @@ public interface IDataColumn {
     Type getType();
     Vector getData();
 
-    Try<IDataColumn> tryAdd(Object value);
-    Try<IDataColumn> tryInsert(Integer index, Object value);
-    Try<IDataColumn> tryReplace(Integer index, Object value);
-    Try<IDataColumn> tryRemove(Integer index);
+    Try<IDataColumn> add(Object value);
+    Try<IDataColumn> insert(Integer index, Object value);
+    Try<IDataColumn> replace(Integer index, Object value);
+    Try<IDataColumn> remove(Integer index);
 }
