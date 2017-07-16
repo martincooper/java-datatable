@@ -41,7 +41,7 @@ public class DataTable {
      *
      * @return Returns the columns collection.
      */
-    public DataColumnCollection getColumns() { return this.columns; }
+    public DataColumnCollection columns() { return this.columns; }
 
     /**
      * Builds an instance of a DataTable.
