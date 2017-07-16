@@ -44,6 +44,16 @@ public class DataTable {
     public DataColumnCollection columns() { return this.columns; }
 
     /**
+     * Returns the length / row count of the table.
+     * @return The row count of the table.
+     */
+    public Integer length() {
+        return this.columns.count() > 0
+                ? this.columns.get(0).getData().length()
+                : 0;
+    }
+
+    /**
      * Builds an instance of a DataTable.
      * @param tableName The name of the table.
      * @return Returns an instance of a DataTable.
