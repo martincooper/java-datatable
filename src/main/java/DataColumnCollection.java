@@ -171,7 +171,7 @@ public class DataColumnCollection implements IModifiableByColumn<DataTable> {
     }
 
     private Try<DataTable> checkColumnsAndBuild(String changeType, Supplier<Try<Vector<IDataColumn>>> columns) {
-        // Calculate the new column collection then try and build a DataTable from it..
+        // Calculate the new column collection then try and build a DataTable from it.
         Try<Vector<IDataColumn>> newCols = columns.get();
         Try<DataTable> result = DataTable.build("", newCols.get());
 
