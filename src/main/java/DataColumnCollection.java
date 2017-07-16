@@ -52,58 +52,114 @@ public class DataColumnCollection implements IModifiableByColumn<DataTable> {
         return this.columns.length();
     }
 
+    /**
+     * Adds a IDataColumn to the column collection.
+     * @param newColumn The new columns to add.
+     * @return Returns a new DataTable with the item added.
+     */
     @Override
-    public Try<DataTable> add(IDataColumn value) {
+    public Try<DataTable> add(IDataColumn newColumn) {
         return checkColumnsAndBuild("adding",
-                () -> VectorExtensions.addItem(this.columns, value));
+                () -> VectorExtensions.addItem(this.columns, newColumn));
     }
 
+    /**
+     * Replaces the column at the specified index with the new column.
+     * @param index The index of the item to be replaced.
+     * @param newColumn The new column.
+     * @return Returns a new collection with the column replaced.
+     */
     @Override
-    public Try<DataTable> replace(Integer index, IDataColumn value) {
+    public Try<DataTable> replace(Integer index, IDataColumn newColumn) {
         return checkColumnsAndBuild("replacing",
-                () -> VectorExtensions.replaceItem(this.columns, index, value));
+                () -> VectorExtensions.replaceItem(this.columns, index, newColumn));
     }
 
+    /**
+     * Inserts a new column at the specified index.
+     * @param index The column index to inserted the column at.
+     * @param newColumn The new column.
+     * @return Returns a new collection with the column inserted.
+     */
     @Override
-    public Try<DataTable> insert(Integer index, IDataColumn value) {
+    public Try<DataTable> insert(Integer index, IDataColumn newColumn) {
         return checkColumnsAndBuild("inserting",
-                () -> VectorExtensions.insertItem(this.columns, index, value));
+                () -> VectorExtensions.insertItem(this.columns, index, newColumn));
     }
 
+    /**
+     * Removes the specified column.
+     * @param index The index of the column to be removed.
+     * @return Returns a new collection with the column removed.
+     */
     @Override
     public Try<DataTable> remove(Integer index) {
         return checkColumnsAndBuild("removing",
                 () -> VectorExtensions.removeItem(this.columns, index));
     }
 
+    /**
+     * Replaces the old column with the new column.
+     * @param columnName The column to be replaced.
+     * @param newColumn The new column.
+     * @return Returns a new collection with the column replaced.
+     */
     @Override
-    public Try<DataTable> replace(String columnName, IDataColumn value) {
-        return actionByColumnName(columnName, colIdx -> replace(colIdx, value));
+    public Try<DataTable> replace(String columnName, IDataColumn newColumn) {
+        return actionByColumnName(columnName, colIdx -> replace(colIdx, newColumn));
     }
 
+    /**
+     * Inserts a column after an existing column.
+     * @param columnName The column to be inserted after.
+     * @param newColumn The new column.
+     * @return Returns a new collection with the column inserted.
+     */
     @Override
-    public Try<DataTable> insert(String columnName, IDataColumn value) {
-        return actionByColumnName(columnName, colIdx -> insert(colIdx, value));
+    public Try<DataTable> insert(String columnName, IDataColumn newColumn) {
+        return actionByColumnName(columnName, colIdx -> insert(colIdx, newColumn));
     }
 
+    /**
+     * Removes a named column.
+     * @param columnName The name of the column to be removed.
+     * @return Returns a new collection with the column removed.
+     */
     @Override
     public Try<DataTable> remove(String columnName) {
         return actionByColumnName(columnName, colIdx -> remove(colIdx));
     }
 
+    /**
+     * Replaces the old column with the new column.
+     * @param oldColumn The column to be replaced.
+     * @param newColumn The new column.
+     * @return Returns a new collection with the column replaced.
+     */
     @Override
-    public Try<DataTable> replace(IDataColumn oldItem, IDataColumn newItem) {
-        return replace(this.columns.indexOf(oldItem), newItem);
+    public Try<DataTable> replace(IDataColumn oldColumn, IDataColumn newColumn) {
+        return replace(this.columns.indexOf(oldColumn), newColumn);
     }
 
+    /**
+     * Inserts a new column after the specified column.
+     * @param currentColumn The column to be inserted after.
+     * @param newColumn The new column.
+     * @return Returns a new collection with the column inserted.
+     */
     @Override
-    public Try<DataTable> insert(IDataColumn oldItem, IDataColumn newItem) {
-        return insert(this.columns.indexOf(oldItem), newItem);
+    public Try<DataTable> insert(IDataColumn currentColumn, IDataColumn newColumn) {
+        return insert(this.columns.indexOf(currentColumn), newColumn);
     }
 
+    /**
+     * Removes the specified column.
+     * @param columnToRemove The column to be removed.
+     * @return Returns a new collection with the column removed.
+     */
     @Override
-    public Try<DataTable> remove(IDataColumn oldItem) {
-        return remove(this.columns.indexOf(oldItem));
+    public Try<DataTable> remove(IDataColumn columnToRemove) {
+        return remove(this.columns.indexOf(columnToRemove));
     }
 
     private Try<DataTable> actionByColumnName(String columnName, Function<Integer, Try<DataTable>> action) {
