@@ -1,8 +1,6 @@
 import io.vavr.collection.Vector;
 import io.vavr.control.Try;
 
-import static io.vavr.API.*;
-
 /**
  * VectorExtensions class.
  * Helper methods for add / insert / update & remove with bounds checking.
@@ -30,10 +28,9 @@ public class VectorExtensions {
      * @return Returns the new vector with the item inserted.
      */
     public static <T> Try<Vector<T>> insertItem(Vector<T> vector, Integer index, T item) {
-        return Match(outOfBounds(vector, index)).of(
-                Case($(true), () -> error("Item index out of bounds for insert.")),
-                Case($(false), () -> Try.success(vector.insert(index, item)))
-        );
+        return outOfBounds(vector, index)
+                ? error("Item index out of bounds for insert.")
+                : Try.success(vector.insert(index, item));
     }
 
     /**
@@ -44,10 +41,9 @@ public class VectorExtensions {
      * @return Returns the new vector with the item removed.
      */
     public static <T> Try<Vector<T>> removeItem(Vector<T> vector, Integer index) {
-        return Match(outOfBounds(vector, index)).of(
-                Case($(true), () -> error("Item index out of bounds for remove.")),
-                Case($(false), () -> Try.success(vector.removeAt(index)))
-        );
+        return outOfBounds(vector, index)
+                ? error("Item index out of bounds for remove.")
+                : Try.success(vector.removeAt(index));
     }
 
     /**
@@ -59,10 +55,9 @@ public class VectorExtensions {
      * @return Returns the new vector with the item replaced.
      */
     public static <T> Try<Vector<T>> replaceItem(Vector<T> vector, Integer index, T item) {
-        return Match(outOfBounds(vector, index)).of(
-                Case($(true), () -> error("Item index out of bounds for replace.")),
-                Case($(false), () -> Try.success(vector.update(index, item)))
-        );
+        return outOfBounds(vector, index)
+                ? error("Item index out of bounds for replace.")
+                : Try.success(vector.update(index, item));
     }
 
     /**
