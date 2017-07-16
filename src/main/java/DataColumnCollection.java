@@ -59,17 +59,20 @@ public class DataColumnCollection implements IModifiableByColumn<DataTable> {
 
     @Override
     public Try<DataTable> replace(Integer index, IDataColumn value) {
-        return null;
+        return checkColumnsAndBuild("replacing",
+                () -> VectorExtensions.replaceItem(this.columns, index, value));
     }
 
     @Override
     public Try<DataTable> insert(Integer index, IDataColumn value) {
-        return null;
+        return checkColumnsAndBuild("inserting",
+                () -> VectorExtensions.insertItem(this.columns, index, value));
     }
 
     @Override
     public Try<DataTable> remove(Integer index) {
-        return null;
+        return checkColumnsAndBuild("removing",
+                () -> VectorExtensions.removeItem(this.columns, index));
     }
 
     @Override
@@ -86,6 +89,7 @@ public class DataColumnCollection implements IModifiableByColumn<DataTable> {
     public Try<DataTable> remove(String index) {
         return null;
     }
+
 
     @Override
     public Try<DataTable> replace(IDataColumn oldItem, IDataColumn newItem) {
