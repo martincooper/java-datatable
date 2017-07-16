@@ -4,7 +4,7 @@ import io.vavr.control.Try;
  * Contains helper methods for handling generic / casting functionality.
  * Created by Martin on 14/07/2017.
  */
-public class GenericHelpers {
+public class GenericExtensions {
 
     /**
      * Performs a unchecked cast. Used to centralise {@code @SuppressWarnings({"unchecked"})} warnings.

@@ -82,7 +82,7 @@ public class DataColumn<T> implements IDataColumn {
      */
     @Override
     public Try<IDataColumn> add(Object value) {
-        Try<T> typedItem = GenericHelpers.tryCast(this.type, value);
+        Try<T> typedItem = GenericExtensions.tryCast(this.type, value);
 
         return typedItem.isFailure()
                 ? Try.failure(new DataTableException("tryAdd failed. Item of invalid type passed."))
@@ -98,7 +98,7 @@ public class DataColumn<T> implements IDataColumn {
      */
     @Override
     public Try<IDataColumn> insert(Integer index, Object value) {
-        Try<T> typedItem = GenericHelpers.tryCast(this.type, value);
+        Try<T> typedItem = GenericExtensions.tryCast(this.type, value);
 
         return typedItem.isFailure()
                 ? Try.failure(new DataTableException("tryInsert failed. Item of invalid type passed."))
@@ -114,7 +114,7 @@ public class DataColumn<T> implements IDataColumn {
      */
     @Override
     public Try<IDataColumn> replace(Integer index, Object value) {
-        Try<T> typedItem = GenericHelpers.tryCast(this.type, value);
+        Try<T> typedItem = GenericExtensions.tryCast(this.type, value);
 
         return typedItem.isFailure()
                 ? Try.failure(new DataTableException("tryReplace failed. Item of invalid type passed."))

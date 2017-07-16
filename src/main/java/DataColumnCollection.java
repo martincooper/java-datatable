@@ -1,13 +1,12 @@
 import io.vavr.collection.List;
 import io.vavr.collection.Vector;
-
-import java.util.AbstractList;
+import io.vavr.control.Try;
 
 /**
  * DataColumnCollection. Handles a collection of Data Columns.
  * Created by Martin on 13/07/2017.
  */
-public class DataColumnCollection extends AbstractList<IDataColumn> {
+public class DataColumnCollection implements IModifiableByColumn<DataTable> {
 
     private final DataTable table;
     private final Vector<IDataColumn> columns;
@@ -35,22 +34,68 @@ public class DataColumnCollection extends AbstractList<IDataColumn> {
     }
 
     /**
-     * AbstractList implementation.
      * Returns the IDataColumn at the specified index.
      * @param index The index to return the IDataColumn.
      * @return Returns the IDataColumn.
      */
-    @Override
     public IDataColumn get(int index) {
         return this.columns.get(index);
     }
 
     /**
-     * AbstractList implementation.
      * @return Returns the size of the columns collection.
      */
-    @Override
-    public int size() {
+    public int count() {
         return this.columns.length();
+    }
+
+    @Override
+    public Try<DataTable> add(IDataColumn value) {
+        return null;
+    }
+
+    @Override
+    public Try<DataTable> replace(Integer index, IDataColumn value) {
+        return null;
+    }
+
+    @Override
+    public Try<DataTable> insert(Integer index, IDataColumn value) {
+        return null;
+    }
+
+    @Override
+    public Try<DataTable> remove(Integer index) {
+        return null;
+    }
+
+    @Override
+    public Try<DataTable> replace(String index, IDataColumn value) {
+        return null;
+    }
+
+    @Override
+    public Try<DataTable> insert(String index, IDataColumn value) {
+        return null;
+    }
+
+    @Override
+    public Try<DataTable> remove(String index) {
+        return null;
+    }
+
+    @Override
+    public Try<DataTable> replace(IDataColumn oldItem, IDataColumn newItem) {
+        return null;
+    }
+
+    @Override
+    public Try<DataTable> insert(IDataColumn oldItem, IDataColumn newItem) {
+        return null;
+    }
+
+    @Override
+    public Try<DataTable> remove(IDataColumn oldItem) {
+        return null;
     }
 }
