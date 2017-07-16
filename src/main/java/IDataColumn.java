@@ -7,7 +7,7 @@ import java.lang.reflect.Type;
  * in a generic collection without losing type specific information.
  * Created by Martin Cooper on 13/07/2017.
  */
-public interface IDataColumn extends IModifiable<Integer, Object, IDataColumn> {
+public interface IDataColumn extends IModifiableByIndex<Object, IDataColumn> {
 
     /**
      * The column name.
