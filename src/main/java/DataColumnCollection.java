@@ -46,6 +46,15 @@ public class DataColumnCollection implements IModifiableByColumn<DataTable> {
     }
 
     /**
+     * Returns the IDataColumn by name.
+     * @param columnName The name of the IDataColumn.
+     * @return Returns the IDataColumn.
+     */
+    public IDataColumn get(String columnName) {
+        return this.columns.get(columnIdxByName(columnName));
+    }
+
+    /**
      * @return Returns the size of the columns collection.
      */
     public int count() {
@@ -163,11 +172,15 @@ public class DataColumnCollection implements IModifiableByColumn<DataTable> {
     }
 
     private Try<DataTable> actionByColumnName(String columnName, Function<Integer, Try<DataTable>> action) {
-        Integer idx = this.columns.indexWhere(col -> compare(col.getName(), columnName));
+        Integer idx = columnIdxByName(columnName);
 
         return idx < 0
-                ? error("Column " + columnName + " not found.")
+                ? error("Column not found with name " + columnName)
                 : action.apply(idx);
+    }
+
+    private Integer columnIdxByName(String columnName) {
+        return this.columns.indexWhere(col -> compare(col.getName(), columnName));
     }
 
     private Try<DataTable> checkColumnsAndBuild(String changeType, Supplier<Try<Vector<IDataColumn>>> columns) {

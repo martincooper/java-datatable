@@ -1,7 +1,7 @@
 import io.vavr.control.Try;
 
 /**
- * IModifiable. Interface defining add / update / insert / delete.
+ * IModifiable. Generic interface defining add / update / insert / delete.
  * Created by Martin Cooper on 15/07/2017.
  */
 public interface IModifiable<I, V, R> {

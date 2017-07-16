@@ -44,10 +44,10 @@ public class DataTable {
     public DataColumnCollection columns() { return this.columns; }
 
     /**
-     * Returns the length / row count of the table.
+     * Returns the rowCount / row count of the table.
      * @return The row count of the table.
      */
-    public Integer length() {
+    public Integer rowCount() {
         return this.columns.count() > 0
                 ? this.columns.get(0).getData().length()
                 : 0;
