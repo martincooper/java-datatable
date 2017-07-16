@@ -11,6 +11,17 @@ import static io.vavr.API.*;
 public class VectorExtensions {
 
     /**
+     * Adds / Appends a new item to the end of the vector.
+     * @param vector The vector to add the item to.
+     * @param item The item to add.
+     * @param <T> The vector type.
+     * @return Returns the new vector with the item added.
+     */
+    public static <T> Try<Vector<T>> addItem(Vector<T> vector, T item) {
+        return Try.success(vector.append(item));
+    }
+
+    /**
      * Inserts a new item into the vector, with additional bounds check.
      * @param vector The vector to insert the item into.
      * @param index The index to insert the item at.
@@ -22,6 +33,35 @@ public class VectorExtensions {
         return Match(outOfBounds(vector, index)).of(
                 Case($(true), () -> error("Item index out of bounds for insert.")),
                 Case($(false), () -> Try.success(vector.insert(index, item)))
+        );
+    }
+
+    /**
+     * Removes an item from the vector, with additional bounds check.
+     * @param vector The vector to remove the item from.
+     * @param index The index to remove the item at.
+     * @param <T> The vector type.
+     * @return Returns the new vector with the item removed.
+     */
+    public static <T> Try<Vector<T>> removeItem(Vector<T> vector, Integer index) {
+        return Match(outOfBounds(vector, index)).of(
+                Case($(true), () -> error("Item index out of bounds for remove.")),
+                Case($(false), () -> Try.success(vector.removeAt(index)))
+        );
+    }
+
+    /**
+     * Replaces / Updates an item in the vector, with additional bounds check.
+     * @param vector The vector to replace the item in.
+     * @param index The index of the item to replace.
+     * @param item The new item.
+     * @param <T> The vector type.
+     * @return Returns the new vector with the item replaced.
+     */
+    public static <T> Try<Vector<T>> replaceItem(Vector<T> vector, Integer index, T item) {
+        return Match(outOfBounds(vector, index)).of(
+                Case($(true), () -> error("Item index out of bounds for replace.")),
+                Case($(false), () -> Try.success(vector.update(index, item)))
         );
     }
 
