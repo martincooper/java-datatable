@@ -2,6 +2,8 @@ import io.vavr.collection.List;
 import io.vavr.collection.Vector;
 import io.vavr.control.Try;
 
+import java.util.function.Supplier;
+
 /**
  * DataColumnCollection. Handles a collection of Data Columns.
  * Created by Martin on 13/07/2017.
@@ -51,7 +53,8 @@ public class DataColumnCollection implements IModifiableByColumn<DataTable> {
 
     @Override
     public Try<DataTable> add(IDataColumn value) {
-        return null;
+        return checkColumnsAndBuild("adding",
+                () -> VectorExtensions.addItem(this.columns, value));
     }
 
     @Override
@@ -97,5 +100,19 @@ public class DataColumnCollection implements IModifiableByColumn<DataTable> {
     @Override
     public Try<DataTable> remove(IDataColumn oldItem) {
         return null;
+    }
+
+    private Try<DataTable> checkColumnsAndBuild(String changeType, Supplier<Try<Vector<IDataColumn>>> columns) {
+        // Calculate the new column collection then try and build a DataTable from it..
+        Try<Vector<IDataColumn>> newCols = columns.get();
+        Try<DataTable> result = DataTable.build("", newCols.get());
+
+        return result.isSuccess()
+                ? result
+                : error("Error " + changeType + " column at specified index.", result.getCause());
+    }
+
+    private static Try<DataTable> error(String errorMessage, Throwable exception) {
+        return DataTableException.tryError(errorMessage, exception);
     }
 }

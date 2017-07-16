@@ -81,6 +81,6 @@ public class VectorExtensions {
     }
 
     private static <T> Try<Vector<T>> error(String errorMessage) {
-        return Try.failure(new DataTableException(errorMessage));
+        return DataTableException.tryError((errorMessage));
     }
 }
