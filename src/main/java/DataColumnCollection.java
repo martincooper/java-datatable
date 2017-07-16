@@ -2,6 +2,7 @@ import io.vavr.collection.List;
 import io.vavr.collection.Vector;
 import io.vavr.control.Try;
 
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -76,20 +77,19 @@ public class DataColumnCollection implements IModifiableByColumn<DataTable> {
     }
 
     @Override
-    public Try<DataTable> replace(String index, IDataColumn value) {
-        return null;
+    public Try<DataTable> replace(String columnName, IDataColumn value) {
+        return actionByColumnName(columnName, colIdx -> replace(colIdx, value));
     }
 
     @Override
-    public Try<DataTable> insert(String index, IDataColumn value) {
-        return null;
+    public Try<DataTable> insert(String columnName, IDataColumn value) {
+        return actionByColumnName(columnName, colIdx -> insert(colIdx, value));
     }
 
     @Override
-    public Try<DataTable> remove(String index) {
-        return null;
+    public Try<DataTable> remove(String columnName) {
+        return actionByColumnName(columnName, colIdx -> remove(colIdx));
     }
-
 
     @Override
     public Try<DataTable> replace(IDataColumn oldItem, IDataColumn newItem) {
@@ -106,6 +106,14 @@ public class DataColumnCollection implements IModifiableByColumn<DataTable> {
         return null;
     }
 
+    private Try<DataTable> actionByColumnName(String columnName, Function<Integer, Try<DataTable>> action) {
+        Integer idx = this.columns.indexWhere(col -> compare(col.getName(), columnName));
+
+        return idx < 0
+                ? error("Column " + columnName + " not found.")
+                : action.apply(idx);
+    }
+
     private Try<DataTable> checkColumnsAndBuild(String changeType, Supplier<Try<Vector<IDataColumn>>> columns) {
         // Calculate the new column collection then try and build a DataTable from it..
         Try<Vector<IDataColumn>> newCols = columns.get();
@@ -116,7 +124,15 @@ public class DataColumnCollection implements IModifiableByColumn<DataTable> {
                 : error("Error " + changeType + " column at specified index.", result.getCause());
     }
 
+    private static Try<DataTable> error(String errorMessage) {
+        return DataTableException.tryError(errorMessage);
+    }
+
     private static Try<DataTable> error(String errorMessage, Throwable exception) {
         return DataTableException.tryError(errorMessage, exception);
+    }
+
+    private static boolean compare(String str1, String str2) {
+        return (str1 == null ? str2 == null : str1.equals(str2));
     }
 }
