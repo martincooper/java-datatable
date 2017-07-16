@@ -93,17 +93,17 @@ public class DataColumnCollection implements IModifiableByColumn<DataTable> {
 
     @Override
     public Try<DataTable> replace(IDataColumn oldItem, IDataColumn newItem) {
-        return null;
+        return replace(this.columns.indexOf(oldItem), newItem);
     }
 
     @Override
     public Try<DataTable> insert(IDataColumn oldItem, IDataColumn newItem) {
-        return null;
+        return insert(this.columns.indexOf(oldItem), newItem);
     }
 
     @Override
     public Try<DataTable> remove(IDataColumn oldItem) {
-        return null;
+        return remove(this.columns.indexOf(oldItem));
     }
 
     private Try<DataTable> actionByColumnName(String columnName, Function<Integer, Try<DataTable>> action) {
