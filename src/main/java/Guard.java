@@ -1,4 +1,5 @@
 import io.vavr.collection.Stream;
+import io.vavr.control.Try;
 
 import java.util.Objects;
 
@@ -41,5 +42,16 @@ public class Guard {
     public static <T> void itemsNotNull(T[] argument, String name) {
         notNull(argument, name);
         itemsNotNull(Stream.of(argument), name);
+    }
+
+    /**
+     * Asserts the argument is not null. Returns in a Try.
+     * @param argument The argument to check.
+     * @param name The name of the argument.
+     */
+    public static <T> Try<T> tryNotNull(Object argument, String name) {
+        return argument == null
+                ? Try.failure(new IllegalArgumentException("Invalid value [NULL] for argument " + name))
+                : Try.success(null);
     }
 }
