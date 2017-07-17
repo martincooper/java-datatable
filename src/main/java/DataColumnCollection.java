@@ -67,7 +67,7 @@ public class DataColumnCollection implements IModifiableByColumn<DataTable> {
      * methods can be applied to it, EG map, flatMap etc.
      * @return Returns the column stream.
      */
-    public Stream<IDataColumn> stream() {
+    public Stream<IDataColumn> toStream() {
         return this.columns.toStream();
     }
 
