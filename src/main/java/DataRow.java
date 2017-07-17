@@ -21,6 +21,17 @@ public class DataRow {
     }
 
     /**
+     * Returns the data as an array for this row.
+     * @return Returns the data for this row in an array.
+     */
+    public Object[] data() {
+        return this.table.columns()
+                .stream()
+                .map(col -> col.getData().get(this.rowIdx))
+                .toJavaArray();
+    }
+
+    /**
      * Builds an instance of a DataRow.
      * Row Index is validated before creation, returning a Failure on error.
      * @param table The DataTable the DataRow is pointing to.
