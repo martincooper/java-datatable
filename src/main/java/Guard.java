@@ -49,9 +49,9 @@ public class Guard {
      * @param argument The argument to check.
      * @param name The name of the argument.
      */
-    public static <T> Try<T> tryNotNull(Object argument, String name) {
+    public static <T> Try<T> tryNotNull(T argument, String name) {
         return argument == null
                 ? Try.failure(new IllegalArgumentException("Invalid value [NULL] for argument " + name))
-                : Try.success(null);
+                : Try.success(argument);
     }
 }

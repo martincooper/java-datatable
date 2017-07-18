@@ -1,11 +1,12 @@
 import io.vavr.collection.List;
+import io.vavr.control.Try;
 import org.junit.Test;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 /**
  * Unit Tests for the Guard class.
- * Created by Martin on 13/07/2017.
+ * Created by Martin Cooper on 13/07/2017.
  */
 public class GuardTests {
 
@@ -56,5 +57,21 @@ public class GuardTests {
     public void testArrayInvalidArgument() {
         String myArray[] = { "one", null, "three" };
         Guard.itemsNotNull(myArray, "ArgumentOne");
+    }
+
+    @Test
+    public void testTryNotNullValidArgument() {
+        Try<Integer> result = Guard.tryNotNull(12345, "MyArgName");
+
+        assertTrue(result.isSuccess());
+        assertTrue(result.get() == 12345);
+    }
+
+    @Test
+    public void testTryNotNullInvalidArgument() {
+        Try<Integer> result = Guard.tryNotNull(null, "MyArgName");
+
+        assertTrue(result.isFailure());
+        assertTrue(result.getCause().getMessage().equals("Invalid value [NULL] for argument MyArgName"));
     }
 }
