@@ -47,6 +47,12 @@ public class DataTable {
     public DataColumnCollection columns() { return this.columns; }
 
     /**
+     *
+     * @return Returns the row collection.
+     */
+    public DataRowCollection rows() { return this.rows; }
+
+    /**
      * Returns the rowCount / row count of the table.
      * @return The row count of the table.
      */
