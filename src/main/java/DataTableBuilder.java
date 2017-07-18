@@ -24,6 +24,11 @@ public class DataTableBuilder {
         return this;
     }
 
+    public <T> DataTableBuilder withColumn(Class<T> type, String columnName, T... data) {
+        this.dataColumns.append(new DataColumn<T>(type, columnName, data));
+        return this;
+    }
+
     public Try<DataTable> create() {
         return DataTable.build(this.tableName, this.dataColumns);
     }
