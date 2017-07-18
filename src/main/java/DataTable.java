@@ -9,6 +9,7 @@ public class DataTable {
 
     private final String name;
     private final DataColumnCollection columns;
+    private final DataRowCollection rows;
 
     /**
      * Private DataTable constructor. Empty Table with no columns.
@@ -18,6 +19,7 @@ public class DataTable {
     private DataTable(String tableName) {
         this.name = tableName;
         this.columns = new DataColumnCollection(this);
+        this.rows = DataRowCollection.build(this);
     }
 
     /**
@@ -29,6 +31,7 @@ public class DataTable {
     private DataTable(String tableName, Iterable<IDataColumn> columns) {
         this.name = tableName;
         this.columns = new DataColumnCollection(this, columns);
+        this.rows = DataRowCollection.build(this);
     }
 
     /**
