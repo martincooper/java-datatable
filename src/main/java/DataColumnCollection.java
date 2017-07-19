@@ -8,7 +8,7 @@ import java.util.function.Supplier;
 
 /**
  * DataColumnCollection. Handles a collection of Data Columns.
- * Created by Martin on 13/07/2017.
+ * Created by Martin Cooper on 13/07/2017.
  */
 public class DataColumnCollection implements IModifiableByColumn<DataTable> {
 
