@@ -5,7 +5,7 @@ import io.vavr.control.Try;
  * DataTable class.
  * Created by Martin Cooper on 08/07/2017.
  */
-public class DataTable {
+public class DataTable implements IBaseTable {
 
     private final String name;
     private final DataColumnCollection columns;
@@ -35,31 +35,58 @@ public class DataTable {
     }
 
     /**
-     *
      * @return Returns the table name.
      */
-    public String getName() { return this.name; }
+    @Override
+    public String name() { return this.name; }
 
     /**
-     *
      * @return Returns the columns collection.
      */
+    @Override
     public DataColumnCollection columns() { return this.columns; }
 
     /**
-     *
      * @return Returns the row collection.
      */
+    @Override
     public DataRowCollection rows() { return this.rows; }
+
+    /**
+     * @return Returns the table (this).
+     */
+    @Override
+    public DataTable table() { return this; }
 
     /**
      * Returns the rowCount / row count of the table.
      * @return The row count of the table.
      */
+    @Override
     public Integer rowCount() {
         return this.columns.count() > 0
                 ? this.columns.get(0).getData().length()
                 : 0;
+    }
+
+    /**
+     * Return a new DataTable based on this table (clone).
+     * @return Returns a clone of this DataTable.
+     */
+    @Override
+    public DataTable toDataTable() {
+        return DataTable
+                .build(this.name, this.columns.toStream())
+                .get();
+    }
+
+    /**
+     * Return a new Data View based on this table.
+     * @return A new Data View based on this table.
+     */
+    @Override
+    public DataView toDataView() {
+        return null;
     }
 
     /**

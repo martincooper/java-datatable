@@ -15,7 +15,7 @@ public class DataTableTests {
         DataTable table = DataTable.build("NewTable");
 
         assertNotNull(table);
-        assertEquals(table.getName(), "NewTable");
+        assertEquals(table.name(), "NewTable");
         assertEquals(table.columns().count(), 0);
         assertTrue(table.rowCount() == 0);
     }
@@ -26,7 +26,7 @@ public class DataTableTests {
         Try<DataTable> table = DataTable.build("NewTable", cols);
 
         assertTrue(table.isSuccess());
-        assertEquals(table.get().getName(), "NewTable");
+        assertEquals(table.get().name(), "NewTable");
         assertEquals(table.get().columns().count(), 3);
         assertTrue(table.get().rowCount() == 3);
         assertEquals(table.get().columns().get(0).getName(), "StringCol");
