@@ -21,6 +21,14 @@ public class DataRow {
     }
 
     /**
+     * Returns the underlying Data Table for this row.
+     * @return Returns the Data Table for this row .
+     */
+    public DataTable table() {
+        return this.table;
+    }
+
+    /**
      * Returns the data as an array for this row.
      * @return Returns the data for this row in an array.
      */
