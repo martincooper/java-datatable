@@ -83,9 +83,8 @@ public class DataView implements IBaseTable {
     public static Try<DataView> build(DataTable table, Iterable<DataRow> rows) {
         Try<DataRowCollection> result = DataRowCollection.build(table, rows);
 
-        if (result.isFailure())
-            return Try.failure(result.getCause());
-
-        return Try.success(new DataView(table, result.get()));
+        return result.isFailure()
+                ? Try.failure(result.getCause())
+                : Try.success(new DataView(table, result.get()));
     }
 }
