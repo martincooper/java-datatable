@@ -4,7 +4,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Random;
-
+import java.util.function.Supplier;
 
 /**
  * Memory Tests for the Data Table.
@@ -43,31 +43,19 @@ public class DataTableMemoryTests {
     }
 
     private Integer[] randomIntegerData(int dataSize) {
-        return Stream
-                .range(0, dataSize)
-                .map(i -> rand.nextInt())
-                .toJavaArray(Integer.class);
+        return generateRange(Integer.class, dataSize, rand::nextInt);
     }
 
     private Boolean[] randomBooleanData(int dataSize) {
-        return Stream
-                .range(0, dataSize)
-                .map(i -> rand.nextBoolean())
-                .toJavaArray(Boolean.class);
+        return generateRange(Boolean.class, dataSize, rand::nextBoolean);
     }
 
     private Double[] randomDoubleData(int dataSize) {
-        return Stream
-                .range(0, dataSize)
-                .map(i -> rand.nextDouble())
-                .toJavaArray(Double.class);
+        return generateRange(Double.class, dataSize, rand::nextDouble);
     }
 
     private String[] randomStringData(int dataSize) {
-        return Stream
-                .range(0, dataSize)
-                .map(i -> randomString(10))
-                .toJavaArray(String.class);
+        return generateRange(String.class, dataSize, () -> randomString(10));
     }
 
     private String randomString(int length) {
@@ -75,5 +63,12 @@ public class DataTableMemoryTests {
                 .range(0, length)
                 .map(i -> (char)(rand.nextInt((int)(Character.MAX_VALUE))))
                 .toString();
+    }
+
+    private <T> T[] generateRange(Class<T> classType, int size, Supplier<T> supplier) {
+        return Stream
+                .range(0, size)
+                .map(i -> supplier.get())
+                .toJavaArray(classType);
     }
 }
