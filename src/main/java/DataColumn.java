@@ -75,6 +75,21 @@ public class DataColumn<T> implements IDataColumn {
     public Vector<T> getData() { return this.data; }
 
     /**
+     * Returns the generic data column as it's typed implementation.
+     * If the types don't match, then it'll return Failure.
+     * @param type The type of the column.
+     * @param <V> The type.
+     * @return Returns the typed Data Column wrapped in a Try.
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public <V> Try<DataColumn<V>> asType(Class<V> type) {
+        return this.type == type
+                ? Try.success((DataColumn<V>)this)
+                : DataTableException.tryError("Column type doesn't match type requested.");
+    }
+
+    /**
      * Attempts to add / append a new item to the end of the column.
      * A type check is performed before addition.
      * @param value The item required to be added.

@@ -77,6 +77,24 @@ public class DataColumnTests {
         assertTrue(newCol.isFailure());
     }
 
+    @Test
+    public void testValidToTypedColumn() {
+        IDataColumn column = createIntegerColumn();
+        Try<DataColumn<Integer>> typedCol = column.asType(Integer.class);
+
+        assertTrue(typedCol.isSuccess());
+        assertTrue(typedCol.get().getData().get(1) == 7);
+    }
+
+    @Test
+    public void testInvalidToTypedColumn() {
+        IDataColumn column = createIntegerColumn();
+        Try<DataColumn<Double>> typedCol = column.asType(Double.class);
+
+        assertTrue(typedCol.isFailure());
+        assertTrue(typedCol.getCause().getMessage().equals("Column type doesn't match type requested."));
+    }
+
     private DataColumn<String> createStringColumn() {
         List<String> data = List.of("AA", "BB", "CC");
         return new DataColumn<>(String.class, "StringCol", data);
