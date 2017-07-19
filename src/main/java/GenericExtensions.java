@@ -2,7 +2,7 @@ import io.vavr.control.Try;
 
 /**
  * Contains helper methods for handling generic / casting functionality.
- * Created by Martin on 14/07/2017.
+ * Created by Martin Cooper on 14/07/2017.
  */
 public class GenericExtensions {
 

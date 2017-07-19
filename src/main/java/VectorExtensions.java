@@ -4,7 +4,7 @@ import io.vavr.control.Try;
 /**
  * VectorExtensions class.
  * Helper methods for add / insert / update & remove with bounds checking.
- * Created by Martin on 16/07/2017.
+ * Created by Martin Cooper on 16/07/2017.
  */
 public class VectorExtensions {
 
