@@ -7,7 +7,7 @@ import java.util.Random;
 import java.util.function.Supplier;
 
 /**
- * Memory Tests for the Data Table.
+ * Memory Profiling Tests for the Data Table.
  * Created by Martin Cooper on 19/07/2017.
  */
 public class DataTableMemoryTests {
@@ -15,6 +15,7 @@ public class DataTableMemoryTests {
     private final Random rand = new Random();
     private static Integer ROW_COUNT = 1000000;
 
+    // Check memory usage of the data in it's raw form (plain Java Arrays).
     @Ignore
     @Test
     public void testRawRowData() {
@@ -27,6 +28,7 @@ public class DataTableMemoryTests {
         System.out.println("MB: " + (mem / 1024) / 1024);
     }
 
+    // Check memory usage of the data stored in a Data Table.
     @Ignore
     @Test
     public void testDataTableWithRowData() {
