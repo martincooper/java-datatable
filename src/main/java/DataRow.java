@@ -40,19 +40,21 @@ public class DataRow {
     }
 
     public Object get(Integer colIndex) {
-        return null;
+        return this.table.columns().get(colIndex).getData().get(this.rowIdx);
     }
 
     public Object get(String colName) {
-        return null;
+        return this.table.columns().get(colName).getData().get(this.rowIdx);
     }
 
     public <T> T getAs(Class<T> type, Integer idx) {
-        return null;
+        Try<DataColumn<T>> col = this.table.columns().get(idx).asType(type);
+        return col.get().getData().get(this.rowIdx);
     }
 
     public <T> T getAs(Class<T> type, String colName) {
-        return null;
+        Try<DataColumn<T>> col = this.table.columns().get(colName).asType(type);
+        return col.get().getData().get(this.rowIdx);
     }
 
     /**
