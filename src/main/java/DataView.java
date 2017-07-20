@@ -1,3 +1,4 @@
+import io.vavr.collection.Stream;
 import io.vavr.control.Try;
 
 import java.util.Iterator;
@@ -82,12 +83,14 @@ public class DataView implements IBaseTable {
     }
 
     /**
-     * Return a new Data View based on this table.
+     * Return a new Data View based on this table
      * @return A new Data View based on this table.
      */
     @Override
     public DataView toDataView() {
-        return null;
+        return DataView
+                .build(this.table, Stream.ofAll(this.rows))
+                .get();
     }
 
     /**

@@ -1,4 +1,5 @@
 import io.vavr.collection.List;
+import io.vavr.collection.Stream;
 import io.vavr.control.Try;
 
 import java.util.Iterator;
@@ -99,7 +100,9 @@ public class DataTable implements IBaseTable {
      */
     @Override
     public DataView toDataView() {
-        return null;
+        return DataView
+                .build(this, Stream.ofAll(this.rows))
+                .get();
     }
 
     /**
