@@ -3,7 +3,7 @@
  * IBaseTable. Specifying common functionality between DataTable and DataView.
  * Created by Martin Cooper on 19/07/2017.
  */
-public interface IBaseTable {
+public interface IBaseTable extends Iterable<DataRow> {
 
     /**
      * @return Returns the table name.

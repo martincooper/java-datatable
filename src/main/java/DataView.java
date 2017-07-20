@@ -1,5 +1,7 @@
 import io.vavr.control.Try;
 
+import java.util.Iterator;
+
 /**
  * DataView. Provides a view over a DataTable to store filtered data sets.
  * Created by Martin Cooper on 19/07/2017.
@@ -17,6 +19,16 @@ public class DataView implements IBaseTable {
     private DataView(DataTable table, DataRowCollection rows) {
         this.table = table;
         this.rows = rows;
+    }
+
+    /**
+     * Returns an iterator over elements of type DataRow.
+     *
+     * @return an Iterator.
+     */
+    @Override
+    public Iterator<DataRow> iterator() {
+        return this.rows.iterator();
     }
 
     /**

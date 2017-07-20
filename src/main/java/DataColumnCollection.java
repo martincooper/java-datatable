@@ -3,6 +3,7 @@ import io.vavr.collection.Stream;
 import io.vavr.collection.Vector;
 import io.vavr.control.Try;
 
+import java.util.Iterator;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -10,7 +11,8 @@ import java.util.function.Supplier;
  * DataColumnCollection. Handles a collection of Data Columns.
  * Created by Martin Cooper on 13/07/2017.
  */
-public class DataColumnCollection implements IModifiableByColumn<DataTable> {
+public class DataColumnCollection
+        implements IModifiableByColumn<DataTable>, Iterable<IDataColumn> {
 
     private final DataTable table;
     private final Vector<IDataColumn> columns;
@@ -35,6 +37,16 @@ public class DataColumnCollection implements IModifiableByColumn<DataTable> {
 
         this.table = table;
         this.columns = Vector.ofAll(columns);
+    }
+
+    /**
+     * Returns an iterator over elements of type IDataColumn.
+     *
+     * @return an Iterator.
+     */
+    @Override
+    public Iterator<IDataColumn> iterator() {
+        return this.columns.iterator();
     }
 
     /**

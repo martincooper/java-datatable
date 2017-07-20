@@ -1,6 +1,8 @@
 import io.vavr.collection.List;
 import io.vavr.control.Try;
 
+import java.util.Iterator;
+
 /**
  * DataTable class.
  * Created by Martin Cooper on 08/07/2017.
@@ -8,8 +10,8 @@ import io.vavr.control.Try;
 public class DataTable implements IBaseTable {
 
     private final String name;
-    private final DataColumnCollection columns;
     private final DataRowCollection rows;
+    private final DataColumnCollection columns;
 
     /**
      * Private DataTable constructor. Empty Table with no columns.
@@ -32,6 +34,16 @@ public class DataTable implements IBaseTable {
         this.name = tableName;
         this.columns = new DataColumnCollection(this, columns);
         this.rows = DataRowCollection.build(this);
+    }
+
+    /**
+     * Returns an iterator over elements of type DataRow.
+     *
+     * @return an Iterator.
+     */
+    @Override
+    public Iterator<DataRow> iterator() {
+        return this.rows.iterator();
     }
 
     /**
