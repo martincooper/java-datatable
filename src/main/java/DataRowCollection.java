@@ -37,6 +37,15 @@ public class DataRowCollection implements Iterable<DataRow> {
     }
 
     /**
+     * Returns the Data Row at the specified index.
+     * @param rowIndex The row index.
+     * @return Returns the Data Row.
+     */
+    public DataRow get(Integer rowIndex) {
+        return this.rows.get(rowIndex);
+    }
+
+    /**
      * The number of rows in the collection.
      * @return Returns the number of rows.
      */
@@ -62,7 +71,7 @@ public class DataRowCollection implements Iterable<DataRow> {
      */
     public static DataRowCollection build(DataTable table) {
         Stream<DataRow> rows = Stream
-                .range(0, table.rowCount() - 1)
+                .range(0, table.rowCount())
                 .map(idx -> DataRow.build(table, idx).get());
 
         return new DataRowCollection(table, rows);
