@@ -31,6 +31,15 @@ public class DataRow {
     }
 
     /**
+     * Gets the row index.
+     *
+     * @return Returns the row index.
+     */
+    public Integer rowIdx() {
+        return this.rowIdx;
+    }
+
+    /**
      * Returns the data as an array for this row.
      *
      * @return Returns the data for this row in an array.

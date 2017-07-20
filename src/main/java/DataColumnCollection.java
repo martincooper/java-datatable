@@ -1,4 +1,5 @@
 import io.vavr.collection.List;
+import io.vavr.collection.Seq;
 import io.vavr.collection.Stream;
 import io.vavr.collection.Vector;
 import io.vavr.control.Try;
@@ -49,6 +50,16 @@ public class DataColumnCollection
     @Override
     public Iterator<IDataColumn> iterator() {
         return this.columns.iterator();
+    }
+
+    /**
+     * Map implementation for the DataColumnCollection class.
+     *
+     * @param mapper The map function.
+     * @return Returns a sequence of the applied map.
+     */
+    public <U> Seq<U> map(Function<? super IDataColumn, ? extends U> mapper) {
+        return this.columns.map(mapper);
     }
 
     /**

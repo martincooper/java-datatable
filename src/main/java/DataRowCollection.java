@@ -1,9 +1,11 @@
 import io.vavr.collection.List;
+import io.vavr.collection.Seq;
 import io.vavr.collection.Stream;
 import io.vavr.collection.Vector;
 import io.vavr.control.Try;
 
 import java.util.Iterator;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
@@ -62,6 +64,16 @@ public class DataRowCollection implements Iterable<DataRow> {
     public DataView filter(Predicate<DataRow> predicate) {
         Vector<DataRow> results = this.rows.filter(predicate);
         return DataView.build(this.table, results).get();
+    }
+
+    /**
+     * Map implementation for the DataRowCollection class.
+     *
+     * @param mapper The map function.
+     * @return Returns a sequence of the applied map.
+     */
+    public <U> Seq<U> map(Function<? super DataRow, ? extends U> mapper) {
+        return this.rows.map(mapper);
     }
 
     /**

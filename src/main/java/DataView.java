@@ -1,3 +1,4 @@
+import io.vavr.collection.Seq;
 import io.vavr.collection.Stream;
 import io.vavr.control.Try;
 
@@ -75,11 +76,18 @@ public class DataView implements IBaseTable {
 
     /**
      * Return a new DataTable based on this table (clone).
+     *
      * @return Returns a clone of this DataTable.
      */
     @Override
     public DataTable toDataTable() {
-        return null;
+        // TODO Clean-up.
+        Integer[] rowIndexes = this.rows.map(DataRow::rowIdx).toJavaArray(Integer.class);
+        IDataColumn[] newCols = this.table.columns()
+                .map(col -> col.buildFromRows(rowIndexes).get())
+                .toJavaArray(IDataColumn.class);
+
+        return DataTable.build(this.name(), newCols).get();
     }
 
     /**
