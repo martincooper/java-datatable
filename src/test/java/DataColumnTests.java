@@ -15,8 +15,8 @@ public class DataColumnTests {
     public void testEmptyDataColumnCreation() {
         DataColumn<String> column = new DataColumn<>(String.class, "StringCol");
 
-        assertEquals(column.getName(), "StringCol");
-        assertEquals(column.getType(), String.class);
+        assertEquals(column.name(), "StringCol");
+        assertEquals(column.type(), String.class);
     }
 
     @Test
@@ -24,8 +24,8 @@ public class DataColumnTests {
         String[] data = new String[] { "AA", "BB", "CC" };
         DataColumn<String> column = new DataColumn<>(String.class, "StringCol", data);
 
-        assertEquals(column.getData().length(), 3);
-        assertEquals(column.getData().get(1), "BB");
+        assertEquals(column.data().length(), 3);
+        assertEquals(column.data().get(1), "BB");
     }
 
     @Test
@@ -33,8 +33,8 @@ public class DataColumnTests {
         List<String> data = List.of("AA", "BB", "CC");
         DataColumn<String> column = new DataColumn<>(String.class, "StringCol", data);
 
-        assertEquals(column.getData().length(), 3);
-        assertEquals(column.getData().get(1), "BB");
+        assertEquals(column.data().length(), 3);
+        assertEquals(column.data().get(1), "BB");
     }
 
     @Test
@@ -42,8 +42,8 @@ public class DataColumnTests {
         Vector<Integer> data = Vector.of(5, 7, 9);
         DataColumn<Integer> column = new DataColumn<>(Integer.class, "IntegerCol", data);
 
-        assertEquals(column.getData().length(), 3);
-        assertTrue(column.getData().get(1) == 7);
+        assertEquals(column.data().length(), 3);
+        assertTrue(column.data().get(1) == 7);
     }
 
     @Test
@@ -52,9 +52,9 @@ public class DataColumnTests {
         Try<DataColumn<String>> newCol = column.addItem("NewString");
 
         assertTrue(newCol.isSuccess());
-        assertEquals(column.getData().length(), 3);
-        assertEquals(newCol.get().getData().length(), 4);
-        assertEquals(newCol.get().getData().get(3), "NewString");
+        assertEquals(column.data().length(), 3);
+        assertEquals(newCol.get().data().length(), 4);
+        assertEquals(newCol.get().data().get(3), "NewString");
     }
 
     @Test
@@ -63,9 +63,9 @@ public class DataColumnTests {
         Try<DataColumn<String>> newCol = column.addItem(null);
 
         assertTrue(newCol.isSuccess());
-        assertEquals(column.getData().length(), 3);
-        assertEquals(newCol.get().getData().length(), 4);
-        assertEquals(newCol.get().getData().get(3), null);
+        assertEquals(column.data().length(), 3);
+        assertEquals(newCol.get().data().length(), 4);
+        assertEquals(newCol.get().data().get(3), null);
     }
 
     @Test
@@ -83,7 +83,7 @@ public class DataColumnTests {
         Try<DataColumn<Integer>> typedCol = column.asType(Integer.class);
 
         assertTrue(typedCol.isSuccess());
-        assertTrue(typedCol.get().getData().get(1) == 7);
+        assertTrue(typedCol.get().data().get(1) == 7);
     }
 
     @Test

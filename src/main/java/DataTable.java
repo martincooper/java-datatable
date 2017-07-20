@@ -18,6 +18,7 @@ public class DataTable implements IBaseTable {
     /**
      * Private DataTable constructor. Empty Table with no columns.
      * Use 'build' to create instance.
+     *
      * @param tableName The name of the table.
      */
     private DataTable(String tableName) {
@@ -29,6 +30,7 @@ public class DataTable implements IBaseTable {
     /**
      * Private DataTable Constructor.
      * Use 'build' to create instance.
+     *
      * @param tableName The name of the table.
      * @param columns The collection of columns in the table.
      */
@@ -49,24 +51,32 @@ public class DataTable implements IBaseTable {
     }
 
     /**
+     * The name of the table.
+     *
      * @return Returns the table name.
      */
     @Override
     public String name() { return this.name; }
 
     /**
+     * The column collection.
+     *
      * @return Returns the columns collection.
      */
     @Override
     public DataColumnCollection columns() { return this.columns; }
 
     /**
+     * The row collection.
+     *
      * @return Returns the row collection.
      */
     @Override
     public DataRowCollection rows() { return this.rows; }
 
     /**
+     * The data table.
+     *
      * @return Returns the table (this).
      */
     @Override
@@ -74,17 +84,19 @@ public class DataTable implements IBaseTable {
 
     /**
      * Returns the rowCount / row count of the table.
+     *
      * @return The row count of the table.
      */
     @Override
     public Integer rowCount() {
         return this.columns.count() > 0
-                ? this.columns.get(0).getData().length()
+                ? this.columns.get(0).data().length()
                 : 0;
     }
 
     /**
      * Return a new DataTable based on this table (clone).
+     *
      * @return Returns a clone of this DataTable.
      */
     @Override
@@ -96,6 +108,7 @@ public class DataTable implements IBaseTable {
 
     /**
      * Return a new Data View based on this table.
+     *
      * @return A new Data View based on this table.
      */
     @Override
@@ -108,6 +121,7 @@ public class DataTable implements IBaseTable {
     /**
      * Filters the row data using the specified predicate,
      * returning the results as a DataView over the original table.
+     *
      * @param predicate The filter criteria.
      * @return Returns a DataView with the filter results.
      */
@@ -117,6 +131,7 @@ public class DataTable implements IBaseTable {
 
     /**
      * Builds an instance of a DataTable.
+     *
      * @param tableName The name of the table.
      * @return Returns an instance of a DataTable.
      */
@@ -127,6 +142,7 @@ public class DataTable implements IBaseTable {
     /**
      * Builds an instance of a DataTable.
      * Columns are validated before creation, returning a Failure on error.
+     *
      * @param tableName The name of the table.
      * @param columns The column collection.
      * @return Returns a DataTable wrapped in a Try.
@@ -138,6 +154,7 @@ public class DataTable implements IBaseTable {
     /**
      * Builds an instance of a DataTable.
      * Columns are validated before creation, returning a Failure on error.
+     *
      * @param tableName The name of the table.
      * @param columns The column collection.
      * @return Returns a DataTable wrapped in a Try.
@@ -153,6 +170,7 @@ public class DataTable implements IBaseTable {
 
     /**
      * Validates the column data.
+     *
      * @param columns The columns to validate.
      * @return Returns a Success or Failure.
      */
@@ -165,11 +183,12 @@ public class DataTable implements IBaseTable {
 
     /**
      * Validates there are no duplicate columns names.
+     *
      * @param columns The columns to check.
      * @return Returns a Success or Failure.
      */
     private static Try<Void> validateColumnNames(List<IDataColumn> columns) {
-        if (columns.groupBy(IDataColumn::getName).length() != columns.length())
+        if (columns.groupBy(IDataColumn::name).length() != columns.length())
             return Try.failure(new DataTableException("Columns contain duplicate names."));
 
         return Try.success(null);
@@ -177,11 +196,12 @@ public class DataTable implements IBaseTable {
 
     /**
      * Validates the number of items in each column is the same.
+     *
      * @param columns The columns to check.
      * @return Returns a Success or Failure.
      */
     private static Try<Void> validateColumnDataLength(List<IDataColumn> columns) {
-        if (List.ofAll(columns).groupBy(x -> x.getData().length()).length() > 1)
+        if (List.ofAll(columns).groupBy(x -> x.data().length()).length() > 1)
             return Try.failure(new DataTableException("Columns have different lengths."));
 
         return Try.success(null);

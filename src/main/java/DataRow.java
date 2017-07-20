@@ -12,6 +12,7 @@ public class DataRow {
     /**
      * Private DataRow constructor.
      * Use 'build' to create instance.
+     *
      * @param table The DataTable the DataRow is pointing to.
      * @param rowIdx The row index.
      */
@@ -22,6 +23,7 @@ public class DataRow {
 
     /**
      * Returns the underlying Data Table for this row.
+     *
      * @return Returns the Data Table for this row .
      */
     public DataTable table() {
@@ -30,36 +32,38 @@ public class DataRow {
 
     /**
      * Returns the data as an array for this row.
+     *
      * @return Returns the data for this row in an array.
      */
     public Object[] data() {
         return this.table.columns()
                 .toStream()
-                .map(col -> col.getData().get(this.rowIdx))
+                .map(col -> col.data().get(this.rowIdx))
                 .toJavaArray();
     }
 
     public Object get(Integer colIndex) {
-        return this.table.columns().get(colIndex).getData().get(this.rowIdx);
+        return this.table.columns().get(colIndex).data().get(this.rowIdx);
     }
 
     public Object get(String colName) {
-        return this.table.columns().get(colName).getData().get(this.rowIdx);
+        return this.table.columns().get(colName).data().get(this.rowIdx);
     }
 
     public <T> T getAs(Class<T> type, Integer idx) {
         Try<DataColumn<T>> col = this.table.columns().get(idx).asType(type);
-        return col.get().getData().get(this.rowIdx);
+        return col.get().data().get(this.rowIdx);
     }
 
     public <T> T getAs(Class<T> type, String colName) {
         Try<DataColumn<T>> col = this.table.columns().get(colName).asType(type);
-        return col.get().getData().get(this.rowIdx);
+        return col.get().data().get(this.rowIdx);
     }
 
     /**
      * Builds an instance of a DataRow.
      * Row Index is validated before creation, returning a Failure on error.
+     *
      * @param table The DataTable the DataRow is pointing to.
      * @param rowIdx The row index.
      * @return Returns a DataRow wrapped in a Try.

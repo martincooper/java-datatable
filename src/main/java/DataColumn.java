@@ -14,6 +14,7 @@ public class DataColumn<T> implements IDataColumn {
 
     /**
      * DataColumn constructor.
+     *
      * @param type Stores the type of data stored in this column.
      * @param columnName The column name.
      */
@@ -23,6 +24,7 @@ public class DataColumn<T> implements IDataColumn {
 
     /**
      * DataColumn constructor.
+     *
      * @param type Stores the type of data stored in this column.
      * @param columnName The column name.
      * @param data The data items stored in the column.
@@ -33,6 +35,7 @@ public class DataColumn<T> implements IDataColumn {
 
     /**
      * DataColumn constructor.
+     *
      * @param type Stores the type of data stored in this column.
      * @param columnName The column name.
      * @param data The data items stored in the column.
@@ -43,6 +46,7 @@ public class DataColumn<T> implements IDataColumn {
 
     /**
      * DataColumn constructor.
+     *
      * @param type Stores the type of data stored in this column.
      * @param columnName The column name.
      * @param data The data items stored in the column.
@@ -54,29 +58,33 @@ public class DataColumn<T> implements IDataColumn {
     }
 
     /**
+     * Gets the column name.
      *
      * @return Returns the column name.
      */
     @Override
-    public String getName() { return this.name; }
+    public String name() { return this.name; }
 
     /**
+     * Gets the column type.
      *
      * @return Returns the column type.
      */
     @Override
-    public Type getType() { return this.type; }
+    public Type type() { return this.type; }
 
     /**
+     * Returns the underlying data.
      *
      * @return Returns access to the underlying data.
      */
     @Override
-    public Vector<T> getData() { return this.data; }
+    public Vector<T> data() { return this.data; }
 
     /**
      * Returns the generic data column as it's typed implementation.
      * If the types don't match, then it'll return Failure.
+     *
      * @param type The type of the column.
      * @param <V> The type.
      * @return Returns the typed Data Column wrapped in a Try.
@@ -90,8 +98,20 @@ public class DataColumn<T> implements IDataColumn {
     }
 
     /**
+     * Builds a new DataColumn from the data in the specified row indexes.
+     *
+     * @param rowIndexes The rows which the new column data is to be built from.
+     * @return Returns a new IDataColumn with just the rows specified.
+     */
+    @Override
+    public Try<IDataColumn> buildFromRows(Integer[] rowIndexes) {
+        return null;
+    }
+
+    /**
      * Attempts to add / append a new item to the end of the column.
      * A type check is performed before addition.
+     *
      * @param value The item required to be added.
      * @return Returns a Success with the new modified DataColumn, or a Failure.
      */
@@ -107,6 +127,7 @@ public class DataColumn<T> implements IDataColumn {
     /**
      * Attempts to insert a new item into the column.
      * A type check is performed before insertion.
+     *
      * @param index The index the item is to be inserted at.
      * @param value The item required to be inserted.
      * @return Returns a Success with the new modified DataColumn, or a Failure.
@@ -123,6 +144,7 @@ public class DataColumn<T> implements IDataColumn {
     /**
      * Attempts to replace an existing item with a new item in the column.
      * A type check is performed before replacement.
+     *
      * @param index The index the item is to be replaced at.
      * @param value The new item.
      * @return Returns a Success with the new modified DataColumn, or a Failure.
@@ -138,6 +160,7 @@ public class DataColumn<T> implements IDataColumn {
 
     /**
      * Attempts to remove an existing item at the specified index.
+     *
      * @param index The index to remove the item at.
      * @return Returns a Success with the new modified DataColumn, or a Failure.
      */
@@ -148,6 +171,7 @@ public class DataColumn<T> implements IDataColumn {
 
     /**
      * Adds / Appends and item to the end of the column.
+     *
      * @param value The value to append.
      * @return Returns a new DataColumn with the new item appended.
      */
@@ -157,6 +181,7 @@ public class DataColumn<T> implements IDataColumn {
 
     /**
      * Inserts the item at the specified index.
+     *
      * @param index The index to insert the item at.
      * @param value The item to insert.
      * @return Returns a new DataColumn with the new item inserted.
@@ -167,6 +192,7 @@ public class DataColumn<T> implements IDataColumn {
 
     /**
      * Replaces the existing item at the specified index with the new item.
+     *
      * @param index The index to replace the existing item.
      * @param value The new item to replace the existing one.
      * @return Returns a new DataColumn with the specified item replaced.
@@ -177,6 +203,7 @@ public class DataColumn<T> implements IDataColumn {
 
     /**
      * Removes the item at the specified index.
+     *
      * @param index The index to remove the item at.
      * @return Returns a new DataColumn with the specified item removed.
      */
@@ -186,6 +213,7 @@ public class DataColumn<T> implements IDataColumn {
 
     /**
      * Creates a new DataColumn based on this one, with modified data.
+     *
      * @param data The new data set.
      * @return Returns the new DataColumn.
      */

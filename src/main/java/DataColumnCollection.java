@@ -19,6 +19,7 @@ public class DataColumnCollection
 
     /**
      * DataColumnCollection constructor. Creates an empty Data Column Collection.
+     *
      * @param table The table the column collection belongs to.
      */
     public DataColumnCollection(DataTable table) {
@@ -28,6 +29,7 @@ public class DataColumnCollection
     /**
      * DataColumnCollection constructor.
      * Creates a Data Column Collection containing the specified columns.
+     *
      * @param table The table the column collection belong to.
      * @param columns The collection of data columns.
      */
@@ -51,6 +53,7 @@ public class DataColumnCollection
 
     /**
      * Returns the IDataColumn at the specified index.
+     *
      * @param index The index to return the IDataColumn.
      * @return Returns the IDataColumn.
      */
@@ -60,6 +63,7 @@ public class DataColumnCollection
 
     /**
      * Returns the IDataColumn by name.
+     *
      * @param columnName The name of the IDataColumn.
      * @return Returns the IDataColumn.
      */
@@ -68,6 +72,8 @@ public class DataColumnCollection
     }
 
     /**
+     * The number of columns in the collection.
+     *
      * @return Returns the size of the columns collection.
      */
     public int count() {
@@ -77,6 +83,7 @@ public class DataColumnCollection
     /**
      * Returns the column collection as a stream so functional
      * methods can be applied to it, EG map, flatMap etc.
+     *
      * @return Returns the column stream.
      */
     public Stream<IDataColumn> toStream() {
@@ -85,6 +92,7 @@ public class DataColumnCollection
 
     /**
      * Adds a IDataColumn to the column collection.
+     *
      * @param newColumn The new columns to add.
      * @return Returns a new DataTable with the item added.
      */
@@ -96,6 +104,7 @@ public class DataColumnCollection
 
     /**
      * Replaces the column at the specified index with the new column.
+     *
      * @param index The index of the item to be replaced.
      * @param newColumn The new column.
      * @return Returns a new collection with the column replaced.
@@ -108,6 +117,7 @@ public class DataColumnCollection
 
     /**
      * Inserts a new column at the specified index.
+     *
      * @param index The column index to inserted the column at.
      * @param newColumn The new column.
      * @return Returns a new collection with the column inserted.
@@ -120,6 +130,7 @@ public class DataColumnCollection
 
     /**
      * Removes the specified column.
+     *
      * @param index The index of the column to be removed.
      * @return Returns a new collection with the column removed.
      */
@@ -131,6 +142,7 @@ public class DataColumnCollection
 
     /**
      * Replaces the old column with the new column.
+     *
      * @param columnName The column to be replaced.
      * @param newColumn The new column.
      * @return Returns a new collection with the column replaced.
@@ -142,6 +154,7 @@ public class DataColumnCollection
 
     /**
      * Inserts a column after an existing column.
+     *
      * @param columnName The column to be inserted after.
      * @param newColumn The new column.
      * @return Returns a new collection with the column inserted.
@@ -153,6 +166,7 @@ public class DataColumnCollection
 
     /**
      * Removes a named column.
+     *
      * @param columnName The name of the column to be removed.
      * @return Returns a new collection with the column removed.
      */
@@ -163,6 +177,7 @@ public class DataColumnCollection
 
     /**
      * Replaces the old column with the new column.
+     *
      * @param oldColumn The column to be replaced.
      * @param newColumn The new column.
      * @return Returns a new collection with the column replaced.
@@ -174,6 +189,7 @@ public class DataColumnCollection
 
     /**
      * Inserts a new column after the specified column.
+     *
      * @param currentColumn The column to be inserted after.
      * @param newColumn The new column.
      * @return Returns a new collection with the column inserted.
@@ -185,6 +201,7 @@ public class DataColumnCollection
 
     /**
      * Removes the specified column.
+     *
      * @param columnToRemove The column to be removed.
      * @return Returns a new collection with the column removed.
      */
@@ -202,7 +219,7 @@ public class DataColumnCollection
     }
 
     private Integer columnIdxByName(String columnName) {
-        return this.columns.indexWhere(col -> compare(col.getName(), columnName));
+        return this.columns.indexWhere(col -> compare(col.name(), columnName));
     }
 
     private Try<DataTable> checkColumnsAndBuild(String changeType, Supplier<Try<Vector<IDataColumn>>> columns) {

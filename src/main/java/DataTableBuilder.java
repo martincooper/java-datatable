@@ -12,6 +12,7 @@ public class DataTableBuilder {
 
     /**
      * DataTableBuilder. Private constructor. Used by the create() method.
+     *
      * @param tableName The name of the table to create.
      */
     private DataTableBuilder(String tableName) {
@@ -21,6 +22,7 @@ public class DataTableBuilder {
 
     /**
      * Creates a new instance of a DataTableBuilder, passing table name.
+     *
      * @param tableName The name of the table.
      * @return Returns a new instance of a DataTableBuilder, allowing method chaining.
      */
@@ -30,6 +32,7 @@ public class DataTableBuilder {
 
     /**
      * Allows an additional column to be added when building a table.
+     *
      * @param type The data type of the column.
      * @param columnName The column name.
      * @param data The data contained in the column.
@@ -43,6 +46,7 @@ public class DataTableBuilder {
 
     /**
      * Allows an additional column to be added when building a table.
+     *
      * @param type The data type of the column.
      * @param columnName The column name.
      * @param data The data contained in the column.
@@ -57,6 +61,7 @@ public class DataTableBuilder {
 
     /**
      * Attempts to build the data table from all the details in the chained method calls.
+     *
      * @return Returns a Try DataTable.
      */
     public Try<DataTable> build() {

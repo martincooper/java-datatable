@@ -20,7 +20,7 @@ public class DataColumnCollectionTests {
         assertTrue(newTable.isSuccess());
         assertTrue(oldTable.columns().count() == 3);
         assertTrue(newTable.get().columns().count() == 4);
-        assertTrue(newTable.get().columns().get(3).getName().equals("DoubleCol"));
+        assertTrue(newTable.get().columns().get(3).name().equals("DoubleCol"));
     }
 
     private DataTable createDataTable() {
