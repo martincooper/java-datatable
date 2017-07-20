@@ -39,6 +39,22 @@ public class DataRow {
                 .toJavaArray();
     }
 
+    public Object get(Integer colIndex) {
+        return null;
+    }
+
+    public Object get(String colName) {
+        return null;
+    }
+
+    public <T> T getAs(Class<T> type, Integer idx) {
+        return null;
+    }
+
+    public <T> T getAs(Class<T> type, String colName) {
+        return null;
+    }
+
     /**
      * Builds an instance of a DataRow.
      * Row Index is validated before creation, returning a Failure on error.
