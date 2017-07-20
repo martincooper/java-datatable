@@ -4,6 +4,7 @@ import io.vavr.collection.Vector;
 import io.vavr.control.Try;
 
 import java.util.Iterator;
+import java.util.function.Predicate;
 
 /**
  * DataRowCollection. Handles a collection of DataRows
@@ -41,6 +42,17 @@ public class DataRowCollection implements Iterable<DataRow> {
      */
     public Integer rowCount() {
         return this.rows.length();
+    }
+
+    /**
+     * Filters the row data using the specified predicate,
+     * returning the results as a DataView over the original table.
+     * @param predicate The filter criteria.
+     * @return Returns a DataView with the filter results.
+     */
+    public DataView filter(Predicate<DataRow> predicate) {
+        Vector<DataRow> results = this.rows.filter(predicate);
+        return DataView.build(this.table, results).get();
     }
 
     /**

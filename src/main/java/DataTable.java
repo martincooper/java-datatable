@@ -2,6 +2,7 @@ import io.vavr.collection.List;
 import io.vavr.control.Try;
 
 import java.util.Iterator;
+import java.util.function.Predicate;
 
 /**
  * DataTable class.
@@ -99,6 +100,16 @@ public class DataTable implements IBaseTable {
     @Override
     public DataView toDataView() {
         return null;
+    }
+
+    /**
+     * Filters the row data using the specified predicate,
+     * returning the results as a DataView over the original table.
+     * @param predicate The filter criteria.
+     * @return Returns a DataView with the filter results.
+     */
+    public DataView filter(Predicate<DataRow> predicate) {
+        return this.rows.filter(predicate);
     }
 
     /**
