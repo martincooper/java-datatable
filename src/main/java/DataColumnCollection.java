@@ -63,12 +63,40 @@ public class DataColumnCollection
 
     /**
      * Returns the IDataColumn at the specified index.
+     * Performs bounds check, returns results in a Try.
+     *
+     * @param index The index to return the IDataColumn.
+     * @return Returns the IDataColumn.
+     */
+    public Try<IDataColumn> tryGet(int index) {
+        return VectorExtensions.outOfBounds(this.columns, index)
+                ? DataTableException.tryError("Column index out of bounds")
+                : Try.success(get(index));
+    }
+
+    /**
+     * Returns the IDataColumn at the specified index.
      *
      * @param index The index to return the IDataColumn.
      * @return Returns the IDataColumn.
      */
     public IDataColumn get(int index) {
         return this.columns.get(index);
+    }
+
+    /**
+     * Returns the IDataColumn by name.
+     * Performs column name check, returns results in a Try.
+     *
+     * @param columnName The name of the IDataColumn.
+     * @return Returns the IDataColumn.
+     */
+    public Try<IDataColumn> tryGet(String columnName) {
+        Integer idx = columnIdxByName(columnName);
+
+        return idx < 0
+                ? DataTableException.tryError("Invalid column name.")
+                : Try.success(get(columnName));
     }
 
     /**
