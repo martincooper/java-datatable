@@ -97,7 +97,7 @@ public class DataView implements IBaseTable {
     @Override
     public DataView toDataView() {
         return DataView
-                .build(this.table, Stream.ofAll(this.rows))
+                .build(this.table, this.rows)
                 .get();
     }
 

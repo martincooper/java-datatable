@@ -102,7 +102,7 @@ public class DataTable implements IBaseTable {
     @Override
     public DataTable toDataTable() {
         return DataTable
-                .build(this.name, this.columns.toStream())
+                .build(this.name, this.columns)
                 .get();
     }
 
@@ -114,7 +114,7 @@ public class DataTable implements IBaseTable {
     @Override
     public DataView toDataView() {
         return DataView
-                .build(this, Stream.ofAll(this.rows))
+                .build(this, this.rows)
                 .get();
     }
 

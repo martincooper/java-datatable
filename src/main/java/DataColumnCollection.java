@@ -1,6 +1,5 @@
 import io.vavr.collection.List;
 import io.vavr.collection.Seq;
-import io.vavr.collection.Stream;
 import io.vavr.collection.Vector;
 import io.vavr.control.Try;
 
@@ -89,16 +88,6 @@ public class DataColumnCollection
      */
     public int count() {
         return this.columns.length();
-    }
-
-    /**
-     * Returns the column collection as a stream so functional
-     * methods can be applied to it, EG map, flatMap etc.
-     *
-     * @return Returns the column stream.
-     */
-    public Stream<IDataColumn> toStream() {
-        return this.columns.toStream();
     }
 
     /**

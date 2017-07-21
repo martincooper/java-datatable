@@ -46,7 +46,6 @@ public class DataRow {
      */
     public Object[] data() {
         return this.table.columns()
-                .toStream()
                 .map(col -> col.data().get(this.rowIdx))
                 .toJavaArray();
     }
