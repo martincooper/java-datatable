@@ -1,7 +1,6 @@
 import java.lang.reflect.Type;
 
 import io.vavr.collection.Seq;
-import io.vavr.collection.Stream;
 import io.vavr.collection.Vector;
 import io.vavr.control.Try;
 
