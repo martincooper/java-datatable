@@ -8,6 +8,7 @@ public class DataTableException extends Exception {
 
     /**
      * Data Table Exception
+     *
      * @param message The exception message.
      */
     public DataTableException(String message) {
@@ -16,6 +17,7 @@ public class DataTableException extends Exception {
 
     /**
      * Data Table Exception
+     *
      * @param message The exception message.
      * @param throwable The inner exception.
      */
@@ -25,6 +27,7 @@ public class DataTableException extends Exception {
 
     /**
      * Creates a DataTableException wrapped in a Try.
+     *
      * @param errorMessage The error message.
      * @param <T> The Try type.
      * @return Returns a new DataTable Exception in a try.
@@ -35,6 +38,7 @@ public class DataTableException extends Exception {
 
     /**
      * Creates a DataTableException wrapped in a Try.
+     *
      * @param errorMessage The error message.
      * @param throwable The inner exception.
      * @param <T> The Try type.

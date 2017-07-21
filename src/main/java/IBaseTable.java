@@ -27,18 +27,21 @@ public interface IBaseTable extends Iterable<DataRow> {
 
     /**
      * Returns the rowCount / row count of the table.
+     *
      * @return The row count of the table.
      */
     Integer rowCount();
 
     /**
      * Return a new DataTable based on this table (clone).
+     *
      * @return Returns a clone of this DataTable.
      */
     DataTable toDataTable();
 
     /**
      * Return a new Data View based on this table.
+     *
      * @return A new Data View based on this table.
      */
     DataView toDataView();

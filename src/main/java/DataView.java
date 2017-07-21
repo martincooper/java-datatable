@@ -14,6 +14,7 @@ public class DataView implements IBaseTable {
 
     /**
      * Private DataView constructor. Use build() to construct.
+     *
      * @param table The underlying Data Table.
      * @param rows The collection of rows in the view.
      */

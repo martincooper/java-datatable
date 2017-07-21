@@ -11,6 +11,7 @@ public class Guard {
 
     /**
      * Asserts the value is not null. Throws an IllegalArgumentException if it is.
+     *
      * @param argument The argument to check.
      * @param name The name of the argument.
      */
@@ -22,6 +23,7 @@ public class Guard {
     /**
      * Asserts the argument, and none of it's iterable items, is null.
      * Throws an IllegalArgumentException if it is.
+     *
      * @param argument The argument to check.
      * @param name The name of the argument.
      */
@@ -36,6 +38,7 @@ public class Guard {
     /**
      * Asserts the argument, and none of it's items, is null.
      * Throws an IllegalArgumentException if it is.
+     *
      * @param argument The argument to check.
      * @param name The name of the argument.
      */
@@ -46,6 +49,7 @@ public class Guard {
 
     /**
      * Asserts the argument is not null. Returns in a Try.
+     *
      * @param argument The argument to check.
      * @param name The name of the argument.
      */

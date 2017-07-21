@@ -8,6 +8,7 @@ public interface IModifiable<I, V, R> {
 
     /**
      * Adds an item to the collection.
+     *
      * @param value The item to add.
      * @return Returns a new collection with the item added.
      */
@@ -15,6 +16,7 @@ public interface IModifiable<I, V, R> {
 
     /**
      * Replaces an item in the collection.
+     *
      * @param index The index to replace the item at.
      * @param value The new item to use.
      * @return Returns a new collection with the item replaced.
@@ -23,6 +25,7 @@ public interface IModifiable<I, V, R> {
 
     /**
      * Inserts an item into the collection.
+     *
      * @param index The index to insert the item at.
      * @param value The item to insert.
      * @return Returns a new collection with the item inserted.
@@ -31,6 +34,7 @@ public interface IModifiable<I, V, R> {
 
     /**
      * Removes an item from the collection.
+     *
      * @param index The index to remove the item at.
      * @return Returns a new collection with the item removed.
      */

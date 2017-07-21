@@ -20,7 +20,7 @@ public interface IDataColumn extends IModifiableByIndex<Object, IDataColumn> {
     String name();
 
     /**
-     * The column type.
+     * The data type of the column.
      *
      * @return Returns the column type.
      */

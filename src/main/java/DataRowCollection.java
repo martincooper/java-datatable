@@ -20,6 +20,7 @@ public class DataRowCollection implements Iterable<DataRow> {
     /**
      * Private DataRow constructor.
      * Use 'build' to create instance.
+     *
      * @param table The DataTable the DataRow is pointing to.
      * @param rows The DataRows.
      */
@@ -40,6 +41,7 @@ public class DataRowCollection implements Iterable<DataRow> {
 
     /**
      * Returns the Data Row at the specified index.
+     *
      * @param rowIndex The row index.
      * @return Returns the Data Row.
      */
@@ -49,6 +51,7 @@ public class DataRowCollection implements Iterable<DataRow> {
 
     /**
      * The number of rows in the collection.
+     *
      * @return Returns the number of rows.
      */
     public Integer rowCount() {

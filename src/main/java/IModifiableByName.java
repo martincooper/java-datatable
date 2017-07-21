@@ -8,6 +8,7 @@ public interface IModifiableByName<V, R> extends IModifiableByIndex<V, R> {
 
     /**
      * Replaces the old item with the new item.
+     *
      * @param itemName The item to be replaced.
      * @param value The new item.
      * @return Returns a new collection with the item replaced.
@@ -16,6 +17,7 @@ public interface IModifiableByName<V, R> extends IModifiableByIndex<V, R> {
 
     /**
      * Inserts an item after an existing item.
+     *
      * @param itemName The item to be inserted after.
      * @param value The new item.
      * @return Returns a new collection with the item inserted.
@@ -24,6 +26,7 @@ public interface IModifiableByName<V, R> extends IModifiableByIndex<V, R> {
 
     /**
      * Removes a named item.
+     *
      * @param itemName The item to be removed.
      * @return Returns a new collection with the item removed.
      */

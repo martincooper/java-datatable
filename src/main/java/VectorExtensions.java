@@ -10,6 +10,7 @@ public class VectorExtensions {
 
     /**
      * Adds / Appends a new item to the end of the vector.
+     *
      * @param vector The vector to add the item to.
      * @param item The item to add.
      * @param <T> The vector type.
@@ -21,6 +22,7 @@ public class VectorExtensions {
 
     /**
      * Inserts a new item into the vector, with additional bounds check.
+     *
      * @param vector The vector to insert the item into.
      * @param index The index to insert the item at.
      * @param item The item to insert.
@@ -35,6 +37,7 @@ public class VectorExtensions {
 
     /**
      * Removes an item from the vector, with additional bounds check.
+     *
      * @param vector The vector to remove the item from.
      * @param index The index to remove the item at.
      * @param <T> The vector type.
@@ -48,6 +51,7 @@ public class VectorExtensions {
 
     /**
      * Replaces / Updates an item in the vector, with additional bounds check.
+     *
      * @param vector The vector to replace the item in.
      * @param index The index of the item to replace.
      * @param item The new item.
@@ -62,6 +66,7 @@ public class VectorExtensions {
 
     /**
      * Checks if the specified parameters are out of bounds.
+     *
      * @param vector The vector to check.
      * @param index The required index.
      * @return Returns true if it's out of bounds.
@@ -72,6 +77,7 @@ public class VectorExtensions {
 
     /**
      * Checks if the specified parameters are out of bounds.
+     *
      * @param itemCount The item count in the collection.
      * @param index The required index.
      * @return Returns true if it's out of bounds.
