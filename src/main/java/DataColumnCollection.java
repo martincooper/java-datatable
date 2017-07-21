@@ -172,7 +172,7 @@ public class DataColumnCollection
      */
     @Override
     public Try<DataTable> remove(String columnName) {
-        return actionByColumnName(columnName, colIdx -> remove(colIdx));
+        return actionByColumnName(columnName, this::remove);
     }
 
     /**
