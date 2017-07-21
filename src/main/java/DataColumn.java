@@ -1,5 +1,6 @@
 import java.lang.reflect.Type;
 
+import io.vavr.collection.Seq;
 import io.vavr.collection.Stream;
 import io.vavr.collection.Vector;
 import io.vavr.control.Try;
@@ -106,13 +107,8 @@ public class DataColumn<T> implements IDataColumn {
      * @return Returns a new IDataColumn with just the rows specified.
      */
     @Override
-    public Try<IDataColumn> buildFromRows(Integer[] rowIndexes) {
-        T[] rowData = Stream
-                .of(rowIndexes)
-                .map(this.data::get)
-                .toJavaArray(this.type);
-
-        // Build new Data column based on this type, using the data from the specified row indexes.
+    public Try<IDataColumn> buildFromRows(Seq<Integer> rowIndexes) {
+        Seq<T> rowData = rowIndexes.map(this.data::get);
         return Try.success(new DataColumn<>(this.type, this.name, rowData));
     }
 

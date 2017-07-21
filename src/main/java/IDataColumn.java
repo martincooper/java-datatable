@@ -1,3 +1,4 @@
+import io.vavr.collection.Seq;
 import io.vavr.collection.Vector;
 import io.vavr.control.Try;
 
@@ -48,5 +49,5 @@ public interface IDataColumn extends IModifiableByIndex<Object, IDataColumn> {
      * @param rowIndexes The rows which the new column data is to be built from.
      * @return Returns a new IDataColumn with just the rows specified.
      */
-    Try<IDataColumn> buildFromRows(Integer[] rowIndexes);
+    Try<IDataColumn> buildFromRows(Seq<Integer> rowIndexes);
 }

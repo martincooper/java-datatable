@@ -1,5 +1,4 @@
 import io.vavr.collection.Seq;
-import io.vavr.collection.Stream;
 import io.vavr.control.Try;
 
 import java.util.Iterator;
@@ -78,15 +77,16 @@ public class DataView implements IBaseTable {
     /**
      * Return a new DataTable based on this table (clone).
      *
-     * @return Returns a clone of this DataTable.
+     * @return Returns a new DataTable based on the columns and data in this view.
      */
     @Override
     public DataTable toDataTable() {
-        // TODO Clean-up.
-        Integer[] rowIndexes = this.rows.map(DataRow::rowIdx).toJavaArray(Integer.class);
-        IDataColumn[] newCols = this.table.columns()
-                .map(col -> col.buildFromRows(rowIndexes).get())
-                .toJavaArray(IDataColumn.class);
+        // Get the list of row indexes used in this data view.
+        Seq<Integer> rowIndexes = this.rows.map(DataRow::rowIdx);
+
+        // Build a set of new columns with just the data at the specified indexes.
+        Seq<IDataColumn> newCols = this.table.columns()
+                .map(col -> col.buildFromRows(rowIndexes).get());
 
         return DataTable.build(this.name(), newCols).get();
     }
