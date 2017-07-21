@@ -101,9 +101,7 @@ public class DataTable implements IBaseTable {
      */
     @Override
     public DataTable toDataTable() {
-        return DataTable
-                .build(this.name, this.columns)
-                .get();
+        return DataTable.build(this.name, this.columns).get();
     }
 
     /**
@@ -113,9 +111,7 @@ public class DataTable implements IBaseTable {
      */
     @Override
     public DataView toDataView() {
-        return DataView
-                .build(this, this.rows)
-                .get();
+        return DataView.build(this, this.rows).get();
     }
 
     /**

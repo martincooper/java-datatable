@@ -67,6 +67,7 @@ public class DataView implements IBaseTable {
 
     /**
      * Returns the rowCount / row count of the table.
+     *
      * @return The row count of the table.
      */
     @Override
@@ -92,18 +93,18 @@ public class DataView implements IBaseTable {
 
     /**
      * Return a new Data View based on this table
+     *
      * @return A new Data View based on this table.
      */
     @Override
     public DataView toDataView() {
-        return DataView
-                .build(this.table, this.rows)
-                .get();
+        return DataView.build(this.table, this.rows).get();
     }
 
     /**
      * Builds an instance of a DataView.
      * DataRows are validated before creation, returning a Failure on error.
+     *
      * @param table The underlying table.
      * @param rows The Data Rows.
      * @return Returns a DataView wrapped in a Try.
