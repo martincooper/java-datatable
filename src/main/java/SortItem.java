@@ -2,7 +2,7 @@ import io.vavr.control.Try;
 
 /**
  * SortItem class. Used to perform table multi sorts.
- * Created by Martin on 21/07/2017.
+ * Created by Martin Cooper on 21/07/2017.
  */
 public final class SortItem {
 
