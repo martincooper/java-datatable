@@ -39,6 +39,50 @@ Most methods have both checked and unchecked versions. The checked ones perform 
 results as a Try<T> with detailed error information. The unchecked ones will just return a <T> and throw an exception
 on any out of bounds errors but with potentially faster access on a significantly large amount of updates.
 
+# Example Usage
+
+## Creating DataTables
+To create a new DataTable, create the DataColumns required (just specify a unique column name and
+the data populating each one) as shown below.
+
+```java
+// Example of building up a DataTable manually.
+private Try<DataTable> createDataTableManually() {
+    
+    // Create some test example data for the columns.
+    List<String> stringData = List.of("AA", "BB", "CC", "DD");
+    List<Integer> intData = List.of(3, 5, 7, 9);
+    List<Boolean> boolData = List.of(true, false, true, false);
+    
+    // Create each column, with unique name, adding any data.
+    IDataColumn stringCol = new DataColumn<>(String.class, "StrCol", stringData);
+    IDataColumn intCol = new DataColumn<>(Integer.class, "IntCol", intData);
+    IDataColumn boolCol = new DataColumn<>(Boolean.class, "BoolCol", boolData);
+    
+    // Create the new table.
+    IDataColumn[] cols = { stringCol, intCol, boolCol };
+    return DataTable.build("NewTable", cols);
+    
+  // If any of the columns fail validation (duplicate column names, or columns contain
+  // data of different lengths), then it'll return a Failure. Else Success<DataTable>
+}
+```
+
+There is also a DataTable builder object, which makes creating a new DataTable, populated with values much simpler.
+
+```java
+// Example of building up a DataTable using the provided builder.
+private Try<DataTable> createDataTableUsingBuilder() {
+    
+    return DataTableBuilder
+            .create("NewTable")
+            .withColumn(String.class, "StrCol", List.of("AA", "BB", "CC", "DD"))
+            .withColumn(Integer.class, "IntCol", List.of(3, 5, 9, 11))
+            .withColumn(Boolean.class, "BoolCol", List.of(true, false, true, false))
+            .build();
+}
+```
+
 ### Credits
 
 Java DataTable is maintained by Martin Cooper : Copyright (c) 2017
