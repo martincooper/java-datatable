@@ -83,6 +83,25 @@ private Try<DataTable> createDataTableUsingBuilder() {
 }
 ```
 
+## Adding Columns
+To add a new Column, create a new DataColumn and call the add method on the table.columns
+collection. This will return a new DataTable structure including the additional column.
+
+```java
+// Example of adding a new column to an existing table.
+private Try<DataTable> addNewColumn(DataTable existingTable) {
+    
+    // First create the new column with a unique name and some data.
+    IDataColumn intCol = new DataColumn<>(Integer.class, "IntCol", List.of(3, 5, 7, 9));
+    
+    // Call table.columns().add() to return a new Try<DataTable> structure containing the additional column.
+    return existingTable.columns().add(newCol);
+    
+    // If adding the additional column fails validation (duplicate column names, or columns
+    // contain data of different lengths), then it'll return a Failure. Else Success<DataTable>
+}
+```
+
 ### Credits
 
 Java DataTable is maintained by Martin Cooper : Copyright (c) 2017
