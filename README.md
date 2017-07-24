@@ -107,7 +107,7 @@ To remove a Column, call the remove method on the table.columns collection.
 This will return a new DataTable structure with the column removed.
 
 ```java
-// Example of adding a new column to an existing table.
+// Example of removing an existing column from a table.
 private Try<DataTable> removeColumn(DataTable existingTable) {
     
     // Call table.columns().remove() to return a new Try<DataTable> structure with the column removed.
@@ -115,6 +115,34 @@ private Try<DataTable> removeColumn(DataTable existingTable) {
     
   // If removing the column fails validation (column name not found),
   // then it'll return a Failure. Else Success<DataTable>
+}
+```
+
+## Row / Data Filtering
+Access to the underlying data in the table the DataRow object can be used. This allows either typed or
+untyped access depending if type info is known at design time. The DataTable object implements a filter
+method where you can provide row criteria. The results are returned in a DataView 
+object which is a view on the underlying table. To filter a table this can be done as follows...
+
+```java
+// Example of filtering a DataTable.
+private DataView filterTable(DataTable existingTable) {
+    
+    // Start with a DataTable with some data.
+    DataTable table = DataTableBuilder
+            .create("NewTable")
+            .withColumn(String.class, "StrCol", "AA", "BB", "CC", "DD")
+            .withColumn(Integer.class, "IntCol", 10000, 1000, 100, 10)
+            .withColumn(Double.class, "DoubleCol", 1.1, 5.5, 10.5, 100.5)
+            .withColumn(Boolean.class, "BoolCol", true, true, false, false)
+            .build().get();
+    
+    // Filter the table, only returning where IntCol values > 100 and DoubleCol values are < 10
+    DataView view = table.filter(row ->
+            row.getAs(Integer.class, "IntCol") > 100 &&
+            row.getAs(Double.class, "DoubleCol") < 10);
+    
+    return view;
 }
 ```
 

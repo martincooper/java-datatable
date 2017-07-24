@@ -60,10 +60,12 @@ public class DataTableFilteringTests {
                 .withColumn(Boolean.class, "BoolCol", true, true, false, false)
                 .build().get();
 
-        // Filter the table, only returning where IntCol values > 100;
-        DataView view = table.filter(row -> row.getAs(Integer.class, "IntCol") > 100);
-        assertTrue(view.rowCount() == 2);
+        // Filter the table, only returning where IntCol values > 100 and DoubleCol values are < 10
+        DataView view = table.filter(row ->
+                row.getAs(Integer.class, "IntCol") > 100 &&
+                row.getAs(Double.class, "DoubleCol") < 10);
 
+        assertTrue(view.rowCount() == 2);
         assertTrue(view.rows().get(0).getAs(Integer.class, "IntCol") == 10000);
         assertTrue(view.rows().get(1).getAs(Integer.class, "IntCol") == 1000);
         assertTrue(view.rows().get(0).getAs(Double.class, "DoubleCol") == 1.1);
@@ -82,8 +84,8 @@ public class DataTableFilteringTests {
 
         // Filter the table, only returning where IntCol values > 100;
         DataView view = table.filter(row -> row.getAs(Integer.class, 1) > 100);
-        assertTrue(view.rowCount() == 2);
 
+        assertTrue(view.rowCount() == 2);
         assertTrue(view.rows().get(0).getAs(Integer.class, "IntCol") == 10000);
         assertTrue(view.rows().get(1).getAs(Integer.class, "IntCol") == 1000);
         assertTrue(view.rows().get(0).getAs(Double.class, "DoubleCol") == 1.1);
