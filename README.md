@@ -97,8 +97,24 @@ private Try<DataTable> addNewColumn(DataTable existingTable) {
     // Call table.columns().add() to return a new Try<DataTable> structure containing the additional column.
     return existingTable.columns().add(newCol);
     
-    // If adding the additional column fails validation (duplicate column names, or columns
+    // If adding the new column fails validation (duplicate column names, or columns
     // contain data of different lengths), then it'll return a Failure. Else Success<DataTable>
+}
+```
+
+## Removing Columns
+To remove a Column, call the remove method on the table.columns collection.
+This will return a new DataTable structure with the column removed.
+
+```java
+// Example of adding a new column to an existing table.
+private Try<DataTable> removeColumn(DataTable existingTable) {
+    
+    // Call table.columns().remove() to return a new Try<DataTable> structure with the column removed.
+    return existingTable.columns().remove("ColNameToRemove");
+    
+  // If removing the column fails validation (column name not found),
+  // then it'll return a Failure. Else Success<DataTable>
 }
 ```
 
