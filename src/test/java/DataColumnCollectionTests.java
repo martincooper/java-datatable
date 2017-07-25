@@ -1,3 +1,6 @@
+import datatable.DataColumn;
+import datatable.DataTable;
+import datatable.IDataColumn;
 import io.vavr.collection.List;
 import io.vavr.control.Try;
 import org.junit.Test;

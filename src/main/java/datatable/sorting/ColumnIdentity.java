@@ -1,3 +1,8 @@
+package datatable.sorting;
+
+import datatable.DataColumnCollection;
+import datatable.DataTable;
+import datatable.IDataColumn;
 import io.vavr.control.Try;
 
 import java.util.function.Function;

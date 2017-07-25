@@ -1,3 +1,5 @@
+import datatable.DataColumn;
+import datatable.IDataColumn;
 import io.vavr.collection.List;
 import io.vavr.collection.Vector;
 import io.vavr.control.Try;

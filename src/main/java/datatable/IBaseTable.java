@@ -1,3 +1,4 @@
+package datatable;
 
 /**
  * IBaseTable. Specifying common functionality between DataTable and DataView.

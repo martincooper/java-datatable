@@ -1,3 +1,6 @@
+import datatable.DataTable;
+import datatable.DataTableBuilder;
+import datatable.DataView;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

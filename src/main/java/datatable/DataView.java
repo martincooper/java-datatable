@@ -1,3 +1,5 @@
+package datatable;
+
 import io.vavr.collection.Seq;
 import io.vavr.control.Try;
 

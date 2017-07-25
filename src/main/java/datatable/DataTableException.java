@@ -1,3 +1,5 @@
+package datatable;
+
 import io.vavr.control.Try;
 
 /**

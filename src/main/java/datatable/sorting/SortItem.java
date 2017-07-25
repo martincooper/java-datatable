@@ -1,3 +1,8 @@
+package datatable.sorting;
+
+import datatable.DataTable;
+import datatable.Guard;
+import datatable.IDataColumn;
 import io.vavr.control.Try;
 
 /**

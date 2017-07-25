@@ -1,3 +1,5 @@
+package datatable;
+
 import io.vavr.collection.Stream;
 import io.vavr.control.Try;
 

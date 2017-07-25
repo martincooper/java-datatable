@@ -1,3 +1,5 @@
+package datatable;
+
 import java.lang.reflect.Type;
 
 import io.vavr.collection.Seq;

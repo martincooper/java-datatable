@@ -1,3 +1,5 @@
+import datatable.DataTable;
+import datatable.DataTableBuilder;
 import io.vavr.collection.Stream;
 import io.vavr.control.Try;
 import org.junit.Ignore;
