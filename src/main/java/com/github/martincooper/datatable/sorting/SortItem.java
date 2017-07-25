@@ -70,6 +70,15 @@ public final class SortItem {
     }
 
     /**
+     * Returns the column identity.
+     *
+     * @return Returns the column identity.
+     */
+    public ColumnIdentity columnIdentity() {
+        return this.columnIdentity;
+    }
+
+    /**
      * Returns the column from the table.
      *
      * @param table The table to get the column from.

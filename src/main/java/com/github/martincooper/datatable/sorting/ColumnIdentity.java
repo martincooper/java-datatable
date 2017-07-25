@@ -1,6 +1,7 @@
 package com.github.martincooper.datatable.sorting;
 
 import com.github.martincooper.datatable.DataColumnCollection;
+import com.github.martincooper.datatable.DataRow;
 import com.github.martincooper.datatable.DataTable;
 import com.github.martincooper.datatable.IDataColumn;
 import io.vavr.control.Try;
@@ -42,5 +43,17 @@ public final class ColumnIdentity {
      */
     public Try<IDataColumn> getColumn(DataTable table) {
         return getColumn.apply(table.columns());
+    }
+
+    /**
+     * Returns the row / column value from the specified table.
+     *
+     * @param dataRow The DataRow to get the table and column from.
+     * @return Returns the data if found, as a Try.
+     */
+    public Try<Object> getCellData(DataRow dataRow) {
+        return getColumn
+                .apply(dataRow.table().columns())
+                .flatMap(col -> Try.success(col.valueAt(dataRow.rowIdx())));
     }
 }
