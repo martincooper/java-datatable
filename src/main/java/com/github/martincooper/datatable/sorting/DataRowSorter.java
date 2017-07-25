@@ -4,7 +4,7 @@ import com.github.martincooper.datatable.DataRow;
 import io.vavr.collection.Seq;
 
 /**
- * DataRowSorter. Handles the quick sorting of DataRows.
+ * DataRowSorter. Handles the details of the quick sorting of DataRows.
  * Created by Martin Cooper on 25/07/2017.
  */
 public class DataRowSorter {
