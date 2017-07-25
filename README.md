@@ -155,7 +155,7 @@ calling .data() on the DataRow item. This returns an Object[] of all the values.
 private Object[] getRowValues(DataTable table, Integer rowIdx) {
     
     // Returns an object array of all the values for the specified row.
-    return table.rows().get(rowIdx).data();
+    return table.row(rowIdx).data();
 }
 ```
 
