@@ -50,12 +50,24 @@ public class DataRow {
                 .toJavaArray();
     }
 
-    public Object get(Integer colIndex) {
-        return this.table.columns().get(colIndex).data().get(this.rowIdx);
+    /**
+     * Returns the data at the specified column index, returning as an object.
+     *
+     * @param colIndex The column index to return the value of.
+     * @return Returns the value of the row at the specified column.
+     */
+    public Try<Object> get(Integer colIndex) {
+        return columnToValue(this.table.columns().tryGet(colIndex));
     }
 
-    public Object get(String colName) {
-        return this.table.columns().get(colName).data().get(this.rowIdx);
+    /**
+     * Returns the data in the specified column name, returning as an object.
+     *
+     * @param colName The column to return the value of.
+     * @return Returns the value of the row at the specified column.
+     */
+    public Try<Object> get(String colName) {
+        return columnToValue(this.table.columns().tryGet(colName));
     }
 
     public <T> T getAs(Class<T> type, Integer idx) {
@@ -66,6 +78,12 @@ public class DataRow {
     public <T> T getAs(Class<T> type, String colName) {
         Try<DataColumn<T>> col = this.table.columns().get(colName).asType(type);
         return col.get().data().get(this.rowIdx);
+    }
+
+    private Try<Object> columnToValue(Try<IDataColumn> column) {
+        return column.isSuccess()
+                ? Try.success(column.get().data().get(this.rowIdx))
+                : Try.failure(column.getCause());
     }
 
     /**

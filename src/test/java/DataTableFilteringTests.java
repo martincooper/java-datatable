@@ -19,7 +19,7 @@ public class DataTableFilteringTests {
                 .build().get();
 
         // Filter the table, only returning where BoolCol values == false;
-        DataView view = table.filter(row -> !(boolean)row.get(3));
+        DataView view = table.filter(row -> !(boolean)row.get(3).get());
 
         assertTrue(view.name().equals(table.name()));
         assertTrue(view.rowCount() == 2);
@@ -40,7 +40,7 @@ public class DataTableFilteringTests {
                 .build().get();
 
         // Filter the table, only returning where BoolCol values == false;
-        DataView view = table.filter(row -> !(boolean)row.get("BoolCol"));
+        DataView view = table.filter(row -> !(boolean)row.get("BoolCol").get());
 
         assertTrue(view.name().equals(table.name()));
         assertTrue(view.rowCount() == 2);
