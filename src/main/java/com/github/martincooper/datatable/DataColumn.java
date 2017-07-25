@@ -10,7 +10,7 @@ import io.vavr.control.Try;
  * DataColumn. Handles the data for a single column.
  * Created by Martin Cooper on 08/07/2017.
  */
-public class DataColumn<T> implements IDataColumn {
+public class DataColumn<T> implements IDataColumn, Comparable<T> {
 
     private final Class<T> type;
     private final String name;
@@ -235,5 +235,20 @@ public class DataColumn<T> implements IDataColumn {
      */
     private DataColumn<T> createColumn(Vector<T> data) {
         return new DataColumn<>(this.type, this.name, data);
+    }
+
+    /**
+     * Checks if the data column supports comparable for sorting.
+     *
+     * @return Returns true if the type supports Comparable.
+     */
+    @Override
+    public boolean IsComparable() {
+        return Comparable.class.isAssignableFrom(type);
+    }
+
+    @Override
+    public int compareTo(T o) {
+        return 0;
     }
 }

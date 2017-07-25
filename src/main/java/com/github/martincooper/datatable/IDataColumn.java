@@ -54,6 +54,13 @@ public interface IDataColumn extends IModifiableByIndex<Object, IDataColumn> {
     <V> Try<DataColumn<V>> asType(Class<V> type);
 
     /**
+     * Checks if the data column supports comparable for sorting.
+     *
+     * @return Returns true if the column type supports Comparable.
+     */
+    boolean IsComparable();
+
+    /**
      * Builds a new DataColumn from the data in the specified row indexes.
      *
      * @param rowIndexes The rows which the new column data is to be built from.
