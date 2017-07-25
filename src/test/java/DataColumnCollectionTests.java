@@ -20,7 +20,7 @@ public class DataColumnCollectionTests {
         assertTrue(newTable.isSuccess());
         assertTrue(oldTable.columns().count() == 3);
         assertTrue(newTable.get().columns().count() == 4);
-        assertTrue(newTable.get().columns().get(3).name().equals("DoubleCol"));
+        assertTrue(newTable.get().column(3).name().equals("DoubleCol"));
     }
 
     @Test
@@ -32,7 +32,7 @@ public class DataColumnCollectionTests {
         assertTrue(newTable.isSuccess());
         assertTrue(oldTable.columns().count() == 3);
         assertTrue(newTable.get().columns().count() == 2);
-        assertTrue(newTable.get().columns().get(1).name().equals("BooleanCol"));
+        assertTrue(newTable.get().column(1).name().equals("BooleanCol"));
     }
 
     @Test
@@ -47,9 +47,9 @@ public class DataColumnCollectionTests {
         assertTrue(newTable.get().columns().count() == 4);
 
         // Check the column was inserted in the correct place.
-        assertTrue(newTable.get().columns().get(0).name().equals("DoubleCol"));
-        assertTrue(newTable.get().columns().get(1).name().equals("StringCol"));
-        assertTrue(newTable.get().columns().get(2).name().equals("IntegerCol"));
+        assertTrue(newTable.get().column(0).name().equals("DoubleCol"));
+        assertTrue(newTable.get().column(1).name().equals("StringCol"));
+        assertTrue(newTable.get().column(2).name().equals("IntegerCol"));
     }
 
     @Test
@@ -64,9 +64,9 @@ public class DataColumnCollectionTests {
         assertTrue(newTable.get().columns().count() == 3);
 
         // Check the correct column was replaced.
-        assertTrue(newTable.get().columns().get(0).name().equals("StringCol"));
-        assertTrue(newTable.get().columns().get(1).name().equals("DoubleCol"));
-        assertTrue(newTable.get().columns().get(2).name().equals("BooleanCol"));
+        assertTrue(newTable.get().column(0).name().equals("StringCol"));
+        assertTrue(newTable.get().column(1).name().equals("DoubleCol"));
+        assertTrue(newTable.get().column(2).name().equals("BooleanCol"));
     }
 
     private DataTable createDataTable() {

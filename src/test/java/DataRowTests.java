@@ -14,11 +14,9 @@ public class DataRowTests {
     @Test
     public void testDataRowGetAllData() {
         DataTable table = createDataTable();
-        Try<DataRow> row = DataRow.build(table, 1);
+        DataRow row = table.row(1);
 
-        assertTrue(row.isSuccess());
-
-        Object[] data = row.get().data();
+        Object[] data = row.data();
 
         assertTrue(data.length == 3);
         assertTrue(data[0] == "BB");
@@ -29,7 +27,7 @@ public class DataRowTests {
     @Test
     public void testDataRowGetItemAsUntypedByColIndex() {
         DataTable table = createDataTable();
-        DataRow row = DataRow.build(table, 1).get();
+        DataRow row = table.row(1);
         Try<Object> itemData = row.get(1);
 
         assertTrue(itemData.isSuccess());
@@ -39,7 +37,7 @@ public class DataRowTests {
     @Test
     public void testDataRowGetItemAsUntypedByInvalidColIndex() {
         DataTable table = createDataTable();
-        DataRow row = DataRow.build(table, 1).get();
+        DataRow row = table.row(1);
         Try<Object> itemData = row.get(10000);
 
         assertTrue(itemData.isFailure());
@@ -49,7 +47,7 @@ public class DataRowTests {
     @Test
     public void testDataRowGetItemAsUntypedByColName() {
         DataTable table = createDataTable();
-        DataRow row = DataRow.build(table, 1).get();
+        DataRow row = table.row(1);
         Try<Object> itemData = row.get("IntegerCol");
 
         assertTrue(itemData.isSuccess());
@@ -59,7 +57,7 @@ public class DataRowTests {
     @Test
     public void testDataRowGetItemAsUntypedByInvalidColName() {
         DataTable table = createDataTable();
-        DataRow row = DataRow.build(table, 1).get();
+        DataRow row = table.row(1);
         Try<Object> itemData = row.get("InvalidColName");
 
         assertTrue(itemData.isFailure());
@@ -69,7 +67,7 @@ public class DataRowTests {
     @Test
     public void testDataRowGetUncheckedItemAsTypeByColIndex() {
         DataTable table = createDataTable();
-        DataRow row = DataRow.build(table, 1).get();
+        DataRow row = table.row(1);
         Integer itemData = row.getAs(Integer.class, 1);
 
         assertTrue(itemData == 7);
@@ -78,7 +76,7 @@ public class DataRowTests {
     @Test(expected = IndexOutOfBoundsException.class)
     public void testDataRowGetUncheckedItemAsTypeByInvalidColIndex() {
         DataTable table = createDataTable();
-        DataRow row = DataRow.build(table, 1).get();
+        DataRow row = table.row(1);
 
         // Should throw exception, when column index out of bounds.
         Integer itemData = row.getAs(Integer.class, 10000);
@@ -87,7 +85,7 @@ public class DataRowTests {
     @Test(expected = DataTableException.class)
     public void testDataRowGetUncheckedItemAsInvalidTypeColIndex() {
         DataTable table = createDataTable();
-        DataRow row = DataRow.build(table, 1).get();
+        DataRow row = table.row(1);
 
         // Should throw exception, requesting a type different to what it actually is.
         Boolean itemData = row.getAs(Boolean.class, 1);
@@ -96,7 +94,7 @@ public class DataRowTests {
     @Test
     public void testDataRowGetUncheckedItemAsTypedByColName() {
         DataTable table = createDataTable();
-        DataRow row = DataRow.build(table, 1).get();
+        DataRow row = table.row(1);
         Integer itemData = row.getAs(Integer.class, "IntegerCol");
 
         assertTrue(itemData == 7);
@@ -105,7 +103,7 @@ public class DataRowTests {
     @Test
     public void testDataRowGetCheckedItemAsTypedByColIndex() {
         DataTable table = createDataTable();
-        DataRow row = DataRow.build(table, 1).get();
+        DataRow row = table.row(1);
         Try<Integer> itemData = row.tryGetAs(Integer.class, 1);
 
         assertTrue(itemData.isSuccess());
@@ -115,7 +113,7 @@ public class DataRowTests {
     @Test
     public void testDataRowGetCheckedItemAsTypedByColName() {
         DataTable table = createDataTable();
-        DataRow row = DataRow.build(table, 1).get();
+        DataRow row = table.row(1);
         Try<Integer> itemData = row.tryGetAs(Integer.class, "IntegerCol");
 
         assertTrue(itemData.isSuccess());

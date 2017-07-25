@@ -84,6 +84,17 @@ public class DataColumn<T> implements IDataColumn {
     public Vector<T> data() { return this.data; }
 
     /**
+     * Returns the value at the specified index.
+     *
+     * @param rowIndex The row index.
+     * @return Returns the value.
+     */
+    @Override
+    public T valueAt(Integer rowIndex) {
+        return this.data.get(rowIndex);
+    }
+
+    /**
      * Returns the generic data column as it's typed implementation.
      * If the types don't match, then it'll return Failure.
      *

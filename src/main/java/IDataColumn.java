@@ -34,6 +34,14 @@ public interface IDataColumn extends IModifiableByIndex<Object, IDataColumn> {
     Vector data();
 
     /**
+     * Returns the value at the specified index.
+     *
+     * @param rowIndex The row index.
+     * @return Returns the value.
+     */
+    Object valueAt(Integer rowIndex);
+
+    /**
      * Returns the generic data column as it's typed implementation.
      * If the types don't match, then it'll return Failure.
      *

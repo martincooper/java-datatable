@@ -54,7 +54,7 @@ public class DataColumnTests {
         assertTrue(newCol.isSuccess());
         assertEquals(column.data().length(), 3);
         assertEquals(newCol.get().data().length(), 4);
-        assertEquals(newCol.get().data().get(3), "NewString");
+        assertEquals(newCol.get().valueAt(3), "NewString");
     }
 
     @Test
@@ -65,7 +65,7 @@ public class DataColumnTests {
         assertTrue(newCol.isSuccess());
         assertEquals(column.data().length(), 3);
         assertEquals(newCol.get().data().length(), 4);
-        assertEquals(newCol.get().data().get(3), null);
+        assertEquals(newCol.get().valueAt(3), null);
     }
 
     @Test
@@ -85,8 +85,8 @@ public class DataColumnTests {
         assertTrue(newCol.isSuccess());
         assertEquals(column.data().length(), 3);
         assertEquals(newCol.get().data().length(), 2);
-        assertEquals(newCol.get().data().get(0), "AA");
-        assertEquals(newCol.get().data().get(1), "CC");
+        assertEquals(newCol.get().valueAt(0), "AA");
+        assertEquals(newCol.get().valueAt(1), "CC");
     }
 
     @Test
@@ -104,7 +104,7 @@ public class DataColumnTests {
         Try<DataColumn<Integer>> typedCol = column.asType(Integer.class);
 
         assertTrue(typedCol.isSuccess());
-        assertTrue(typedCol.get().data().get(1) == 7);
+        assertTrue(typedCol.get().valueAt(1) == 7);
     }
 
     @Test

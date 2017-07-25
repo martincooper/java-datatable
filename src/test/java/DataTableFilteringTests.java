@@ -23,10 +23,10 @@ public class DataTableFilteringTests {
 
         assertTrue(view.name().equals(table.name()));
         assertTrue(view.rowCount() == 2);
-        assertTrue(view.rows().get(0).getAs(Integer.class, "IntCol") == 1000);
-        assertTrue(view.rows().get(1).getAs(Integer.class, "IntCol") == 10000);
-        assertTrue(view.rows().get(0).getAs(Double.class, "DoubleCol") == 10.5);
-        assertTrue(view.rows().get(1).getAs(String.class, "StrCol").equals("BB"));
+        assertTrue(view.row(0).getAs(Integer.class, "IntCol") == 1000);
+        assertTrue(view.row(1).getAs(Integer.class, "IntCol") == 10000);
+        assertTrue(view.row(0).getAs(Double.class, "DoubleCol") == 10.5);
+        assertTrue(view.row(1).getAs(String.class, "StrCol").equals("BB"));
     }
 
     @Test
@@ -44,10 +44,10 @@ public class DataTableFilteringTests {
 
         assertTrue(view.name().equals(table.name()));
         assertTrue(view.rowCount() == 2);
-        assertTrue(view.rows().get(0).getAs(Integer.class, "IntCol") == 1000);
-        assertTrue(view.rows().get(1).getAs(Integer.class, "IntCol") == 10000);
-        assertTrue(view.rows().get(0).getAs(Double.class, "DoubleCol") == 10.5);
-        assertTrue(view.rows().get(1).getAs(String.class, "StrCol").equals("BB"));
+        assertTrue(view.row(0).getAs(Integer.class, "IntCol") == 1000);
+        assertTrue(view.row(1).getAs(Integer.class, "IntCol") == 10000);
+        assertTrue(view.row(0).getAs(Double.class, "DoubleCol") == 10.5);
+        assertTrue(view.row(1).getAs(String.class, "StrCol").equals("BB"));
     }
 
     @Test
@@ -66,10 +66,10 @@ public class DataTableFilteringTests {
                 row.getAs(Double.class, "DoubleCol") < 10);
 
         assertTrue(view.rowCount() == 2);
-        assertTrue(view.rows().get(0).getAs(Integer.class, "IntCol") == 10000);
-        assertTrue(view.rows().get(1).getAs(Integer.class, "IntCol") == 1000);
-        assertTrue(view.rows().get(0).getAs(Double.class, "DoubleCol") == 1.1);
-        assertTrue(view.rows().get(0).getAs(String.class, "StrCol").equals("AA"));
+        assertTrue(view.row(0).getAs(Integer.class, "IntCol") == 10000);
+        assertTrue(view.row(1).getAs(Integer.class, "IntCol") == 1000);
+        assertTrue(view.row(0).getAs(Double.class, "DoubleCol") == 1.1);
+        assertTrue(view.row(0).getAs(String.class, "StrCol").equals("AA"));
     }
 
     @Test
@@ -86,9 +86,9 @@ public class DataTableFilteringTests {
         DataView view = table.filter(row -> row.getAs(Integer.class, 1) > 100);
 
         assertTrue(view.rowCount() == 2);
-        assertTrue(view.rows().get(0).getAs(Integer.class, "IntCol") == 10000);
-        assertTrue(view.rows().get(1).getAs(Integer.class, "IntCol") == 1000);
-        assertTrue(view.rows().get(0).getAs(Double.class, "DoubleCol") == 1.1);
-        assertTrue(view.rows().get(0).getAs(String.class, "StrCol").equals("AA"));
+        assertTrue(view.row(0).getAs(Integer.class, "IntCol") == 10000);
+        assertTrue(view.row(1).getAs(Integer.class, "IntCol") == 1000);
+        assertTrue(view.row(0).getAs(Double.class, "DoubleCol") == 1.1);
+        assertTrue(view.row(0).getAs(String.class, "StrCol").equals("AA"));
     }
 }

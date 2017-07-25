@@ -21,6 +21,13 @@ public interface IBaseTable extends Iterable<DataRow> {
     DataRowCollection rows();
 
     /**
+     * Accessor to a specific row by index.
+     *
+     * @return Returns a single row.
+     */
+    DataRow row(Integer rowIdx);
+
+    /**
      * @return Returns the underlying table.
      */
     DataTable table();

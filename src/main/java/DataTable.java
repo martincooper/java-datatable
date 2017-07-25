@@ -126,6 +126,33 @@ public class DataTable implements IBaseTable {
     }
 
     /**
+     * Accessor to a specific row by index.
+     *
+     * @return Returns a single row.
+     */
+    public DataRow row(Integer rowIdx) {
+        return this.rows.get(rowIdx);
+    }
+
+    /**
+     * Accessor to a specific column by index.
+     *
+     * @return Returns a single column.
+     */
+    public IDataColumn column(Integer colIdx) {
+        return this.columns.get(colIdx);
+    }
+
+    /**
+     * Accessor to a specific column by name.
+     *
+     * @return Returns a single column.
+     */
+    public IDataColumn column(String colName) {
+        return this.columns.get(colName);
+    }
+
+    /**
      * Builds an instance of a DataTable.
      *
      * @param tableName The name of the table.

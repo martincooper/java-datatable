@@ -29,9 +29,9 @@ public class DataTableTests {
         assertEquals(table.get().name(), "NewTable");
         assertEquals(table.get().columns().count(), 3);
         assertTrue(table.get().rowCount() == 3);
-        assertEquals(table.get().columns().get(0).name(), "StringCol");
-        assertEquals(table.get().columns().get(1).name(), "IntegerCol");
-        assertEquals(table.get().columns().get(2).name(), "BooleanCol");
+        assertEquals(table.get().column(0).name(), "StringCol");
+        assertEquals(table.get().column(1).name(), "IntegerCol");
+        assertEquals(table.get().column(2).name(), "BooleanCol");
     }
 
     @Test

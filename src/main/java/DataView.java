@@ -58,6 +58,16 @@ public class DataView implements IBaseTable {
     }
 
     /**
+     * Accessor to a specific row by index.
+     *
+     * @return Returns a single row.
+     */
+    @Override
+    public DataRow row(Integer rowIdx) {
+        return this.rows.get(rowIdx);
+    }
+
+    /**
      * @return Returns the underlying table.
      */
     @Override
