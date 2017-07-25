@@ -146,6 +146,30 @@ private DataView filterTable(DataTable existingTable) {
 }
 ```
 
+## Row / Data Access
+DataRow has a number of ways to access the underlying data, depending on the amount of information
+known at design time about the data and it's type. The simplest way with no type information is
+calling .data() on the DataRow item. This returns an Object[] of all the values.
+
+```java
+private Object[] getRowValues(DataTable table, Integer rowIdx) {
+    
+    // Returns an object array of all the values for the specified row.
+    return table.rows().get(rowIdx).data();
+}
+```
+
+The DataRow has additional type checked and bounds checked methods allowing safer and
+more composable access to the underlying data.
+
+```java
+private void typedAndCheckedDataAccess(DataRow dataRow) {
+    
+  // Each .getAs<T> is type checked and bounds / column name checked so can be composed safely
+  
+}
+```
+
 ### Credits
 
 Java DataTable is maintained by Martin Cooper : Copyright (c) 2017
