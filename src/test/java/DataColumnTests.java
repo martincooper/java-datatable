@@ -47,7 +47,7 @@ public class DataColumnTests {
     }
 
     @Test
-    public void testDataColumnAdd() {
+    public void testDataColumnAddItem() {
         DataColumn<String> column = createStringColumn();
         Try<DataColumn<String>> newCol = column.addItem("NewString");
 
@@ -58,7 +58,7 @@ public class DataColumnTests {
     }
 
     @Test
-    public void testDataColumnAddNull() {
+    public void testDataColumnAddNullItem() {
         DataColumn<String> column = createStringColumn();
         Try<DataColumn<String>> newCol = column.addItem(null);
 
@@ -69,12 +69,33 @@ public class DataColumnTests {
     }
 
     @Test
-    public void testDataColumnAddInvalidValueType() {
+    public void testDataColumnAddInvalidValueTypeItem() {
         DataColumn<Integer> column = createIntegerColumn();
         Try<IDataColumn> newCol = column.add("Invalid Type Value");
 
         //Assert inserting a string value into an integer column fails.
         assertTrue(newCol.isFailure());
+    }
+
+    @Test
+    public void testDataColumnRemoveItem() {
+        DataColumn<String> column = createStringColumn();
+        Try<DataColumn<String>> newCol = column.removeItem(1);
+
+        assertTrue(newCol.isSuccess());
+        assertEquals(column.data().length(), 3);
+        assertEquals(newCol.get().data().length(), 2);
+        assertEquals(newCol.get().data().get(0), "AA");
+        assertEquals(newCol.get().data().get(1), "CC");
+    }
+
+    @Test
+    public void testDataColumnRemoveWithInvalidIndex() {
+        DataColumn<String> column = createStringColumn();
+        Try<DataColumn<String>> newCol = column.removeItem(1000000);
+
+        assertTrue(newCol.isFailure());
+        assertTrue(newCol.getCause() instanceof IndexOutOfBoundsException);
     }
 
     @Test
