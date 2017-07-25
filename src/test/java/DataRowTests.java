@@ -37,6 +37,16 @@ public class DataRowTests {
     }
 
     @Test
+    public void testDataRowGetItemAsUntypedByInvalidColIndex() {
+        DataTable table = createDataTable();
+        DataRow row = DataRow.build(table, 1).get();
+        Try<Object> itemData = row.get(10000);
+
+        assertTrue(itemData.isFailure());
+        assertTrue(itemData.getCause().getMessage().equals("Column index out of bounds"));
+    }
+
+    @Test
     public void testDataRowGetItemAsUntypedByColName() {
         DataTable table = createDataTable();
         DataRow row = DataRow.build(table, 1).get();
@@ -47,21 +57,49 @@ public class DataRowTests {
     }
 
     @Test
-    public void testDataRowGetUncheckedItemAsTypedByColIndex() {
+    public void testDataRowGetItemAsUntypedByInvalidColName() {
         DataTable table = createDataTable();
         DataRow row = DataRow.build(table, 1).get();
-        Object itemData = row.getAs(Integer.class, 1);
+        Try<Object> itemData = row.get("InvalidColName");
 
-        assertTrue((Integer)itemData == 7);
+        assertTrue(itemData.isFailure());
+        assertTrue(itemData.getCause().getMessage().equals("Invalid column name."));
+    }
+
+    @Test
+    public void testDataRowGetUncheckedItemAsTypeByColIndex() {
+        DataTable table = createDataTable();
+        DataRow row = DataRow.build(table, 1).get();
+        Integer itemData = row.getAs(Integer.class, 1);
+
+        assertTrue(itemData == 7);
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testDataRowGetUncheckedItemAsTypeByInvalidColIndex() {
+        DataTable table = createDataTable();
+        DataRow row = DataRow.build(table, 1).get();
+
+        // Should throw exception, when column index out of bounds.
+        Integer itemData = row.getAs(Integer.class, 10000);
+    }
+
+    @Test(expected = DataTableException.class)
+    public void testDataRowGetUncheckedItemAsInvalidTypeColIndex() {
+        DataTable table = createDataTable();
+        DataRow row = DataRow.build(table, 1).get();
+
+        // Should throw exception, requesting a type different to what it actually is.
+        Boolean itemData = row.getAs(Boolean.class, 1);
     }
 
     @Test
     public void testDataRowGetUncheckedItemAsTypedByColName() {
         DataTable table = createDataTable();
         DataRow row = DataRow.build(table, 1).get();
-        Object itemData = row.getAs(Integer.class, "IntegerCol");
+        Integer itemData = row.getAs(Integer.class, "IntegerCol");
 
-        assertTrue((Integer)itemData == 7);
+        assertTrue(itemData == 7);
     }
 
     @Test
