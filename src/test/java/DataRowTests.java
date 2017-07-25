@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
 public class DataRowTests {
 
     @Test
-    public void testDataRow() {
+    public void testDataRowGetAllData() {
         DataTable table = createDataTable();
         Try<DataRow> row = DataRow.build(table, 1);
 
@@ -24,6 +24,64 @@ public class DataRowTests {
         assertTrue(data[0] == "BB");
         assertTrue((Integer)data[1] == 7);
         assertFalse((Boolean)data[2]);
+    }
+
+    @Test
+    public void testDataRowGetItemAsUntypedByColIndex() {
+        DataTable table = createDataTable();
+        DataRow row = DataRow.build(table, 1).get();
+        Try<Object> itemData = row.get(1);
+
+        assertTrue(itemData.isSuccess());
+        assertTrue((Integer)itemData.get() == 7);
+    }
+
+    @Test
+    public void testDataRowGetItemAsUntypedByColName() {
+        DataTable table = createDataTable();
+        DataRow row = DataRow.build(table, 1).get();
+        Try<Object> itemData = row.get("IntegerCol");
+
+        assertTrue(itemData.isSuccess());
+        assertTrue((Integer)itemData.get() == 7);
+    }
+
+    @Test
+    public void testDataRowGetUncheckedItemAsTypedByColIndex() {
+        DataTable table = createDataTable();
+        DataRow row = DataRow.build(table, 1).get();
+        Object itemData = row.getAs(Integer.class, 1);
+
+        assertTrue((Integer)itemData == 7);
+    }
+
+    @Test
+    public void testDataRowGetUncheckedItemAsTypedByColName() {
+        DataTable table = createDataTable();
+        DataRow row = DataRow.build(table, 1).get();
+        Object itemData = row.getAs(Integer.class, "IntegerCol");
+
+        assertTrue((Integer)itemData == 7);
+    }
+
+    @Test
+    public void testDataRowGetCheckedItemAsTypedByColIndex() {
+        DataTable table = createDataTable();
+        DataRow row = DataRow.build(table, 1).get();
+        Try<Integer> itemData = row.tryGetAs(Integer.class, 1);
+
+        assertTrue(itemData.isSuccess());
+        assertTrue(itemData.get() == 7);
+    }
+
+    @Test
+    public void testDataRowGetCheckedItemAsTypedByColName() {
+        DataTable table = createDataTable();
+        DataRow row = DataRow.build(table, 1).get();
+        Try<Integer> itemData = row.tryGetAs(Integer.class, "IntegerCol");
+
+        assertTrue(itemData.isSuccess());
+        assertTrue(itemData.get() == 7);
     }
 
     private DataTable createDataTable() {
