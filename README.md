@@ -165,8 +165,12 @@ more composable access to the underlying data.
 ```java
 private void typedAndCheckedDataAccess(DataRow dataRow) {
     
-  // Each .getAs<T> is type checked and bounds / column name checked so can be composed safely
+  // Each .tryGetAs<T> is type checked and bounds / column name checked so can be composed safely
+  // Accessed by column name...
+  Try<Integer> itemData = row.tryGetAs(Integer.class, "IntegerCol");
   
+  // Or by column index.
+  Try<Integer> otherData = row.tryGetAs(Integer.class, 1);
 }
 ```
 
