@@ -70,14 +70,78 @@ public class DataRow {
         return columnToValue(this.table.columns().tryGet(colName));
     }
 
+    /**
+     * Returns the value of a particular row column as a specific type.
+     * This method makes no bounds checks or type checks, so any failures
+     * will result in an exception being thrown.
+     *
+     * @param type The data type.
+     * @param idx The index of the column.
+     * @param <T> The value type.
+     * @return Returns the value at the specified index.
+     */
     public <T> T getAs(Class<T> type, Integer idx) {
         Try<DataColumn<T>> col = this.table.columns().get(idx).asType(type);
         return col.get().data().get(this.rowIdx);
     }
 
+    /**
+     * Returns the value of a particular row column as a specific type.
+     * This method makes no bounds checks or type checks, so any failures
+     * will result in an exception being thrown.
+     *
+     * @param type The data type.
+     * @param colName The name of the column.
+     * @param <T> The value type.
+     * @return Returns the value at the specified index.
+     */
     public <T> T getAs(Class<T> type, String colName) {
         Try<DataColumn<T>> col = this.table.columns().get(colName).asType(type);
         return col.get().data().get(this.rowIdx);
+    }
+
+    /**
+     * Returns the value of a particular row column as a specific type.
+     * This method performs bounds checks and type checks. Any errors
+     * will return a Try.failure.
+     *
+     * @param type The data type.
+     * @param idx The index of the column.
+     * @param <T> The value type.
+     * @return Returns the value at the specified index.
+     */
+    public <T> Try<T> tryGetAs(Class<T> type, Integer idx) {
+
+        // Get the column as it's typed version.
+        Try<DataColumn<T>> col = this.table.columns()
+                .tryGet(idx)
+                .flatMap(c -> c.asType(type));
+
+        return col.isFailure()
+                ? Try.failure(col.getCause())
+                : Try.success(col.get().data().get(this.rowIdx));
+    }
+
+    /**
+     * Returns the value of a particular row column as a specific type.
+     * This method performs bounds checks and type checks. Any errors
+     * will return a Try.failure.
+     *
+     * @param type The data type.
+     * @param colName The name of the column.
+     * @param <T> The value type.
+     * @return Returns the value at the specified index.
+     */
+    public <T> Try<T> tryGetAs(Class<T> type, String colName) {
+
+        // Get the column as it's typed version.
+        Try<DataColumn<T>> col = this.table.columns()
+                .tryGet(colName)
+                .flatMap(c -> c.asType(type));
+
+        return col.isFailure()
+                ? Try.failure(col.getCause())
+                : Try.success(col.get().data().get(this.rowIdx));
     }
 
     private Try<Object> columnToValue(Try<IDataColumn> column) {
