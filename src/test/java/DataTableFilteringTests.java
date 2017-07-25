@@ -1,9 +1,9 @@
-import datatable.DataTable;
-import datatable.DataTableBuilder;
-import datatable.DataView;
+import com.github.martincooper.datatable.DataTable;
+import com.github.martincooper.datatable.DataTableBuilder;
+import com.github.martincooper.datatable.DataView;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Examples for Data Table row filtering.

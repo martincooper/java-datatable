@@ -1,4 +1,4 @@
-import datatable.*;
+import com.github.martincooper.datatable.*;
 import io.vavr.collection.List;
 import io.vavr.control.Try;
 import org.junit.Test;

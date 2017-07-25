@@ -1,11 +1,11 @@
-import datatable.DataColumn;
-import datatable.DataTable;
-import datatable.IDataColumn;
+import com.github.martincooper.datatable.DataColumn;
+import com.github.martincooper.datatable.DataTable;
+import com.github.martincooper.datatable.IDataColumn;
 import io.vavr.collection.List;
 import io.vavr.control.Try;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Unit Tests for the DataTable class.

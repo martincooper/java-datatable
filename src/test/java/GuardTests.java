@@ -1,9 +1,10 @@
-import datatable.Guard;
+import com.github.martincooper.datatable.Guard;
 import io.vavr.collection.List;
 import io.vavr.control.Try;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Unit Tests for the Guard class.

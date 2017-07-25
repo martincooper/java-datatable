@@ -1,4 +1,4 @@
-package datatable;
+package com.github.martincooper.datatable;
 
 /**
  * IModifiableByIndex. Modifiable, with an integer indexer.

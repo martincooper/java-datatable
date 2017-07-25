@@ -1,8 +1,8 @@
-package datatable.sorting;
+package com.github.martincooper.datatable.sorting;
 
-import datatable.DataColumnCollection;
-import datatable.DataTable;
-import datatable.IDataColumn;
+import com.github.martincooper.datatable.DataColumnCollection;
+import com.github.martincooper.datatable.DataTable;
+import com.github.martincooper.datatable.IDataColumn;
 import io.vavr.control.Try;
 
 import java.util.function.Function;

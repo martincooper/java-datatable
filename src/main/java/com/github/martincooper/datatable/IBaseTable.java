@@ -1,4 +1,4 @@
-package datatable;
+package com.github.martincooper.datatable;
 
 /**
  * IBaseTable. Specifying common functionality between DataTable and DataView.

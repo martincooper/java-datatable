@@ -1,4 +1,4 @@
-package datatable.sorting;
+package com.github.martincooper.datatable.sorting;
 
 /**
  * SortOrder Enumeration.

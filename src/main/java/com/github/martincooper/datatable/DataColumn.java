@@ -1,4 +1,4 @@
-package datatable;
+package com.github.martincooper.datatable;
 
 import java.lang.reflect.Type;
 

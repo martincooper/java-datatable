@@ -1,4 +1,4 @@
-package datatable;
+package com.github.martincooper.datatable;
 
 import io.vavr.collection.Seq;
 import io.vavr.control.Try;

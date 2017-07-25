@@ -1,8 +1,8 @@
-package datatable.sorting;
+package com.github.martincooper.datatable.sorting;
 
-import datatable.DataTable;
-import datatable.Guard;
-import datatable.IDataColumn;
+import com.github.martincooper.datatable.DataTable;
+import com.github.martincooper.datatable.Guard;
+import com.github.martincooper.datatable.IDataColumn;
 import io.vavr.control.Try;
 
 /**
