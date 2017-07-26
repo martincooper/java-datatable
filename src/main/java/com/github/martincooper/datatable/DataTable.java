@@ -7,6 +7,9 @@ import io.vavr.control.Try;
 import java.util.Iterator;
 import java.util.function.Predicate;
 
+import static io.vavr.API.*;
+import static io.vavr.Patterns.*;
+
 /**
  * DataTable class.
  * Created by Martin Cooper on 08/07/2017.
@@ -185,12 +188,10 @@ public class DataTable implements IBaseTable {
      * @return Returns a DataTable wrapped in a Try.
      */
     public static Try<DataTable> build(String tableName, Iterable<IDataColumn> columns) {
-        Try result = validateColumns(columns);
-
-        if (result.isFailure())
-            return Try.failure(result.getCause());
-
-        return Try.success(new DataTable(tableName, columns));
+        return Match(validateColumns(columns)).of(
+          Case($Success($()), cols -> Try.success(new DataTable(tableName, cols))),
+          Case($Failure($()), Try::failure)
+        );
     }
 
     /**
@@ -199,11 +200,9 @@ public class DataTable implements IBaseTable {
      * @param columns The columns to validate.
      * @return Returns a Success or Failure.
      */
-    private static Try<Void> validateColumns(Iterable<IDataColumn> columns) {
-        Seq<IDataColumn> dataCols = Stream.ofAll(columns);
-
-        return validateColumnNames(dataCols)
-                .flatMap(x -> validateColumnDataLength(dataCols));
+    private static Try<Seq<IDataColumn>> validateColumns(Iterable<IDataColumn> columns) {
+        return validateColumnNames(Stream.ofAll(columns))
+                .flatMap(DataTable::validateColumnDataLength);
     }
 
     /**
@@ -212,11 +211,10 @@ public class DataTable implements IBaseTable {
      * @param columns The columns to check.
      * @return Returns a Success or Failure.
      */
-    private static Try<Void> validateColumnNames(Seq<IDataColumn> columns) {
-        if (columns.groupBy(IDataColumn::name).length() != columns.length())
-            return Try.failure(new DataTableException("Columns contain duplicate names."));
-
-        return Try.success(null);
+    private static Try<Seq<IDataColumn>> validateColumnNames(Seq<IDataColumn> columns) {
+        return columns.groupBy(IDataColumn::name).length() != columns.length()
+                ? DataTableException.tryError("Columns contain duplicate names.")
+                : Try.success(columns);
     }
 
     /**
@@ -225,10 +223,9 @@ public class DataTable implements IBaseTable {
      * @param columns The columns to check.
      * @return Returns a Success or Failure.
      */
-    private static Try<Void> validateColumnDataLength(Seq<IDataColumn> columns) {
-        if (columns.groupBy(col -> col.data().length()).length() > 1)
-            return Try.failure(new DataTableException("Columns have different lengths."));
-
-        return Try.success(null);
+    private static Try<Seq<IDataColumn>> validateColumnDataLength(Seq<IDataColumn> columns) {
+        return columns.groupBy(col -> col.data().length()).length() > 1
+                ? DataTableException.tryError("Columns have different lengths.")
+                : Try.success(columns);
     }
 }

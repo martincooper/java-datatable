@@ -12,7 +12,6 @@ import io.vavr.control.Try;
  */
 public class DataSort {
 
-
     /**
      * Validates that all the columns being sorted are comparable.
      *
