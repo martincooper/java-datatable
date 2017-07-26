@@ -98,7 +98,7 @@ public class DataColumnCollection
 
         return idx < 0
                 ? DataTableException.tryError("Invalid column name.")
-                : Try.success(get(columnName));
+                : Try.success(get(idx));
     }
 
     /**
