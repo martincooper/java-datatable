@@ -5,6 +5,12 @@ import io.vavr.control.Try;
 
 import java.util.Iterator;
 
+import static io.vavr.API.$;
+import static io.vavr.API.Case;
+import static io.vavr.API.Match;
+import static io.vavr.Patterns.$Failure;
+import static io.vavr.Patterns.$Success;
+
 /**
  * DataView. Provides a view over a DataTable to store filtered data sets.
  * Created by Martin Cooper on 19/07/2017.
@@ -123,10 +129,9 @@ public class DataView implements IBaseTable {
      * @return Returns a DataView wrapped in a Try.
      */
     public static Try<DataView> build(DataTable table, Iterable<DataRow> rows) {
-        Try<DataRowCollection> result = DataRowCollection.build(table, rows);
-
-        return result.isFailure()
-                ? Try.failure(result.getCause())
-                : Try.success(new DataView(table, result.get()));
+        return Match(DataRowCollection.build(table, rows)).of(
+                Case($Success($()), dataRows -> Try.success(new DataView(table, dataRows))),
+                Case($Failure($()), Try::failure)
+        );
     }
 }

@@ -6,6 +6,12 @@ import io.vavr.collection.Seq;
 import io.vavr.collection.Vector;
 import io.vavr.control.Try;
 
+import static io.vavr.API.$;
+import static io.vavr.API.Case;
+import static io.vavr.API.Match;
+import static io.vavr.Patterns.$Failure;
+import static io.vavr.Patterns.$Success;
+
 /**
  * DataColumn. Handles the data for a single column.
  * Created by Martin Cooper on 08/07/2017.
@@ -133,11 +139,10 @@ public class DataColumn<T> implements IDataColumn, Comparable<T> {
      */
     @Override
     public Try<IDataColumn> add(Object value) {
-        Try<T> typedItem = GenericExtensions.tryCast(this.type, value);
-
-        return typedItem.isFailure()
-                ? Try.failure(new DataTableException("tryAdd failed. Item of invalid type passed."))
-                : Try.success(createColumn(this.data.append(typedItem.get())));
+        return Match(GenericExtensions.tryCast(this.type, value)).of(
+                Case($Success($()), typedVal -> Try.of(() -> createColumn(this.data.append(typedVal)))),
+                Case($Failure($()), DataTableException.tryError("tryAdd failed. Item of invalid type passed."))
+        );
     }
 
     /**
@@ -150,11 +155,10 @@ public class DataColumn<T> implements IDataColumn, Comparable<T> {
      */
     @Override
     public Try<IDataColumn> insert(Integer index, Object value) {
-        Try<T> typedItem = GenericExtensions.tryCast(this.type, value);
-
-        return typedItem.isFailure()
-                ? Try.failure(new DataTableException("tryInsert failed. Item of invalid type passed."))
-                : Try.of(() -> createColumn(this.data.insert(index, typedItem.get())));
+        return Match(GenericExtensions.tryCast(this.type, value)).of(
+                Case($Success($()), typedVal -> Try.of(() -> createColumn(this.data.insert(index, typedVal)))),
+                Case($Failure($()), DataTableException.tryError("tryInsert failed. Item of invalid type passed."))
+        );
     }
 
     /**
@@ -167,11 +171,10 @@ public class DataColumn<T> implements IDataColumn, Comparable<T> {
      */
     @Override
     public Try<IDataColumn> replace(Integer index, Object value) {
-        Try<T> typedItem = GenericExtensions.tryCast(this.type, value);
-
-        return typedItem.isFailure()
-                ? Try.failure(new DataTableException("tryReplace failed. Item of invalid type passed."))
-                : Try.of(() -> createColumn(this.data.update(index, typedItem.get())));
+        return Match(GenericExtensions.tryCast(this.type, value)).of(
+                Case($Success($()), typedVal -> Try.of(() -> createColumn(this.data.update(index, typedVal)))),
+                Case($Failure($()), DataTableException.tryError("tryReplace failed. Item of invalid type passed."))
+        );
     }
 
     /**

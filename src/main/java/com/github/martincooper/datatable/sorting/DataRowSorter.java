@@ -45,6 +45,8 @@ public class DataRowSorter {
         return columnIdentity.getCellData(dataRow).get();
     }
 
+    // Objects of this type have already been validated as comparable, so we can ignore the compiler warnings.
+    @SuppressWarnings({"unchecked"})
     private static int compareValues(Object valueOne, Object valueTwo) {
         return valueOne == null
                 ? (valueTwo == null ? 0 : Integer.MIN_VALUE)
