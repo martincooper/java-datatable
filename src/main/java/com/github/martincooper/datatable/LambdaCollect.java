@@ -38,7 +38,7 @@ public class LambdaCollect<T, U> implements Collector<T, ArrayList<T>, U> {
      * @param function The function to run on the full collection.
      * @param <T> The collection type.
      * @param <U> The return type.
-     * @return
+     * @return Returns a new instance of the collector.
      */
     public static <T, U> LambdaCollect<T, U> as(Function<Stream<T>, U> function) {
         return new LambdaCollect<>(function);
@@ -52,12 +52,7 @@ public class LambdaCollect<T, U> implements Collector<T, ArrayList<T>, U> {
      */
     @Override
     public Supplier<ArrayList<T>> supplier() {
-        return new Supplier<ArrayList<T>>() {
-            @Override
-            public ArrayList<T> get() {
-                return new ArrayList<T>();
-            }
-        } ;
+        return ArrayList::new;
     }
 
     /**
@@ -86,7 +81,7 @@ public class LambdaCollect<T, U> implements Collector<T, ArrayList<T>, U> {
      */
     @Override
     public Function<ArrayList<T>, U> finisher() {
-        return (acc) -> function.apply(Stream.ofAll(acc));
+        return (items) -> function.apply(Stream.ofAll(items));
     }
 
 
