@@ -104,10 +104,9 @@ public class DataView implements IBaseTable {
         Seq<Integer> rowIndexes = this.rows.map(DataRow::rowIdx);
 
         // Build a set of new columns with just the data at the specified indexes.
-        Seq<IDataColumn> newCols = this.table.columns()
-                .map(col -> col.buildFromRows(rowIndexes).get());
-
-        return DataTable.build(this.name(), newCols).get();
+        return this.table.columns()
+                .map(col -> col.buildFromRows(rowIndexes).get())
+                .collect(LambdaCollect.as(cols -> DataTable.build(this.name(), cols).get()));
     }
 
     /**

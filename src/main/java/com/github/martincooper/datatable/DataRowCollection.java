@@ -67,8 +67,9 @@ public class DataRowCollection implements Iterable<DataRow> {
      * @return Returns a DataView with the filter results.
      */
     public DataView filter(Predicate<DataRow> predicate) {
-        Vector<DataRow> results = this.rows.filter(predicate);
-        return DataView.build(this.table, results).get();
+        return this.rows
+                .filter(predicate)
+                .collect(LambdaCollect.as(rows -> DataView.build(this.table, rows).get()));
     }
 
     /**
@@ -87,11 +88,10 @@ public class DataRowCollection implements Iterable<DataRow> {
      * @return Returns the DataRowCollection.
      */
     public static DataRowCollection build(DataTable table) {
-        Stream<DataRow> rows = Stream
+        return Stream
                 .range(0, table.rowCount())
-                .map(idx -> DataRow.build(table, idx).get());
-
-        return new DataRowCollection(table, rows);
+                .map(idx -> DataRow.build(table, idx).get())
+                .collect(LambdaCollect.as(rows -> new DataRowCollection(table, rows)));
     }
 
     /**
@@ -110,9 +110,8 @@ public class DataRowCollection implements Iterable<DataRow> {
      * @return Returns a Success or Failure.
      */
     private static Try<Void> validateDataRows(DataTable table, Iterable<DataRow> dataRows) {
-        if (List.ofAll(dataRows).forAll(row -> row.table() == table))
-            return Try.success(null);
-
-        return DataTableException.tryError("DataRows do not all belong to the specified table.");
+        return List.ofAll(dataRows).forAll(row -> row.table() == table)
+                ? Try.success(null)
+                : DataTableException.tryError("DataRows do not all belong to the specified table.");
     }
 }

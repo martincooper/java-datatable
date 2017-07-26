@@ -188,6 +188,18 @@ public class DataTable implements IBaseTable {
      * @return Returns a DataTable wrapped in a Try.
      */
     public static Try<DataTable> build(String tableName, Iterable<IDataColumn> columns) {
+        return build(tableName, Stream.ofAll(columns));
+    }
+
+    /**
+     * Builds an instance of a DataTable.
+     * Columns are validated before creation, returning a Failure on error.
+     *
+     * @param tableName The name of the table.
+     * @param columns The column collection.
+     * @return Returns a DataTable wrapped in a Try.
+     */
+    public static Try<DataTable> build(String tableName, Stream<IDataColumn> columns) {
         return Match(validateColumns(columns)).of(
           Case($Success($()), cols -> Try.success(new DataTable(tableName, cols))),
           Case($Failure($()), Try::failure)

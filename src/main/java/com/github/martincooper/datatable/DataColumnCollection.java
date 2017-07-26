@@ -254,8 +254,8 @@ public class DataColumnCollection
 
     private Try<DataTable> checkColumnsAndBuild(String changeType, Supplier<Try<Vector<IDataColumn>>> columns) {
         // Calculate the new column collection then try and build a DataTable from it.
-        Try<Vector<IDataColumn>> newCols = columns.get();
-        Try<DataTable> result = DataTable.build("", newCols.get());
+        Try<DataTable> result = columns.get()
+                .flatMap(cols -> DataTable.build("", cols));
 
         return result.isSuccess()
                 ? result
