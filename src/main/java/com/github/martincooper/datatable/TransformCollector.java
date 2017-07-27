@@ -12,36 +12,36 @@ import java.util.function.Supplier;
 import java.util.stream.Collector;
 
 /**
- * LambdaCollect. Custom Collector.
+ * TransformCollector. Custom Collector.
  * Used to pass the contents of a collection to a
  * single method, returning a single value.
  *
  * @param <T> The collection type.
  * @param <U> The return type.
  */
-public class LambdaCollect<T, U> implements Collector<T, ArrayList<T>, U> {
+public class TransformCollector<T, U> implements Collector<T, ArrayList<T>, U> {
 
     private final Function<Stream<T>, U> function;
 
     /**
-     * LambdaCollect constructor.
+     * TransformCollector constructor.
      *
      * @param function The function to run on the collected items.
      */
-    public LambdaCollect(Function<Stream<T>, U> function) {
+    public TransformCollector(Function<Stream<T>, U> function) {
         this.function = function;
     }
 
     /**
-     * as method. Static helper to return a new instance of the Lambda Collector class.
+     * as method. Static helper to return a new instance of the Transform Collector class.
      *
      * @param function The function to run on the full collection.
      * @param <T> The collection type.
      * @param <U> The return type.
      * @return Returns a new instance of the collector.
      */
-    public static <T, U> LambdaCollect<T, U> as(Function<Stream<T>, U> function) {
-        return new LambdaCollect<>(function);
+    public static <T, U> TransformCollector<T, U> transform(Function<Stream<T>, U> function) {
+        return new TransformCollector<>(function);
     }
 
     /**
@@ -75,9 +75,9 @@ public class LambdaCollect<T, U> implements Collector<T, ArrayList<T>, U> {
 
     /**
      * The finisher has all the items in the list. Now we just need
-     * to run the requested lambda function on it to get the final results.
+     * to run the requested transform function on it to get the final results.
      *
-     * @return Returns the result after passed through the lambda.
+     * @return Returns the result after passed through the transform function.
      */
     @Override
     public Function<ArrayList<T>, U> finisher() {
