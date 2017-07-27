@@ -11,6 +11,8 @@ import static io.vavr.API.Match;
 import static io.vavr.Patterns.$Failure;
 import static io.vavr.Patterns.$Success;
 
+import static com.github.martincooper.datatable.TransformCollector.transform;
+
 /**
  * DataView. Provides a view over a DataTable to store filtered data sets.
  * Created by Martin Cooper on 19/07/2017.
@@ -106,7 +108,7 @@ public class DataView implements IBaseTable {
         // Build a set of new columns with just the data at the specified indexes.
         return this.table.columns()
                 .map(col -> col.buildFromRows(rowIndexes).get())
-                .collect(LambdaCollect.as(cols -> DataTable.build(this.name(), cols).get()));
+                .collect(transform(cols -> DataTable.build(this.name(), cols).get()));
     }
 
     /**

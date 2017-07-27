@@ -10,6 +10,8 @@ import java.util.Iterator;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import static com.github.martincooper.datatable.TransformCollector.transform;
+
 /**
  * DataRowCollection. Handles a collection of DataRows
  * Created by Martin Cooper on 17/07/2017.
@@ -69,7 +71,7 @@ public class DataRowCollection implements Iterable<DataRow> {
     public DataView filter(Predicate<DataRow> predicate) {
         return this.rows
                 .filter(predicate)
-                .collect(LambdaCollect.as(rows -> DataView.build(this.table, rows).get()));
+                .collect(transform(rows -> DataView.build(this.table, rows).get()));
     }
 
     /**
@@ -91,7 +93,7 @@ public class DataRowCollection implements Iterable<DataRow> {
         return Stream
                 .range(0, table.rowCount())
                 .map(idx -> DataRow.build(table, idx).get())
-                .collect(LambdaCollect.as(rows -> new DataRowCollection(table, rows)));
+                .collect(transform(rows -> new DataRowCollection(table, rows)));
     }
 
     /**
