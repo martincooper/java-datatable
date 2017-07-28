@@ -84,7 +84,7 @@ public class DataRow {
      */
     public <T> T getAs(Class<T> type, Integer idx) {
         Try<DataColumn<T>> col = this.table.columns().get(idx).asType(type);
-        return col.get().data().get(this.rowIdx);
+        return col.get().valueAt(this.rowIdx);
     }
 
     /**
@@ -99,7 +99,7 @@ public class DataRow {
      */
     public <T> T getAs(Class<T> type, String colName) {
         Try<DataColumn<T>> col = this.table.columns().get(colName).asType(type);
-        return col.get().data().get(this.rowIdx);
+        return col.get().valueAt(this.rowIdx);
     }
 
     /**
@@ -121,7 +121,7 @@ public class DataRow {
 
         return col.isFailure()
                 ? Try.failure(col.getCause())
-                : Try.success(col.get().data().get(this.rowIdx));
+                : Try.success(col.get().valueAt(this.rowIdx));
     }
 
     /**
@@ -143,12 +143,12 @@ public class DataRow {
 
         return col.isFailure()
                 ? Try.failure(col.getCause())
-                : Try.success(col.get().data().get(this.rowIdx));
+                : Try.success(col.get().valueAt(this.rowIdx));
     }
 
     private Try<Object> columnToValue(Try<IDataColumn> column) {
         return column.isSuccess()
-                ? Try.success(column.get().data().get(this.rowIdx))
+                ? Try.success(column.get().valueAt(this.rowIdx))
                 : Try.failure(column.getCause());
     }
 
