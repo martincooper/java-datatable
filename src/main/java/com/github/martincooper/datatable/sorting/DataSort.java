@@ -100,7 +100,7 @@ public class DataSort {
         Option<IDataColumn> invalidCol = columns.find(col -> !col.IsComparable());
 
         return invalidCol.isEmpty()
-                ? DataTableException.tryError("Column '" + invalidCol.get().name() + "' doesn't support comparable.")
-                : Try.success(null);
+                ? Try.success(null)
+                : DataTableException.tryError("Column '" + invalidCol.get().name() + "' doesn't support comparable.");
     }
 }
