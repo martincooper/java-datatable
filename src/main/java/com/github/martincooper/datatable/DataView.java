@@ -80,6 +80,24 @@ public class DataView implements IBaseTable {
     }
 
     /**
+     * Accessor to a specific column by index.
+     *
+     * @return Returns a single column.
+     */
+    public IDataColumn column(Integer colIdx) {
+        return this.table.column(colIdx);
+    }
+
+    /**
+     * Accessor to a specific column by name.
+     *
+     * @return Returns a single column.
+     */
+    public IDataColumn column(String colName) {
+        return this.table.column(colName);
+    }
+
+    /**
      * @return Returns the underlying table.
      */
     @Override

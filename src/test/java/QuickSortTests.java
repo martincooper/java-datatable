@@ -19,18 +19,20 @@ public class QuickSortTests {
 
         DataTable table = DataTableBuilder
                 .create("NewTable")
-                .withColumn(String.class, "StrCol", List.of("AA", "BB", "CC", "DD"))
-                .withColumn(Integer.class, "IntCol", List.of(3, 5, 9, 11))
-                .withColumn(Boolean.class, "BoolCol", List.of(true, false, true, false))
+                .withColumn(Integer.class, "IntCol", List.of(3, 20, 4, 18, 0, -30, 100))
                 .build().get();
 
         Try<DataView> view = table.quickSort("IntCol", SortOrder.Descending);
 
         assertTrue(view.isSuccess());
 
-        assertTrue(view.get().row(0).getAs(Integer.class, "IntCol") == 11);
-        assertTrue(view.get().row(1).getAs(Integer.class, "IntCol") == 9);
-        assertTrue(view.get().row(2).getAs(Integer.class, "IntCol") == 5);
-        assertTrue(view.get().row(3).getAs(Integer.class, "IntCol") == 3);
+        // Check IntCol values are in descending order.
+        assertTrue(view.get().row(0).getAs(Integer.class, "IntCol") == 100);
+        assertTrue(view.get().row(1).getAs(Integer.class, "IntCol") == 20);
+        assertTrue(view.get().row(2).getAs(Integer.class, "IntCol") == 18);
+        assertTrue(view.get().row(3).getAs(Integer.class, "IntCol") == 4);
+        assertTrue(view.get().row(4).getAs(Integer.class, "IntCol") == 3);
+        assertTrue(view.get().row(5).getAs(Integer.class, "IntCol") == 0);
+        assertTrue(view.get().row(6).getAs(Integer.class, "IntCol") == -30);
     }
 }
