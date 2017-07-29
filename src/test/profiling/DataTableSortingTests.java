@@ -32,9 +32,9 @@ public class DataTableSortingTests {
                 .withColumn(Boolean.class, "BoolCol", randomBooleanData(ROW_COUNT))
                 .build().get();
 
-        SortItem sortOne = new SortItem("StrCol", SortOrder.Ascending);
+        SortItem sortOne = new SortItem("StrCol");
         SortItem sortTwo = new SortItem("IntCol", SortOrder.Descending);
-        SortItem sortThree = new SortItem("DoubleCol", SortOrder.Ascending);
+        SortItem sortThree = new SortItem("DoubleCol");
         SortItem sortFour = new SortItem("BoolCol", SortOrder.Descending);
 
         long startTime = System.nanoTime();
