@@ -1,10 +1,12 @@
 package com.github.martincooper.datatable;
 
+import com.github.martincooper.datatable.sorting.IQuickSort;
+
 /**
  * IBaseTable. Specifying common functionality between DataTable and DataView.
  * Created by Martin Cooper on 19/07/2017.
  */
-public interface IBaseTable extends Iterable<DataRow> {
+public interface IBaseTable extends Iterable<DataRow>, IQuickSort {
 
     /**
      * @return Returns the table name.

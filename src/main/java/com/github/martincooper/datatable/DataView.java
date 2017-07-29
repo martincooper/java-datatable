@@ -1,5 +1,7 @@
 package com.github.martincooper.datatable;
 
+import com.github.martincooper.datatable.sorting.SortItem;
+import com.github.martincooper.datatable.sorting.SortOrder;
 import io.vavr.collection.Seq;
 import io.vavr.control.Try;
 
@@ -119,6 +121,74 @@ public class DataView implements IBaseTable {
     @Override
     public DataView toDataView() {
         return DataView.build(this.table, this.rows).get();
+    }
+
+    /**
+     * Table QuickSort by single column name.
+     *
+     * @param columnName The column name to sort.
+     * @return Returns the results as a sorted Data View.
+     */
+    @Override
+    public Try<DataView> quickSort(String columnName) {
+        return null;
+    }
+
+    /**
+     * Table QuickSort by single column name and a sort order.
+     *
+     * @param columnName The column name to sort.
+     * @param sortOrder  The sort order.
+     * @return Returns the results as a sorted Data View.
+     */
+    @Override
+    public Try<DataView> quickSort(String columnName, SortOrder sortOrder) {
+        return null;
+    }
+
+    /**
+     * Table QuickSort by single column index.
+     *
+     * @param columnIndex The column index to sort.
+     * @return Returns the results as a sorted Data View.
+     */
+    @Override
+    public Try<DataView> quickSort(Integer columnIndex) {
+        return null;
+    }
+
+    /**
+     * Table QuickSort by single column index and a sort order.
+     *
+     * @param columnIndex The column index to sort.
+     * @param sortOrder   The sort order.
+     * @return Returns the results as a sorted Data View.
+     */
+    @Override
+    public Try<DataView> quickSort(Integer columnIndex, SortOrder sortOrder) {
+        return null;
+    }
+
+    /**
+     * Table QuickSort by single sort item.
+     *
+     * @param sortItem The sort item.
+     * @return Returns the results as a sorted Data View.
+     */
+    @Override
+    public Try<DataView> quickSort(SortItem sortItem) {
+        return null;
+    }
+
+    /**
+     * Table QuickSort by multiple sort items.
+     *
+     * @param sortItems The sort items.
+     * @return Returns the results as a sorted Data View.
+     */
+    @Override
+    public Try<DataView> quickSort(Iterable<SortItem> sortItems) {
+        return null;
     }
 
     /**
