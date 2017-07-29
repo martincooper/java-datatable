@@ -63,6 +63,15 @@ public class DataRowCollection implements Iterable<DataRow> {
     }
 
     /**
+     * Returns access to the Data Row collection as a sequence of Data Rows.
+     *
+     * @return Returns the rows.
+     */
+    public Seq<DataRow> asSeq() {
+        return this.rows;
+    }
+
+    /**
      * Filters the row data using the specified predicate,
      * returning the results as a DataView over the original table.
      * @param predicate The filter criteria.
