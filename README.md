@@ -174,6 +174,28 @@ private void typedAndCheckedDataAccess(DataRow dataRow) {
 }
 ```
 
+## Sorting / Single and Multi Column
+A DataTable can sort by specified column or columns, returning a sorted DataView.
+
+```java
+private Try<DataView> sortTableByColumnNameDescending(DataTable dataTable) {
+    
+  dataTable.quickSort("SomeColumn", SortOrder.Descending);
+}
+```
+
+Also on multiple columns.
+
+```java
+private Try<DataView> sortTableByMultipleColumns(DataTable dataTable) {
+    
+    SortItem sortOne = new SortItem("NumberCol", SortOrder.Ascending);
+    SortItem sortTwo = new SortItem("StringCol", SortOrder.Descending);
+    
+    return table.quickSort(Stream.of(sortOne, sortTwo));
+}
+```
+
 ### Credits
 
 Java DataTable is maintained by Martin Cooper : Copyright (c) 2017
