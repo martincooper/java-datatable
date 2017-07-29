@@ -3,11 +3,36 @@ package com.github.martincooper.datatable.sorting;
 import com.github.martincooper.datatable.DataRow;
 import io.vavr.collection.Seq;
 
+import java.util.Comparator;
+
 /**
- * DataRowSorter. Handles the details of the quick sorting of DataRows.
- * Created by Martin Cooper on 25/07/2017.
+ * DataRowComparator class. Used to compare two data rows using the specified sort items.
+ * Created by Martin Cooper on 29/07/2017.
  */
-public class DataRowSorter {
+public class DataRowComparator implements Comparator<DataRow> {
+
+    private final Seq<SortItem> sortItems;
+
+    /**
+     * DataRowComparator constructor.
+     *
+     * @param sortItems The collection of Sort Items defining how to sort.
+     */
+    public DataRowComparator(Seq<SortItem> sortItems) {
+        this.sortItems = sortItems;
+    }
+
+    /**
+     * THe main compare method.
+     *
+     * @param rowOne The first row to compare.
+     * @param rowTwo The seconds row to compare.
+     * @return Returns the compare result as an integer.
+     */
+    @Override
+    public int compare(DataRow rowOne, DataRow rowTwo) {
+        return compareBySortItem(rowOne, rowTwo, this.sortItems);
+    }
 
     /**
      * Recursive sort method, handles multi-sort on columns.
