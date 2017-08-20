@@ -93,6 +93,18 @@ public class DataRowCollection implements Iterable<DataRow> {
         return this.rows.map(mapper);
     }
 
+    //TODO ** Finish Row Implementation.
+
+    /**
+     * Returns a new DataTable with the additional row appended.
+     *
+     * @param rowValues The values to append to the row.
+     * @return Returns a new DataTable with the row appended.
+     */
+    public Try<DataTable> add(Object[] rowValues) {
+        return null;
+    }
+
     /**
      * Builds a new DataRowCollection for the specified DataTable.
      * @param table The table to build the DataRowCollection for.
