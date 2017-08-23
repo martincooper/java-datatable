@@ -65,7 +65,12 @@ public class DataRowCollectionModifiable extends DataRowCollectionBase {
      * @return Returns a new DataTable with the row removed.
      */
     public Try<DataTable> remove(int idx) {
-        return null;
+        return removeRow(idx);
+    }
+
+    private Try<DataTable> removeRow(int idx) {
+        Try<Seq<IDataColumn>> cols = allOrFirstFail(table.columns().map(col -> col.remove(idx)));
+        return buildTable(cols);
     }
 
     private Try<DataTable> buildTable(Try<Seq<IDataColumn>> columns) {
