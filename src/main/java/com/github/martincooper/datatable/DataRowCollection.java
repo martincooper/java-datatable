@@ -29,7 +29,7 @@ public class DataRowCollection implements Iterable<DataRow> {
      * @param table The DataTable the DataRow is pointing to.
      * @param rows The DataRows.
      */
-    private DataRowCollection(DataTable table, Iterable<DataRow> rows) {
+    protected DataRowCollection(DataTable table, Iterable<DataRow> rows) {
         this.table = table;
         this.rows = Vector.ofAll(rows);
     }
@@ -124,14 +124,14 @@ public class DataRowCollection implements Iterable<DataRow> {
         return buildRowCollection(table, rows, DataRowCollection::new);
     }
 
-    private static <T extends DataRowCollection> T buildRowCollection(DataTable table, BiFunction<DataTable, Iterable<DataRow>, T> builder) {
+    protected static <T extends DataRowCollection> T buildRowCollection(DataTable table, BiFunction<DataTable, Iterable<DataRow>, T> builder) {
         return Stream
                 .range(0, table.rowCount())
                 .map(idx -> DataRow.build(table, idx).get())
                 .collect(transform(rows -> builder.apply(table, rows)));
     }
 
-    private static <T extends DataRowCollection> Try<T> buildRowCollection(DataTable table, Iterable<DataRow> rows, BiFunction<DataTable, Iterable<DataRow>, T> builder) {
+    protected static <T extends DataRowCollection> Try<T> buildRowCollection(DataTable table, Iterable<DataRow> rows, BiFunction<DataTable, Iterable<DataRow>, T> builder) {
         return validateDataRows(table, rows)
                 .flatMap(x -> Try.success(builder.apply(table, rows)));
     }

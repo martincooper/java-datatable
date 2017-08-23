@@ -20,7 +20,7 @@ import static io.vavr.Patterns.*;
 public class DataTable implements IBaseTable {
 
     private final String name;
-    private final DataRowCollection rows;
+    private final ModifiableDataRowCollection rows;
     private final DataColumnCollection columns;
 
     /**
@@ -32,7 +32,7 @@ public class DataTable implements IBaseTable {
     private DataTable(String tableName) {
         this.name = tableName;
         this.columns = new DataColumnCollection(this);
-        this.rows = DataRowCollection.build(this);
+        this.rows = ModifiableDataRowCollection.build(this);
     }
 
     /**
@@ -45,7 +45,7 @@ public class DataTable implements IBaseTable {
     private DataTable(String tableName, Iterable<IDataColumn> columns) {
         this.name = tableName;
         this.columns = new DataColumnCollection(this, columns);
-        this.rows = DataRowCollection.build(this);
+        this.rows = ModifiableDataRowCollection.build(this);
     }
 
     /**
@@ -80,7 +80,7 @@ public class DataTable implements IBaseTable {
      * @return Returns the row collection.
      */
     @Override
-    public DataRowCollection rows() { return this.rows; }
+    public ModifiableDataRowCollection rows() { return this.rows; }
 
     /**
      * The data table.
