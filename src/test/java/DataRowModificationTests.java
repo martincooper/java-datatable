@@ -33,6 +33,19 @@ public class DataRowModificationTests {
         assertTrue(!(boolean)newTable.get().column("BoolCol").valueAt(2));
     }
 
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testDataRemoveInvalidRow() {
+        DataTable table = createDataTable();
+
+        // Remove row at row index 200 (invalid index).
+        Try<DataTable> newTable = table.rows().remove(200);
+
+        assertTrue(newTable.isFailure());
+
+        // Should throw IndexOutOfBoundsException.
+        newTable.get();
+    }
+
     private DataTable createDataTable() {
         return DataTableBuilder
                 .create("NewTable")
