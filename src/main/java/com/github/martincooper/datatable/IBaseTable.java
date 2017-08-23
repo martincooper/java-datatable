@@ -21,7 +21,7 @@ public interface IBaseTable extends Iterable<DataRow>, IQuickSort {
     /**
      * @return Returns the row collection.
      */
-    DataRowCollection rows();
+    DataRowCollectionBase rows();
 
     /**
      * Accessor to a specific row by index.

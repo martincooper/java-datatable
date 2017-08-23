@@ -3,10 +3,10 @@ package com.github.martincooper.datatable;
 import io.vavr.control.Try;
 
 /**
- * ModifiableDataRowCollection. Handles a collection of DataRows
+ * DataRowCollectionModifiable. Handles a collection of DataRows
  * Created by Martin Cooper on 17/07/2017.
  */
-public class ModifiableDataRowCollection extends DataRowCollection {
+public class DataRowCollectionModifiable extends DataRowCollectionBase {
 
     /**
      * Private DataRow constructor.
@@ -15,7 +15,7 @@ public class ModifiableDataRowCollection extends DataRowCollection {
      * @param table The DataTable the DataRow is pointing to.
      * @param rows The DataRows.
      */
-    private ModifiableDataRowCollection(DataTable table, Iterable<DataRow> rows) {
+    private DataRowCollectionModifiable(DataTable table, Iterable<DataRow> rows) {
         super(table, rows);
     }
 
@@ -34,7 +34,7 @@ public class ModifiableDataRowCollection extends DataRowCollection {
      * @param table The table to build the DataRowCollection for.
      * @return Returns the DataRowCollection.
      */
-    public static ModifiableDataRowCollection build(DataTable table) {
-        return buildRowCollection(table, ModifiableDataRowCollection::new);
+    public static DataRowCollectionModifiable build(DataTable table) {
+        return buildRowCollection(table, DataRowCollectionModifiable::new);
     }
 }
