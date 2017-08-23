@@ -7,6 +7,7 @@ import io.vavr.collection.Vector;
 import io.vavr.control.Try;
 
 import java.util.Iterator;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -111,10 +112,7 @@ public class DataRowCollection implements Iterable<DataRow> {
      * @return Returns the DataRowCollection.
      */
     public static DataRowCollection build(DataTable table) {
-        return Stream
-                .range(0, table.rowCount())
-                .map(idx -> DataRow.build(table, idx).get())
-                .collect(transform(rows -> new DataRowCollection(table, rows)));
+        return buildRowCollection(table, DataRowCollection::new);
     }
 
     /**
@@ -123,8 +121,19 @@ public class DataRowCollection implements Iterable<DataRow> {
      * @return Returns the DataRowCollection.
      */
     public static Try<DataRowCollection> build(DataTable table, Iterable<DataRow> rows) {
+        return buildRowCollection(table, rows, DataRowCollection::new);
+    }
+
+    private static <T extends DataRowCollection> T buildRowCollection(DataTable table, BiFunction<DataTable, Iterable<DataRow>, T> builder) {
+        return Stream
+                .range(0, table.rowCount())
+                .map(idx -> DataRow.build(table, idx).get())
+                .collect(transform(rows -> builder.apply(table, rows)));
+    }
+
+    private static <T extends DataRowCollection> Try<T> buildRowCollection(DataTable table, Iterable<DataRow> rows, BiFunction<DataTable, Iterable<DataRow>, T> builder) {
         return validateDataRows(table, rows)
-                .flatMap(x -> Try.success(new DataRowCollection(table, rows)));
+                .flatMap(x -> Try.success(builder.apply(table, rows)));
     }
 
     /**
