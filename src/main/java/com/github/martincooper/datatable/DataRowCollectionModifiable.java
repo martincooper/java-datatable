@@ -1,6 +1,13 @@
 package com.github.martincooper.datatable;
 
+import io.vavr.collection.Seq;
 import io.vavr.control.Try;
+
+import static io.vavr.API.$;
+import static io.vavr.API.Case;
+import static io.vavr.API.Match;
+import static io.vavr.Patterns.$Failure;
+import static io.vavr.Patterns.$Success;
 
 /**
  * DataRowCollectionModifiable. Handles a collection of DataRows
@@ -59,6 +66,17 @@ public class DataRowCollectionModifiable extends DataRowCollectionBase {
      */
     public Try<DataTable> remove(int idx) {
         return null;
+    }
+
+    private Try<DataTable> buildTable(Try<Seq<IDataColumn>> columns) {
+        return Match(columns).of(
+                Case($Success($()), cols -> DataTable.build(table.name(), cols)),
+                Case($Failure($()), Try::failure)
+        );
+    }
+
+    private Try<Seq<IDataColumn>> allOrFirstFail(Seq<Try<IDataColumn>> items) {
+        return Try.of(() -> items.map(Try::get));
     }
 
     /**

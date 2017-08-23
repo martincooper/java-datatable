@@ -19,8 +19,8 @@ import static com.github.martincooper.datatable.TransformCollector.transform;
  */
 abstract class DataRowCollectionBase implements Iterable<DataRow> {
 
-    private final DataTable table;
-    private final Vector<DataRow> rows;
+    protected final DataTable table;
+    protected final Vector<DataRow> rows;
 
     /**
      * Protected DataRow constructor.
