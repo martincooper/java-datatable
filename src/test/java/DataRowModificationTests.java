@@ -10,6 +10,8 @@ import static org.junit.Assert.assertTrue;
  */
 public class DataRowModificationTests {
 
+    // Test add row methods...
+
     @Test
     public void testDataAddRow() {
         DataTable table = createDataTable();
@@ -65,6 +67,143 @@ public class DataRowModificationTests {
         assertTrue(result.getCause().getMessage().equals("Number of values does not match number of columns."));
     }
 
+    // Test insert row methods...
+
+    @Test
+    public void testDataInsertRow() {
+        DataTable table = createDataTable();
+
+        Object[] rowValues = { "ZZ", 100, true };
+        Try<DataTable> result = table.rows().insert(2, rowValues);
+
+        assertTrue(result.isSuccess());
+
+        DataTable newTable = result.get();
+        assertTrue(newTable.rowCount() == 5);
+
+        assertTrue(newTable.column("StrCol").valueAt(0) == "AA");
+        assertTrue(newTable.column("StrCol").valueAt(1) == "BB");
+        assertTrue(newTable.column("StrCol").valueAt(2) == "ZZ");
+        assertTrue(newTable.column("StrCol").valueAt(3) == "CC");
+        assertTrue(newTable.column("StrCol").valueAt(4) == "DD");
+
+        assertTrue((int)newTable.column("IntCol").valueAt(0) == 3);
+        assertTrue((int)newTable.column("IntCol").valueAt(1) == 5);
+        assertTrue((int)newTable.column("IntCol").valueAt(2) == 100);
+        assertTrue((int)newTable.column("IntCol").valueAt(3) == 9);
+        assertTrue((int)newTable.column("IntCol").valueAt(4) == 11);
+
+        assertTrue((boolean)newTable.column("BoolCol").valueAt(0));
+        assertTrue(!(boolean)newTable.column("BoolCol").valueAt(1));
+        assertTrue((boolean)newTable.column("BoolCol").valueAt(2));
+        assertTrue((boolean)newTable.column("BoolCol").valueAt(3));
+        assertTrue(!(boolean)newTable.column("BoolCol").valueAt(4));
+    }
+
+    @Test
+    public void testDataInsertRowWithInvalidIndex() {
+        DataTable table = createDataTable();
+
+        // Insert data at an invalid index.
+        Object[] rowValues = { "ZZ", 100, true };
+        Try<DataTable> result = table.rows().insert(200, rowValues);
+
+        assertTrue(result.isFailure());
+        assertTrue(result.getCause() instanceof IndexOutOfBoundsException);
+    }
+
+    @Test
+    public void testDataInsertRowWithInvalidType() {
+        DataTable table = createDataTable();
+
+        // Insert data which includes an invalid type.
+        Object[] rowValues = { "ZZ", 100, 500 };
+        Try<DataTable> result = table.rows().insert(2, rowValues);
+
+        assertTrue(result.isFailure());
+        assertTrue(result.getCause().getMessage().equals("tryInsert failed. Item of invalid type passed."));
+    }
+
+    @Test
+    public void testDataInsertRowWithInvalidValueCount() {
+        DataTable table = createDataTable();
+
+        // Insert data where the number of values doesn't match the number of columns.
+        Object[] rowValues = { "ZZ" };
+        Try<DataTable> result = table.rows().insert(2, rowValues);
+
+        assertTrue(result.isFailure());
+        assertTrue(result.getCause().getMessage().equals("Number of values does not match number of columns."));
+    }
+
+    // Test replace / update row methods...
+
+    @Test
+    public void testDataReplaceRow() {
+        DataTable table = createDataTable();
+
+        Object[] rowValues = { "ZZ", 100, true };
+        Try<DataTable> result = table.rows().replace(2, rowValues);
+
+        assertTrue(result.isSuccess());
+
+        DataTable newTable = result.get();
+        assertTrue(newTable.rowCount() == 4);
+
+        assertTrue(newTable.column("StrCol").valueAt(0) == "AA");
+        assertTrue(newTable.column("StrCol").valueAt(1) == "BB");
+        assertTrue(newTable.column("StrCol").valueAt(2) == "ZZ");
+        assertTrue(newTable.column("StrCol").valueAt(3) == "DD");
+
+        assertTrue((int)newTable.column("IntCol").valueAt(0) == 3);
+        assertTrue((int)newTable.column("IntCol").valueAt(1) == 5);
+        assertTrue((int)newTable.column("IntCol").valueAt(2) == 100);
+        assertTrue((int)newTable.column("IntCol").valueAt(3) == 11);
+
+        assertTrue((boolean)newTable.column("BoolCol").valueAt(0));
+        assertTrue(!(boolean)newTable.column("BoolCol").valueAt(1));
+        assertTrue((boolean)newTable.column("BoolCol").valueAt(2));
+        assertTrue(!(boolean)newTable.column("BoolCol").valueAt(3));
+    }
+
+    @Test
+    public void testDataReplaceRowWithInvalidIndex() {
+        DataTable table = createDataTable();
+
+        // Replace data at an invalid index.
+        Object[] rowValues = { "ZZ", 100, true };
+        Try<DataTable> result = table.rows().replace(200, rowValues);
+
+        assertTrue(result.isFailure());
+        assertTrue(result.getCause() instanceof IndexOutOfBoundsException);
+    }
+
+    @Test
+    public void testDataReplaceRowWithInvalidType() {
+        DataTable table = createDataTable();
+
+        // Replace data which includes an invalid type.
+        Object[] rowValues = { "ZZ", 100, 500 };
+        Try<DataTable> result = table.rows().replace(2, rowValues);
+
+        assertTrue(result.isFailure());
+        assertTrue(result.getCause().getMessage().equals("tryReplace failed. Item of invalid type passed."));
+    }
+
+    @Test
+    public void testDataReplaceRowWithInvalidValueCount() {
+        DataTable table = createDataTable();
+
+        // Replace data where the number of values doesn't match the number of columns.
+        Object[] rowValues = { "ZZ" };
+        Try<DataTable> result = table.rows().replace(2, rowValues);
+
+        assertTrue(result.isFailure());
+        assertTrue(result.getCause().getMessage().equals("Number of values does not match number of columns."));
+    }
+
+    // Test remove row methods...
+
     @Test
     public void testDataRemoveRow() {
         DataTable table = createDataTable();
@@ -90,7 +229,7 @@ public class DataRowModificationTests {
         assertTrue(!(boolean)newTable.column("BoolCol").valueAt(2));
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testDataRemoveInvalidRow() {
         DataTable table = createDataTable();
 
@@ -98,9 +237,7 @@ public class DataRowModificationTests {
         Try<DataTable> newTable = table.rows().remove(200);
 
         assertTrue(newTable.isFailure());
-
-        // Should throw IndexOutOfBoundsException.
-        newTable.get();
+        assertTrue(newTable.getCause() instanceof IndexOutOfBoundsException);
     }
 
     private DataTable createDataTable() {
