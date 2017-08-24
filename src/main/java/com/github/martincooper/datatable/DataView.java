@@ -1,8 +1,10 @@
 package com.github.martincooper.datatable;
 
+import com.github.martincooper.datatable.sorting.DataSort;
 import com.github.martincooper.datatable.sorting.SortItem;
 import com.github.martincooper.datatable.sorting.SortOrder;
 import io.vavr.collection.Seq;
+import io.vavr.collection.Stream;
 import io.vavr.control.Try;
 
 import java.util.Iterator;
@@ -149,8 +151,7 @@ public class DataView implements IBaseTable {
      */
     @Override
     public Try<DataView> quickSort(String columnName) {
-        // TODO
-        return null;
+        return this.quickSort(columnName, SortOrder.Ascending);
     }
 
     /**
@@ -162,8 +163,8 @@ public class DataView implements IBaseTable {
      */
     @Override
     public Try<DataView> quickSort(String columnName, SortOrder sortOrder) {
-        // TODO
-        return null;
+        SortItem sortItem = new SortItem(columnName, sortOrder);
+        return DataSort.quickSort(this.table(), this.rows.asSeq(), Stream.of(sortItem));
     }
 
     /**
@@ -174,8 +175,7 @@ public class DataView implements IBaseTable {
      */
     @Override
     public Try<DataView> quickSort(Integer columnIndex) {
-        // TODO
-        return null;
+        return quickSort(columnIndex, SortOrder.Ascending);
     }
 
     /**
@@ -187,8 +187,8 @@ public class DataView implements IBaseTable {
      */
     @Override
     public Try<DataView> quickSort(Integer columnIndex, SortOrder sortOrder) {
-        // TODO
-        return null;
+        SortItem sortItem = new SortItem(columnIndex, sortOrder);
+        return DataSort.quickSort(this.table(), this.rows.asSeq(), Stream.of(sortItem));
     }
 
     /**
@@ -199,7 +199,7 @@ public class DataView implements IBaseTable {
      */
     @Override
     public Try<DataView> quickSort(SortItem sortItem) {
-        return null;
+        return this.quickSort(Stream.of(sortItem));
     }
 
     /**
@@ -210,7 +210,7 @@ public class DataView implements IBaseTable {
      */
     @Override
     public Try<DataView> quickSort(Iterable<SortItem> sortItems) {
-        return null;
+        return DataSort.quickSort(this.table(), this.rows.asSeq(), Stream.ofAll(sortItems));
     }
 
     /**
