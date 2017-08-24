@@ -174,6 +174,35 @@ private void typedAndCheckedDataAccess(DataRow dataRow) {
 }
 ```
 
+## Adding / Updating / Deleting rows.
+Individual rows and field values in the table can be modified. As the implementation is fully
+immutable, any add /remove / update / delete operation will return a new table with the changes
+applied leaving the original unchanged.
+
+The examples below assume a table with 4 columns of type [String, Integer, Boolean, Double].
+
+```java
+private Try<DataTable> addRow(DataTable dataTable) {
+    // Add a new row containing 4 values.
+    return dataTable.rows().addValues("New Value", 100 , true, 5.5);
+}
+
+private Try<DataTable> insertRow(DataTable dataTable) {
+    // Insert a new row containing 4 values at row index 10.
+    return dataTable.rows().insertValues(10, "New Value", 100 , true, 5.5);
+}
+
+private Try<DataTable> replaceRow(DataTable dataTable) {
+    // Replace the row values at row index 10 with the new values.
+    return dataTable.rows().replaceValues(10, "New Value", 100 , true, 5.5);
+}
+
+private Try<DataTable> removeRow(DataTable dataTable) {
+    // Remove the row at the specified index.
+    return dataTable.rows().remove(10)
+}
+```
+
 ## Sorting / Single and Multi Column
 A DataTable can sort by specified column or columns, returning a sorted DataView.
 
