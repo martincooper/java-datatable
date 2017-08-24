@@ -33,6 +33,16 @@ public class DataRowCollectionModifiable extends DataRowCollectionBase {
      * @param rowValues The values to append to the row.
      * @return Returns a new DataTable with the row appended.
      */
+    public Try<DataTable> addValues(Object ... rowValues) {
+        return add(rowValues);
+    }
+
+    /**
+     * Returns a new DataTable with the additional row appended.
+     *
+     * @param rowValues The values to append to the row.
+     * @return Returns a new DataTable with the row appended.
+     */
     public Try<DataTable> add(Object[] rowValues) {
         return Match(mapValuesToColumns(Stream.of(rowValues))).of(
                 Case($Success($()), this::addRow),
@@ -47,11 +57,33 @@ public class DataRowCollectionModifiable extends DataRowCollectionBase {
      * @param rowValues The values to insert into the row.
      * @return Returns a new DataTable with the row inserted.
      */
+    public Try<DataTable> insertValues(int idx, Object ... rowValues) {
+        return insert(idx, rowValues);
+    }
+
+    /**
+     * Returns a new DataTable with the additional row inserted at the specified index.
+     *
+     * @param idx The row index.
+     * @param rowValues The values to insert into the row.
+     * @return Returns a new DataTable with the row inserted.
+     */
     public Try<DataTable> insert(int idx, Object[] rowValues) {
         return Match(mapValuesToColumns(Stream.of(rowValues))).of(
                 Case($Success($()), values -> insertRow(idx, values)),
                 Case($Failure($()), Try::failure)
         );
+    }
+
+    /**
+     * Returns a new DataTable with the data replaced at the specified index.
+     *
+     * @param idx The row index.
+     * @param rowValues The new values to replaced the old ones.
+     * @return Returns a new DataTable with the row inserted.
+     */
+    public Try<DataTable> replaceValues(int idx, Object ... rowValues) {
+        return replace(idx, rowValues);
     }
 
     /**

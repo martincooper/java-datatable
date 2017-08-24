@@ -20,27 +20,39 @@ public class DataRowModificationTests {
         Try<DataTable> result = table.rows().add(rowValues);
 
         assertTrue(result.isSuccess());
+        testDataTableOnAdd(result.get());
+    }
 
-        DataTable newTable = result.get();
-        assertTrue(newTable.rowCount() == 5);
+    @Test
+    public void testDataAddRowValues() {
+        DataTable table = createDataTable();
 
-        assertTrue(newTable.column("StrCol").valueAt(0) == "AA");
-        assertTrue(newTable.column("StrCol").valueAt(1) == "BB");
-        assertTrue(newTable.column("StrCol").valueAt(2) == "CC");
-        assertTrue(newTable.column("StrCol").valueAt(3) == "DD");
-        assertTrue(newTable.column("StrCol").valueAt(4) == "ZZ");
+        Try<DataTable> result = table.rows().addValues("ZZ", 100, true);
 
-        assertTrue((int)newTable.column("IntCol").valueAt(0) == 3);
-        assertTrue((int)newTable.column("IntCol").valueAt(1) == 5);
-        assertTrue((int)newTable.column("IntCol").valueAt(2) == 9);
-        assertTrue((int)newTable.column("IntCol").valueAt(3) == 11);
-        assertTrue((int)newTable.column("IntCol").valueAt(4) == 100);
+        assertTrue(result.isSuccess());
+        testDataTableOnAdd(result.get());
+    }
 
-        assertTrue((boolean)newTable.column("BoolCol").valueAt(0));
-        assertTrue(!(boolean)newTable.column("BoolCol").valueAt(1));
-        assertTrue((boolean)newTable.column("BoolCol").valueAt(2));
-        assertTrue(!(boolean)newTable.column("BoolCol").valueAt(3));
-        assertTrue((boolean)newTable.column("BoolCol").valueAt(4));
+    private void testDataTableOnAdd(DataTable table) {
+        assertTrue(table.rowCount() == 5);
+
+        assertTrue(table.column("StrCol").valueAt(0) == "AA");
+        assertTrue(table.column("StrCol").valueAt(1) == "BB");
+        assertTrue(table.column("StrCol").valueAt(2) == "CC");
+        assertTrue(table.column("StrCol").valueAt(3) == "DD");
+        assertTrue(table.column("StrCol").valueAt(4) == "ZZ");
+
+        assertTrue((int)table.column("IntCol").valueAt(0) == 3);
+        assertTrue((int)table.column("IntCol").valueAt(1) == 5);
+        assertTrue((int)table.column("IntCol").valueAt(2) == 9);
+        assertTrue((int)table.column("IntCol").valueAt(3) == 11);
+        assertTrue((int)table.column("IntCol").valueAt(4) == 100);
+
+        assertTrue((boolean)table.column("BoolCol").valueAt(0));
+        assertTrue(!(boolean)table.column("BoolCol").valueAt(1));
+        assertTrue((boolean)table.column("BoolCol").valueAt(2));
+        assertTrue(!(boolean)table.column("BoolCol").valueAt(3));
+        assertTrue((boolean)table.column("BoolCol").valueAt(4));
     }
 
     @Test
@@ -77,27 +89,39 @@ public class DataRowModificationTests {
         Try<DataTable> result = table.rows().insert(2, rowValues);
 
         assertTrue(result.isSuccess());
+        testDataTableOnInsert(result.get());
+    }
 
-        DataTable newTable = result.get();
-        assertTrue(newTable.rowCount() == 5);
+    @Test
+    public void testDataInsertRowValues() {
+        DataTable table = createDataTable();
 
-        assertTrue(newTable.column("StrCol").valueAt(0) == "AA");
-        assertTrue(newTable.column("StrCol").valueAt(1) == "BB");
-        assertTrue(newTable.column("StrCol").valueAt(2) == "ZZ");
-        assertTrue(newTable.column("StrCol").valueAt(3) == "CC");
-        assertTrue(newTable.column("StrCol").valueAt(4) == "DD");
+        Try<DataTable> result = table.rows().insertValues(2, "ZZ", 100, true);
 
-        assertTrue((int)newTable.column("IntCol").valueAt(0) == 3);
-        assertTrue((int)newTable.column("IntCol").valueAt(1) == 5);
-        assertTrue((int)newTable.column("IntCol").valueAt(2) == 100);
-        assertTrue((int)newTable.column("IntCol").valueAt(3) == 9);
-        assertTrue((int)newTable.column("IntCol").valueAt(4) == 11);
+        assertTrue(result.isSuccess());
+        testDataTableOnInsert(result.get());
+    }
 
-        assertTrue((boolean)newTable.column("BoolCol").valueAt(0));
-        assertTrue(!(boolean)newTable.column("BoolCol").valueAt(1));
-        assertTrue((boolean)newTable.column("BoolCol").valueAt(2));
-        assertTrue((boolean)newTable.column("BoolCol").valueAt(3));
-        assertTrue(!(boolean)newTable.column("BoolCol").valueAt(4));
+    private void testDataTableOnInsert(DataTable table) {
+        assertTrue(table.rowCount() == 5);
+
+        assertTrue(table.column("StrCol").valueAt(0) == "AA");
+        assertTrue(table.column("StrCol").valueAt(1) == "BB");
+        assertTrue(table.column("StrCol").valueAt(2) == "ZZ");
+        assertTrue(table.column("StrCol").valueAt(3) == "CC");
+        assertTrue(table.column("StrCol").valueAt(4) == "DD");
+
+        assertTrue((int)table.column("IntCol").valueAt(0) == 3);
+        assertTrue((int)table.column("IntCol").valueAt(1) == 5);
+        assertTrue((int)table.column("IntCol").valueAt(2) == 100);
+        assertTrue((int)table.column("IntCol").valueAt(3) == 9);
+        assertTrue((int)table.column("IntCol").valueAt(4) == 11);
+
+        assertTrue((boolean)table.column("BoolCol").valueAt(0));
+        assertTrue(!(boolean)table.column("BoolCol").valueAt(1));
+        assertTrue((boolean)table.column("BoolCol").valueAt(2));
+        assertTrue((boolean)table.column("BoolCol").valueAt(3));
+        assertTrue(!(boolean)table.column("BoolCol").valueAt(4));
     }
 
     @Test
@@ -146,24 +170,36 @@ public class DataRowModificationTests {
         Try<DataTable> result = table.rows().replace(2, rowValues);
 
         assertTrue(result.isSuccess());
+        testDataTableOnReplace(result.get());
+    }
 
-        DataTable newTable = result.get();
-        assertTrue(newTable.rowCount() == 4);
+    @Test
+    public void testDataReplaceRowValues() {
+        DataTable table = createDataTable();
 
-        assertTrue(newTable.column("StrCol").valueAt(0) == "AA");
-        assertTrue(newTable.column("StrCol").valueAt(1) == "BB");
-        assertTrue(newTable.column("StrCol").valueAt(2) == "ZZ");
-        assertTrue(newTable.column("StrCol").valueAt(3) == "DD");
+        Try<DataTable> result = table.rows().replaceValues(2, "ZZ", 100, true);
 
-        assertTrue((int)newTable.column("IntCol").valueAt(0) == 3);
-        assertTrue((int)newTable.column("IntCol").valueAt(1) == 5);
-        assertTrue((int)newTable.column("IntCol").valueAt(2) == 100);
-        assertTrue((int)newTable.column("IntCol").valueAt(3) == 11);
+        assertTrue(result.isSuccess());
+        testDataTableOnReplace(result.get());
+    }
 
-        assertTrue((boolean)newTable.column("BoolCol").valueAt(0));
-        assertTrue(!(boolean)newTable.column("BoolCol").valueAt(1));
-        assertTrue((boolean)newTable.column("BoolCol").valueAt(2));
-        assertTrue(!(boolean)newTable.column("BoolCol").valueAt(3));
+    private void testDataTableOnReplace(DataTable table) {
+        assertTrue(table.rowCount() == 4);
+
+        assertTrue(table.column("StrCol").valueAt(0) == "AA");
+        assertTrue(table.column("StrCol").valueAt(1) == "BB");
+        assertTrue(table.column("StrCol").valueAt(2) == "ZZ");
+        assertTrue(table.column("StrCol").valueAt(3) == "DD");
+
+        assertTrue((int)table.column("IntCol").valueAt(0) == 3);
+        assertTrue((int)table.column("IntCol").valueAt(1) == 5);
+        assertTrue((int)table.column("IntCol").valueAt(2) == 100);
+        assertTrue((int)table.column("IntCol").valueAt(3) == 11);
+
+        assertTrue((boolean)table.column("BoolCol").valueAt(0));
+        assertTrue(!(boolean)table.column("BoolCol").valueAt(1));
+        assertTrue((boolean)table.column("BoolCol").valueAt(2));
+        assertTrue(!(boolean)table.column("BoolCol").valueAt(3));
     }
 
     @Test
