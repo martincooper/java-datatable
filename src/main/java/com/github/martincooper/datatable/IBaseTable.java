@@ -31,11 +31,6 @@ public interface IBaseTable extends Iterable<DataRow>, IQuickSort {
     DataRow row(Integer rowIdx);
 
     /**
-     * @return Returns the underlying table.
-     */
-    DataTable table();
-
-    /**
      * Returns the rowCount / row count of the table.
      *
      * @return The row count of the table.
