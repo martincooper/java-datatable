@@ -2,7 +2,6 @@ package com.github.martincooper.datatable.sorting;
 
 import com.github.martincooper.datatable.*;
 import io.vavr.collection.Seq;
-import io.vavr.collection.Stream;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
 
@@ -20,22 +19,14 @@ import static io.vavr.Patterns.$Success;
  */
 public class DataSort {
 
-    public static Try<DataView> quickSort(DataTable table, SortItem sortItem) {
-        return quickSort(table, table.rows().asSeq(), Stream.of(sortItem));
-    }
-
-    public static Try<DataView> quickSort(DataTable table, Seq<SortItem> sortItems) {
-        return quickSort(table, table.rows().asSeq(), sortItems);
-    }
-
-    public static Try<DataView> quickSort(DataView dataView, SortItem sortItem) {
-        return quickSort(dataView.table(), dataView.rows().asSeq(), Stream.of(sortItem));
-    }
-
-    public static Try<DataView> quickSort(DataView dataView, Seq<SortItem> sortItems) {
-        return quickSort(dataView.table(), dataView.rows().asSeq(), sortItems);
-    }
-
+    /**
+     * Performs a quick sort on a DataTable given the specified parameters.
+     *
+     * @param table The underlying table containing the data.
+     * @param rows The collection of rows to be sorted.
+     * @param sortItems The sort details.
+     * @return Returns a sorted DataView.
+     */
     public static Try<DataView> quickSort(DataTable table, Seq<DataRow> rows, Seq<SortItem> sortItems) {
         return Match(validateSortColumns(table, sortItems)).of(
                 Case($Success($()), cols -> Try.success(performQuickSort(table, rows, sortItems))),

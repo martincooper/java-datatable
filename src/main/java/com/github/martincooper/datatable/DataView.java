@@ -100,14 +100,6 @@ public class DataView implements IBaseTable {
     }
 
     /**
-     * @return Returns the underlying table.
-     */
-    @Override
-    public DataTable table() {
-        return this.table;
-    }
-
-    /**
      * Returns the rowCount / row count of the table.
      *
      * @return The row count of the table.
@@ -164,7 +156,7 @@ public class DataView implements IBaseTable {
     @Override
     public Try<DataView> quickSort(String columnName, SortOrder sortOrder) {
         SortItem sortItem = new SortItem(columnName, sortOrder);
-        return DataSort.quickSort(this.table(), this.rows.asSeq(), Stream.of(sortItem));
+        return DataSort.quickSort(this.table, this.rows.asSeq(), Stream.of(sortItem));
     }
 
     /**
@@ -188,7 +180,7 @@ public class DataView implements IBaseTable {
     @Override
     public Try<DataView> quickSort(Integer columnIndex, SortOrder sortOrder) {
         SortItem sortItem = new SortItem(columnIndex, sortOrder);
-        return DataSort.quickSort(this.table(), this.rows.asSeq(), Stream.of(sortItem));
+        return DataSort.quickSort(this.table, this.rows.asSeq(), Stream.of(sortItem));
     }
 
     /**
@@ -210,7 +202,7 @@ public class DataView implements IBaseTable {
      */
     @Override
     public Try<DataView> quickSort(Iterable<SortItem> sortItems) {
-        return DataSort.quickSort(this.table(), this.rows.asSeq(), Stream.ofAll(sortItems));
+        return DataSort.quickSort(this.table, this.rows.asSeq(), Stream.ofAll(sortItems));
     }
 
     /**

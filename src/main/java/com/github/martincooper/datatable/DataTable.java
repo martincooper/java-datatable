@@ -83,14 +83,6 @@ public class DataTable implements IBaseTable {
     public DataRowCollectionModifiable rows() { return this.rows; }
 
     /**
-     * The data table.
-     *
-     * @return Returns the table (this).
-     */
-    @Override
-    public DataTable table() { return this; }
-
-    /**
      * Returns the rowCount / row count of the table.
      *
      * @return The row count of the table.
@@ -181,7 +173,7 @@ public class DataTable implements IBaseTable {
     @Override
     public Try<DataView> quickSort(String columnName, SortOrder sortOrder) {
         SortItem sortItem = new SortItem(columnName, sortOrder);
-        return DataSort.quickSort(this.table(), this.rows.asSeq(), Stream.of(sortItem));
+        return DataSort.quickSort(this, this.rows.asSeq(), Stream.of(sortItem));
     }
 
     /**
@@ -205,7 +197,7 @@ public class DataTable implements IBaseTable {
     @Override
     public Try<DataView> quickSort(Integer columnIndex, SortOrder sortOrder) {
         SortItem sortItem = new SortItem(columnIndex, sortOrder);
-        return DataSort.quickSort(this.table(), this.rows.asSeq(), Stream.of(sortItem));
+        return DataSort.quickSort(this, this.rows.asSeq(), Stream.of(sortItem));
     }
 
     /**
@@ -227,7 +219,7 @@ public class DataTable implements IBaseTable {
      */
     @Override
     public Try<DataView> quickSort(Iterable<SortItem> sortItems) {
-        return DataSort.quickSort(this.table(), this.rows.asSeq(), Stream.ofAll(sortItems));
+        return DataSort.quickSort(this, this.rows.asSeq(), Stream.ofAll(sortItems));
     }
 
     /**
