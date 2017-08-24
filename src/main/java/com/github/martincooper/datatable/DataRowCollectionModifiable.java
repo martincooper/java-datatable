@@ -95,12 +95,29 @@ public class DataRowCollectionModifiable extends DataRowCollectionBase {
         );
     }
 
+    /**
+     * Maps each value to a corresponding column.
+     *
+     * @param values The list of values.
+     * @return Returns a sequence of column to value mappings.
+     */
+    private Seq<ColumnValuePair> createIndexedColumnValuePair(Seq<Object> values) {
+        return values.zipWithIndex((value, index) -> new ColumnValuePair(table.column(index), value));
+    }
+
+    /**
+     * Converts a Seq<Try<IDataColumn>> into a Try<Seq<IDataColumn>>
+     *
+     * @param items The values to convert.
+     * @return Returns the converted items.
+     */
     private Try<Seq<IDataColumn>> allOrFirstFail(Seq<Try<IDataColumn>> items) {
         return Try.of(() -> items.map(Try::get));
     }
 
     /**
      * Builds a new DataRowCollection for the specified DataTable.
+     *
      * @param table The table to build the DataRowCollection for.
      * @return Returns the DataRowCollection.
      */
