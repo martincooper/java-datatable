@@ -96,6 +96,18 @@ public class DataRowCollectionModifiable extends DataRowCollectionBase {
     }
 
     /**
+     * Validates the number of values equals the number of columns in the table.
+     *
+     * @param values The values.
+     * @return Returns a sequence of ColumnValuePairs if valid.
+     */
+    private Try<Seq<ColumnValuePair>> mapValuesToColumns(Seq<Object> values) {
+        return values.length() != table.columns().count()
+                ? DataTableException.tryError("Number of values does not match number of columns.")
+                : Try.success(createIndexedColumnValuePair(values));
+    }
+
+    /**
      * Maps each value to a corresponding column.
      *
      * @param values The list of values.
