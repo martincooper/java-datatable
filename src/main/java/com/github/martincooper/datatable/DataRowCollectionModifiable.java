@@ -68,6 +68,21 @@ public class DataRowCollectionModifiable extends DataRowCollectionBase {
         return removeRow(idx);
     }
 
+    private Try<DataTable> insertRow(Seq<ColumnValuePair> values) {
+        Try<Seq<IDataColumn>> newCols = allOrFirstFail(values.map(val -> val.column().add(val.value())));
+        return buildTable(newCols);
+    }
+
+    private Try<DataTable> insertRow(int idx, Seq<ColumnValuePair> values) {
+        Try<Seq<IDataColumn>> newCols = allOrFirstFail(values.map(val -> val.column().insert(idx, val.value())));
+        return buildTable(newCols);
+    }
+
+    private Try<DataTable> replaceRow(int idx, Seq<ColumnValuePair> values) {
+        Try<Seq<IDataColumn>> newCols = allOrFirstFail(values.map(val -> val.column().replace(idx, val.value())));
+        return buildTable(newCols);
+    }
+
     private Try<DataTable> removeRow(int idx) {
         Try<Seq<IDataColumn>> cols = allOrFirstFail(table.columns().map(col -> col.remove(idx)));
         return buildTable(cols);

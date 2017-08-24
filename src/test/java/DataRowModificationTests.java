@@ -15,22 +15,24 @@ public class DataRowModificationTests {
         DataTable table = createDataTable();
 
         // Remove row at row index 2.
-        Try<DataTable> newTable = table.rows().remove(2);
+        Try<DataTable> result = table.rows().remove(2);
 
-        assertTrue(newTable.isSuccess());
-        assertTrue(newTable.get().rowCount() == 3);
+        assertTrue(result.isSuccess());
 
-        assertTrue(newTable.get().column("StrCol").valueAt(0) == "AA");
-        assertTrue(newTable.get().column("StrCol").valueAt(1) == "BB");
-        assertTrue(newTable.get().column("StrCol").valueAt(2) == "DD");
+        DataTable newTable = result.get();
+        assertTrue(newTable.rowCount() == 3);
 
-        assertTrue((int)newTable.get().column("IntCol").valueAt(0) == 3);
-        assertTrue((int)newTable.get().column("IntCol").valueAt(1) == 5);
-        assertTrue((int)newTable.get().column("IntCol").valueAt(2) == 11);
+        assertTrue(newTable.column("StrCol").valueAt(0) == "AA");
+        assertTrue(newTable.column("StrCol").valueAt(1) == "BB");
+        assertTrue(newTable.column("StrCol").valueAt(2) == "DD");
 
-        assertTrue((boolean)newTable.get().column("BoolCol").valueAt(0));
-        assertTrue(!(boolean)newTable.get().column("BoolCol").valueAt(1));
-        assertTrue(!(boolean)newTable.get().column("BoolCol").valueAt(2));
+        assertTrue((int)newTable.column("IntCol").valueAt(0) == 3);
+        assertTrue((int)newTable.column("IntCol").valueAt(1) == 5);
+        assertTrue((int)newTable.column("IntCol").valueAt(2) == 11);
+
+        assertTrue((boolean)newTable.column("BoolCol").valueAt(0));
+        assertTrue(!(boolean)newTable.column("BoolCol").valueAt(1));
+        assertTrue(!(boolean)newTable.column("BoolCol").valueAt(2));
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
