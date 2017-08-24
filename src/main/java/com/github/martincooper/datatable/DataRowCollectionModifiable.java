@@ -1,6 +1,7 @@
 package com.github.martincooper.datatable;
 
 import io.vavr.collection.Seq;
+import io.vavr.collection.Stream;
 import io.vavr.control.Try;
 
 import static io.vavr.API.$;
@@ -33,7 +34,10 @@ public class DataRowCollectionModifiable extends DataRowCollectionBase {
      * @return Returns a new DataTable with the row appended.
      */
     public Try<DataTable> add(Object[] rowValues) {
-        return null;
+        return Match(mapValuesToColumns(Stream.of(rowValues))).of(
+                Case($Success($()), this::addRow),
+                Case($Failure($()), Try::failure)
+        );
     }
 
     /**
@@ -68,7 +72,7 @@ public class DataRowCollectionModifiable extends DataRowCollectionBase {
         return removeRow(idx);
     }
 
-    private Try<DataTable> insertRow(Seq<ColumnValuePair> values) {
+    private Try<DataTable> addRow(Seq<ColumnValuePair> values) {
         Try<Seq<IDataColumn>> newCols = allOrFirstFail(values.map(val -> val.column().add(val.value())));
         return buildTable(newCols);
     }
