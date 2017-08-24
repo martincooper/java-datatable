@@ -2,7 +2,6 @@ package com.github.martincooper.datatable;
 
 import io.vavr.collection.Seq;
 import io.vavr.collection.Stream;
-import io.vavr.control.Option;
 import io.vavr.control.Try;
 
 import static io.vavr.API.$;
@@ -80,22 +79,22 @@ public class DataRowCollectionModifiable extends DataRowCollectionBase {
     }
 
     private Try<DataTable> addRow(Seq<ColumnValuePair> values) {
-        Try<Seq<IDataColumn>> newCols = allOrFirstFail(values.map(val -> val.column().add(val.value())));
+        Try<Seq<IDataColumn>> newCols = toSequence(values.map(val -> val.column().add(val.value())));
         return buildTable(newCols);
     }
 
     private Try<DataTable> insertRow(int idx, Seq<ColumnValuePair> values) {
-        Try<Seq<IDataColumn>> newCols = allOrFirstFail(values.map(val -> val.column().insert(idx, val.value())));
+        Try<Seq<IDataColumn>> newCols = toSequence(values.map(val -> val.column().insert(idx, val.value())));
         return buildTable(newCols);
     }
 
     private Try<DataTable> replaceRow(int idx, Seq<ColumnValuePair> values) {
-        Try<Seq<IDataColumn>> newCols = allOrFirstFail(values.map(val -> val.column().replace(idx, val.value())));
+        Try<Seq<IDataColumn>> newCols = toSequence(values.map(val -> val.column().replace(idx, val.value())));
         return buildTable(newCols);
     }
 
     private Try<DataTable> removeRow(int idx) {
-        Try<Seq<IDataColumn>> cols = allOrFirstFail(table.columns().map(col -> col.remove(idx)));
+        Try<Seq<IDataColumn>> cols = toSequence(table.columns().map(col -> col.remove(idx)));
         return buildTable(cols);
     }
 
@@ -134,12 +133,8 @@ public class DataRowCollectionModifiable extends DataRowCollectionBase {
      * @param items The values to convert.
      * @return Returns the converted items.
      */
-    private Try<Seq<IDataColumn>> allOrFirstFail(Seq<Try<IDataColumn>> items) {
-        Option<Try<IDataColumn>> failure = items.find(Try::isFailure);
-
-        return !failure.isEmpty()
-                ? Try.failure(failure.get().getCause())
-                : Try.success(items.map(Try::get));
+    private Try<Seq<IDataColumn>> toSequence(Seq<Try<IDataColumn>> items) {
+        return Try.sequence(items);
     }
 
     /**
