@@ -209,7 +209,7 @@ A DataTable can sort by specified column or columns, returning a sorted DataView
 ```java
 private Try<DataView> sortTableByColumnNameDescending(DataTable dataTable) {
     
-  dataTable.quickSort("SomeColumn", SortOrder.Descending);
+  return dataTable.quickSort("SomeColumn", SortOrder.Descending);
 }
 ```
 
