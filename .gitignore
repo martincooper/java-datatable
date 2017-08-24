@@ -21,6 +21,6 @@ hs_err_pid*
 out/
 target/
 
-# Allow saving of IntelliJ settings files.
-!.ide/*
+# Settings files.
+.ide/*
 
