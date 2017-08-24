@@ -36,7 +36,7 @@ The table data can be easily accessed, filtered and modified through a RowData o
 untyped methods depending on how much type info is known at design time.
 
 Most methods have both checked and unchecked versions. The checked ones perform additional bounds checking and return
-results as a Try<T> with detailed error information. The unchecked ones will just return a <T> and throw an exception
+results as a `Try<T>` with detailed error information. The unchecked ones will just return a `<T>` and throw an exception
 on any out of bounds errors but with potentially faster access on a significantly large amount of updates.
 
 # Example Usage
