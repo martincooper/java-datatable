@@ -49,7 +49,10 @@ public class DataRowCollectionModifiable extends DataRowCollectionBase {
      * @return Returns a new DataTable with the row inserted.
      */
     public Try<DataTable> insert(int idx, Object[] rowValues) {
-        return null;
+        return Match(mapValuesToColumns(Stream.of(rowValues))).of(
+                Case($Success($()), values -> insertRow(idx, values)),
+                Case($Failure($()), Try::failure)
+        );
     }
 
     /**
@@ -60,7 +63,10 @@ public class DataRowCollectionModifiable extends DataRowCollectionBase {
      * @return Returns a new DataTable with the row inserted.
      */
     public Try<DataTable> replace(int idx, Object[] rowValues) {
-        return null;
+        return Match(mapValuesToColumns(Stream.of(rowValues))).of(
+                Case($Success($()), values -> replaceRow(idx, values)),
+                Case($Failure($()), Try::failure)
+        );
     }
 
     /**
