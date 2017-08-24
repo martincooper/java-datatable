@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.martincooper</groupId>
     <artifactId>java-datatable</artifactId>
-    <version>0.1.1</version>
+    <version>0.1.2</version>
     <packaging>pom</packaging>
     <name>Java DataTable</name>
     <description>Immutable Data Table implementation in Java</description>
