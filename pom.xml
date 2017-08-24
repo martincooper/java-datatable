@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
     <name>Java DataTable</name>
     <description>Immutable Data Table implementation in Java</description>
+    <url>https://github.com/martincooper/java-datatable</url>
 
     <licenses>
         <license>
