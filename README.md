@@ -176,7 +176,7 @@ private void typedAndCheckedDataAccess(DataRow dataRow) {
 
 ## Adding / Updating / Deleting rows.
 Individual rows and field values in the table can be modified. As the implementation is fully
-immutable, any add /remove / update / delete operation will return a new table with the changes
+immutable, any add / remove / update / delete operation will return a new table with the changes
 applied leaving the original unchanged.
 
 The examples below assume a table with 4 columns of type [String, Integer, Boolean, Double].
@@ -208,8 +208,8 @@ A DataTable can sort by specified column or columns, returning a sorted DataView
 
 ```java
 private Try<DataView> sortTableByColumnNameDescending(DataTable dataTable) {
-    
-  return dataTable.quickSort("SomeColumn", SortOrder.Descending);
+    // Simple sort on single column.
+    return dataTable.quickSort("SomeColumn", SortOrder.Descending);
 }
 ```
 
