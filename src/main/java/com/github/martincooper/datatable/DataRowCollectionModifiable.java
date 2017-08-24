@@ -2,6 +2,7 @@ package com.github.martincooper.datatable;
 
 import io.vavr.collection.Seq;
 import io.vavr.collection.Stream;
+import io.vavr.control.Option;
 import io.vavr.control.Try;
 
 import static io.vavr.API.$;
@@ -128,7 +129,11 @@ public class DataRowCollectionModifiable extends DataRowCollectionBase {
      * @return Returns the converted items.
      */
     private Try<Seq<IDataColumn>> allOrFirstFail(Seq<Try<IDataColumn>> items) {
-        return Try.of(() -> items.map(Try::get));
+        Option<Try<IDataColumn>> failure = items.find(Try::isFailure);
+
+        return !failure.isEmpty()
+                ? Try.failure(failure.get().getCause())
+                : Try.success(items.map(Try::get));
     }
 
     /**

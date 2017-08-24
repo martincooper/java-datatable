@@ -11,6 +11,61 @@ import static org.junit.Assert.assertTrue;
 public class DataRowModificationTests {
 
     @Test
+    public void testDataAddRow() {
+        DataTable table = createDataTable();
+
+        Object[] rowValues = { "ZZ", 100, true };
+        Try<DataTable> result = table.rows().add(rowValues);
+
+        assertTrue(result.isSuccess());
+
+        DataTable newTable = result.get();
+        assertTrue(newTable.rowCount() == 5);
+
+        assertTrue(newTable.column("StrCol").valueAt(0) == "AA");
+        assertTrue(newTable.column("StrCol").valueAt(1) == "BB");
+        assertTrue(newTable.column("StrCol").valueAt(2) == "CC");
+        assertTrue(newTable.column("StrCol").valueAt(3) == "DD");
+        assertTrue(newTable.column("StrCol").valueAt(4) == "ZZ");
+
+        assertTrue((int)newTable.column("IntCol").valueAt(0) == 3);
+        assertTrue((int)newTable.column("IntCol").valueAt(1) == 5);
+        assertTrue((int)newTable.column("IntCol").valueAt(2) == 9);
+        assertTrue((int)newTable.column("IntCol").valueAt(3) == 11);
+        assertTrue((int)newTable.column("IntCol").valueAt(4) == 100);
+
+        assertTrue((boolean)newTable.column("BoolCol").valueAt(0));
+        assertTrue(!(boolean)newTable.column("BoolCol").valueAt(1));
+        assertTrue((boolean)newTable.column("BoolCol").valueAt(2));
+        assertTrue(!(boolean)newTable.column("BoolCol").valueAt(3));
+        assertTrue((boolean)newTable.column("BoolCol").valueAt(4));
+    }
+
+    @Test
+    public void testDataAddRowWithInvalidType() {
+        DataTable table = createDataTable();
+
+        // Add data which includes an invalid type.
+        Object[] rowValues = { "ZZ", 100, 500 };
+        Try<DataTable> result = table.rows().add(rowValues);
+
+        assertTrue(result.isFailure());
+        assertTrue(result.getCause().getMessage().equals("tryAdd failed. Item of invalid type passed."));
+    }
+
+    @Test
+    public void testDataAddRowWithInvalidValueCount() {
+        DataTable table = createDataTable();
+
+        // Add data where the number of values doesn't match the number of columns.
+        Object[] rowValues = { "ZZ" };
+        Try<DataTable> result = table.rows().add(rowValues);
+
+        assertTrue(result.isFailure());
+        assertTrue(result.getCause().getMessage().equals("Number of values does not match number of columns."));
+    }
+
+    @Test
     public void testDataRemoveRow() {
         DataTable table = createDataTable();
 
