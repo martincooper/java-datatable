@@ -196,6 +196,28 @@ public class DataView implements IBaseTable {
     }
 
     /**
+     * Fold Left implementation for the DataRowCollection class.
+     *
+     * @param <U> Fold return type.
+     * @param folder The fold function.
+     * @return Returns a single value of U.
+     */
+    public <U> U foldLeft(U zero, BiFunction<? super U, ? super DataRow, ? extends U> folder) {
+        return this.rows.foldLeft(zero, folder);
+    }
+
+    /**
+     * Fold Right implementation for the DataRowCollection class.
+     *
+     * @param <U> Fold return type.
+     * @param folder The fold function.
+     * @return Returns a single value of U.
+     */
+    public <U> U foldRight(U zero, BiFunction<? super DataRow, ? super U, ? extends U> folder) {
+        return this.rows.foldRight(zero, folder);
+    }
+
+    /**
      * Table QuickSort by single column name.
      *
      * @param columnName The column name to sort.
