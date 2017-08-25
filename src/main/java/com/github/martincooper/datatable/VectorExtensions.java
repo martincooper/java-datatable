@@ -5,13 +5,13 @@ import io.vavr.control.Try;
 
 /**
  * VectorExtensions class.
- * Helper methods for add / insert / update & remove with bounds checking.
+ * Helper methods for add, insert, update and remove with bounds checking.
  * Created by Martin Cooper on 16/07/2017.
  */
 public class VectorExtensions {
 
     /**
-     * Adds / Appends a new item to the end of the vector.
+     * Adds - Appends a new item to the end of the vector.
      *
      * @param vector The vector to add the item to.
      * @param item The item to add.
@@ -52,7 +52,7 @@ public class VectorExtensions {
     }
 
     /**
-     * Replaces / Updates an item in the vector, with additional bounds check.
+     * Replaces - Updates an item in the vector, with additional bounds check.
      *
      * @param vector The vector to replace the item in.
      * @param index The index of the item to replace.
