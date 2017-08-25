@@ -225,6 +225,15 @@ private Try<DataView> sortTableByMultipleColumns(DataTable dataTable) {
 }
 ```
 
+## Installation
+Java DataTable is available on Maven. 
+
+    <dependency>
+        <groupId>com.github.martincooper</groupId>
+        <artifactId>java-datatable</artifactId>
+        <version>0.9.0</version>
+    </dependency>
+
 ### Credits
 
 Java DataTable is maintained by Martin Cooper : Copyright (c) 2017
