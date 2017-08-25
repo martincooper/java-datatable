@@ -3,11 +3,14 @@ package com.github.martincooper.datatable;
 import com.github.martincooper.datatable.sorting.DataSort;
 import com.github.martincooper.datatable.sorting.SortItem;
 import com.github.martincooper.datatable.sorting.SortOrder;
+import io.vavr.collection.Map;
 import io.vavr.collection.Seq;
 import io.vavr.collection.Stream;
+import io.vavr.collection.Vector;
 import io.vavr.control.Try;
 
 import java.util.Iterator;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -135,6 +138,37 @@ public class DataTable implements IBaseTable {
      */
     public <U> Seq<U> map(Function<? super DataRow, ? extends U> mapper) {
         return this.rows.map(mapper);
+    }
+
+    /**
+     * FlatMap implementation for the DataRowCollection class.
+     *
+     * @param <U> Mapped return type.
+     * @param mapper The map function.
+     * @return Returns a sequence of the applied flatMap.
+     */
+    public <U> Seq<U> flatMap(Function<? super DataRow, ? extends Iterable <? extends U>> mapper) {
+        return this.rows.flatMap(mapper);
+    }
+
+    /**
+     * Reduce implementation for the DataRowCollection class.
+     *
+     * @param reducer The reduce function.
+     * @return Returns a single, reduced DataRow.
+     */
+    public DataRow reduce(BiFunction<? super DataRow, ? super DataRow, ? extends DataRow> reducer) {
+        return this.rows.reduce(reducer);
+    }
+
+    /**
+     * GroupBy implementation for the DataRowCollection class.
+     *
+     * @param grouper The group by function.
+     * @return Returns a map containing the grouped data.
+     */
+    public <C> Map<C, Vector<DataRow>> groupBy(Function<? super DataRow, ? extends C> grouper) {
+        return this.rows.groupBy(grouper);
     }
 
     /**
