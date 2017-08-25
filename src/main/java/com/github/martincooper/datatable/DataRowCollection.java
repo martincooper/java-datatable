@@ -21,6 +21,7 @@ public class DataRowCollection extends DataRowCollectionBase {
 
     /**
      * Builds a new DataRowCollection for the specified DataTable.
+     *
      * @param table The table to build the DataRowCollection for.
      * @return Returns the DataRowCollection.
      */
@@ -30,7 +31,9 @@ public class DataRowCollection extends DataRowCollectionBase {
 
     /**
      * Builds a new DataRowCollection for the specified DataTable.
+     *
      * @param table The table to build the DataRowCollection for.
+     * @param rows The rows to build the table.
      * @return Returns the DataRowCollection.
      */
     public static Try<DataRowCollection> build(DataTable table, Iterable<DataRow> rows) {

@@ -24,7 +24,7 @@ public class DataColumnCollection
      *
      * @param table The table the column collection belongs to.
      */
-    public DataColumnCollection(DataTable table) {
+    DataColumnCollection(DataTable table) {
         this(table, List.empty());
     }
 
@@ -35,7 +35,7 @@ public class DataColumnCollection
      * @param table The table the column collection belong to.
      * @param columns The collection of data columns.
      */
-    public DataColumnCollection(DataTable table, Iterable<IDataColumn> columns) {
+    DataColumnCollection(DataTable table, Iterable<IDataColumn> columns) {
         Guard.notNull(table, "table");
         Guard.itemsNotNull(columns, "columns");
 
@@ -56,6 +56,7 @@ public class DataColumnCollection
     /**
      * Map implementation for the DataColumnCollection class.
      *
+     * @param <U> Mapped return type.
      * @param mapper The map function.
      * @return Returns a sequence of the applied map.
      */

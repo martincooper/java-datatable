@@ -14,7 +14,7 @@ public class ColumnValuePair {
      * @param column The column.
      * @param value The value.
      */
-    public ColumnValuePair(IDataColumn column, Object value) {
+    ColumnValuePair(IDataColumn column, Object value) {
         this.column = column;
         this.value = value;
     }

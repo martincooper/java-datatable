@@ -26,6 +26,7 @@ public class Guard {
      * Asserts the argument, and none of it's iterable items, is null.
      * Throws an IllegalArgumentException if it is.
      *
+     * @param <T> The argument type.
      * @param argument The argument to check.
      * @param name The name of the argument.
      */
@@ -41,6 +42,7 @@ public class Guard {
      * Asserts the argument, and none of it's items, is null.
      * Throws an IllegalArgumentException if it is.
      *
+     * @param <T> The argument type.
      * @param argument The argument to check.
      * @param name The name of the argument.
      */
@@ -52,8 +54,10 @@ public class Guard {
     /**
      * Asserts the argument is not null. Returns in a Try.
      *
+     * @param <T> The argument type.
      * @param argument The argument to check.
      * @param name The name of the argument.
+     * @return Returns a Try testing the argument being null.
      */
     public static <T> Try<T> tryNotNull(T argument, String name) {
         return argument == null

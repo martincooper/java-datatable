@@ -26,6 +26,7 @@ public interface IBaseTable extends Iterable<DataRow>, IQuickSort {
     /**
      * Accessor to a specific row by index.
      *
+     * @param rowIdx The index of the row to return.
      * @return Returns a single row.
      */
     DataRow row(Integer rowIdx);

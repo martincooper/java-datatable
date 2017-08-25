@@ -13,7 +13,7 @@ import java.util.function.Function;
  * Used for sorting & multi-sorting.
  * Created by Martin Cooper on 21/07/2017.
  */
-public final class ColumnIdentity {
+final class ColumnIdentity {
 
     private final Function<DataColumnCollection, Try<IDataColumn>> getColumn;
 
@@ -22,7 +22,7 @@ public final class ColumnIdentity {
      *
      * @param columnName The column name.
      */
-    public ColumnIdentity(String columnName) {
+    ColumnIdentity(String columnName) {
         this.getColumn = cols -> cols.tryGet(columnName);
     }
 
@@ -31,7 +31,7 @@ public final class ColumnIdentity {
      *
      * @param columnIndex The column index.
      */
-    public ColumnIdentity(Integer columnIndex) {
+    ColumnIdentity(Integer columnIndex) {
         this.getColumn = cols -> cols.tryGet(columnIndex);
     }
 
@@ -41,7 +41,7 @@ public final class ColumnIdentity {
      * @param table The table to get the column from.
      * @return Returns the IDataColumn if found, as a Try.
      */
-    public Try<IDataColumn> getColumn(DataTable table) {
+    Try<IDataColumn> getColumn(DataTable table) {
         return getColumn.apply(table.columns());
     }
 
@@ -51,7 +51,7 @@ public final class ColumnIdentity {
      * @param dataRow The DataRow to get the table and column from.
      * @return Returns the data if found, as a Try.
      */
-    public Try<Object> getCellData(DataRow dataRow) {
+    Try<Object> getCellData(DataRow dataRow) {
         return getColumn
                 .apply(dataRow.table().columns())
                 .flatMap(col -> Try.success(col.valueAt(dataRow.rowIdx())));

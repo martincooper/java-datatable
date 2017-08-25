@@ -18,7 +18,7 @@ public class DataRowComparator implements Comparator<DataRow> {
      *
      * @param sortItems The collection of Sort Items defining how to sort.
      */
-    public DataRowComparator(Seq<SortItem> sortItems) {
+    DataRowComparator(Seq<SortItem> sortItems) {
         this.sortItems = sortItems;
     }
 

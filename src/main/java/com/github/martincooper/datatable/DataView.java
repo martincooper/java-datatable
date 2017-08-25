@@ -84,6 +84,7 @@ public class DataView implements IBaseTable {
     /**
      * Accessor to a specific column by index.
      *
+     * @param colIdx The index of the column to return.
      * @return Returns a single column.
      */
     public IDataColumn column(Integer colIdx) {
@@ -93,6 +94,7 @@ public class DataView implements IBaseTable {
     /**
      * Accessor to a specific column by name.
      *
+     * @param colName The name of the column to return.
      * @return Returns a single column.
      */
     public IDataColumn column(String colName) {

@@ -87,6 +87,7 @@ abstract class DataRowCollectionBase implements Iterable<DataRow> {
     /**
      * Map implementation for the DataRowCollection class.
      *
+     * @param <U> Mapped return type.
      * @param mapper The map function.
      * @return Returns a sequence of the applied map.
      */
