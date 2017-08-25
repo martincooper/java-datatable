@@ -8,6 +8,8 @@ import io.vavr.collection.Stream;
 import io.vavr.control.Try;
 
 import java.util.Iterator;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 import static io.vavr.API.$;
 import static io.vavr.API.Case;
@@ -135,6 +137,28 @@ public class DataView implements IBaseTable {
     @Override
     public DataView toDataView() {
         return DataView.build(this.table, this.rows).get();
+    }
+
+    /**
+     * Filters the row data using the specified predicate,
+     * returning the results as a DataView over the original table.
+     *
+     * @param predicate The filter criteria.
+     * @return Returns a DataView with the filter results.
+     */
+    public DataView filter(Predicate<DataRow> predicate) {
+        return this.rows.filter(predicate);
+    }
+
+    /**
+     * Map operation across the Data Rows in the table.
+     *
+     * @param mapper The mapper function.
+     * @param <U> The return type.
+     * @return Returns the mapped results.
+     */
+    public <U> Seq<U> map(Function<? super DataRow, ? extends U> mapper) {
+        return this.rows.map(mapper);
     }
 
     /**
