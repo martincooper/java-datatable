@@ -32,6 +32,17 @@ public class DataColumnTests {
     }
 
     @Test
+    public void testArrayDataColumnCreationWithNulls() {
+        Integer[] data = new Integer[] { null, 22, null };
+        DataColumn<Integer> column = new DataColumn<>(Integer.class, "IntegerCol", data);
+
+        assertEquals(column.data().length(), 3);
+        assertTrue(column.data().get(0) == null);
+        assertTrue(column.data().get(1) == 22);
+        assertTrue(column.data().get(2) == null);
+    }
+
+    @Test
     public void testIterableDataColumnCreation() {
         List<String> data = List.of("AA", "BB", "CC");
         DataColumn<String> column = new DataColumn<>(String.class, "StringCol", data);

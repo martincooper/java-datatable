@@ -83,6 +83,20 @@ private Try<DataTable> createDataTableUsingBuilder() {
 }
 ```
 
+DataTable can also handle null values if required in the table.
+
+```java
+// Example of building up a DataTable with nulls.
+private Try<DataTable> createDataTableWithNullValues() {
+
+    return DataTableBuilder
+            .create("NewTable")
+            .withColumn(Integer.class, "NumberCol", List.of(null, 3, null, 4, null, 5, null))
+            .withColumn(String.class, "StringCol", List.of("aa", null, "cc", null, "ee", null, "gg"))
+            .build();
+}
+```
+
 ## Adding Columns
 To add a new Column, create a new DataColumn and call the add method on the table.columns
 collection. This will return a new DataTable structure including the additional column.
