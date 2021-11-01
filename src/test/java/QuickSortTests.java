@@ -3,7 +3,6 @@ import com.github.martincooper.datatable.DataTableBuilder;
 import com.github.martincooper.datatable.DataView;
 import com.github.martincooper.datatable.sorting.SortItem;
 import com.github.martincooper.datatable.sorting.SortOrder;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import io.vavr.collection.List;
 import io.vavr.collection.Stream;
 import io.vavr.control.Try;

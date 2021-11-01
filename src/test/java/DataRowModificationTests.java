@@ -68,6 +68,33 @@ public class DataRowModificationTests {
     }
 
     @Test
+    public void testDataAddRowWithNulls() {
+        DataTable table = createDataTable();
+
+        // Add data which includes nulls for different types.
+        Object[] rowValues = { null, null, null };
+        Try<DataTable> result = table.rows().add(rowValues);
+
+        assertTrue(result.isSuccess());
+        assertTrue(result.get().column("StrCol").valueAt(4) == null);
+        assertTrue(result.get().column("IntCol").valueAt(4) == null);
+        assertTrue(result.get().column("BoolCol").valueAt(4) == null);
+    }
+
+    @Test
+    public void testDataAddRowValuesWithNulls() {
+        DataTable table = createDataTable();
+
+        // Add data which includes nulls for different types.
+        Try<DataTable> result = table.rows().addValues(null, null, null);
+
+        assertTrue(result.isSuccess());
+        assertTrue(result.get().column("StrCol").valueAt(4) == null);
+        assertTrue(result.get().column("IntCol").valueAt(4) == null);
+        assertTrue(result.get().column("BoolCol").valueAt(4) == null);
+    }
+
+    @Test
     public void testDataAddRowWithInvalidValueCount() {
         DataTable table = createDataTable();
 

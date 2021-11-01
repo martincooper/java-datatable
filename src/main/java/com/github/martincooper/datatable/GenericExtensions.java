@@ -19,7 +19,7 @@ class GenericExtensions {
      */
     @SuppressWarnings({"unchecked"})
     static <T> Try<T> tryCast(Class<T> type, Object obj) {
-        return type.isInstance(obj)
+        return type.isInstance(obj) || obj == null
                 ? Try.success((T)obj)
                 : Try.failure(new DataTableException("Invalid cast."));
     }

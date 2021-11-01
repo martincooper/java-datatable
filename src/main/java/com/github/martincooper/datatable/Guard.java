@@ -7,7 +7,7 @@ import java.util.Objects;
 
 /**
  * Guard class. Used to validate class arguments.
- * Created by Martin on 13/07/2017.
+ * Created by Martin Cooper on 13/07/2017.
  */
 public class Guard {
 

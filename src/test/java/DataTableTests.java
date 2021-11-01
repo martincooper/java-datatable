@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 /**
  * Unit Tests for the DataTable class.
- * Created by Martin on 15/07/2017.
+ * Created by Martin Cooper on 15/07/2017.
  */
 public class DataTableTests {
 

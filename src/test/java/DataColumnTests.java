@@ -10,7 +10,7 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Unit Tests for the DataColumn class.
- * Created by Martin on 13/07/2017.
+ * Created by Martin Cooper on 13/07/2017.
  */
 public class DataColumnTests {
 

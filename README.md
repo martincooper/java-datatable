@@ -245,12 +245,12 @@ Java DataTable is available on Maven.
     <dependency>
         <groupId>com.github.martincooper</groupId>
         <artifactId>java-datatable</artifactId>
-        <version>0.9.0</version>
+        <version>1.0.0</version>
     </dependency>
 
 ### Credits
 
-Java DataTable is maintained by Martin Cooper : Copyright (c) 2017
+Java DataTable is maintained by Martin Cooper : Copyright (c) 2021
 
 ## License
 
